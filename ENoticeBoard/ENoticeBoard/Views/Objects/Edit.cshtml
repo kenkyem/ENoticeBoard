@@ -1,0 +1,133 @@
+﻿@model ENoticeBoard.ViewModels.ObjectFormViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+
+
+<form id="frmEditObject">
+    <div class="form-horizontal">
+        <div class="col-md-12">
+
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subject)
+            <div>
+                @Html.EditorFor(model => model.Subject, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Subject, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cost)
+            <div>
+                @Html.EditorFor(model => model.Cost, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Cost, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date)
+            <div>
+                @Html.TextBoxFor(model => model.Date, "{0:dd/MM/yyyy}", new { @class = "form-control", @Type = "DateTime" })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description)
+            <div>
+                @Html.EditorFor(model => model.Description, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        </div>
+
+        <button type="button" id="btnSaveObject" value="Save" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+</form>
+
+<script type="text/javascript">
+        $('input[type=datetime]').datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-2:+10"
+        });
+    $('#btnSaveObject').click(function () {
+        if ($("#Subject").val().trim() === "" ||
+            $("#Date").val().trim() === "" ||
+            $("#Cost").val().trim() === "")
+        {
+            alert("All fields are required");
+            return;
+        }
+        if ($("#Subject").val().length >100) {
+            alert("Subject is too long");
+            return;
+        }
+        if ($("#Description").val().length > 300) {
+            alert("Description is too long");
+            return;
+        }
+        else {
+            var s = moment($('#Date').val(), "DD/MM/YYYY", true);
+            var isValid = s.isValid();
+            if (isValid === false) {
+                alert("Invalid date format: " + $('#Date').val());
+                return;
+            }
+        }
+            var $this = $("#frmEditObject");
+            var dataToSend = $this.serialize();
+            console.log(dataToSend);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Edit", "Objects")',
+                dataType: 'json',
+                data: dataToSend,
+                success: function () {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Summary", "Objects")',
+                        dataType: 'html',
+                        success: function (data) {
+
+                            $('#setModalTitle').html("Budget");
+                            $("#PanelModalBody").html(data);
+                            $("#PanelModal").modal('show');
+                        },
+                        error: function(data) {
+                            console.log(data);
+                        }
+                    });
+                    @*$.ajax({
+                        type: "GET",
+                        url: '@Url.Action("GetSumBudget", "Home")',
+                        dataType: 'json',
+                        success: function(data) {
+                            $(".huge").html(data);
+                        },
+                        error: function() {
+                            alert("Set Failed");
+                        }
+                    });*@
+                    $('#EditModal')
+                        .modal('hide')
+                        .on('hidden.bs.modal', function () {
+                            $('#PanelModal').modal('show');
+
+                            $(this).off('hidden.bs.modal'); // Remove the 'on' event binding
+                        });
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+</script>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BaseDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="FinancialCalendar">
+    <Key>
+      <PropertyRef Name="Date" />
+    </Key>
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="FinancialYear" Type="nvarchar" MaxLength="4" />
+    <Property Name="FinancialPeriod" Type="nvarchar" MaxLength="2" />
+    <Property Name="FinancialPeriodYear" Type="nvarchar" MaxLength="10" />
+    <Property Name="FinancialWeek" Type="nvarchar" MaxLength="2" />
+    <Property Name="FinancialWeekYear" Type="nvarchar" MaxLength="10" />
+    <Property Name="FinancialStartingDate" Type="datetime" />
+    <Property Name="FinancialEndingDate" Type="datetime" />
+    <Property Name="DayOfWeek" Type="nvarchar" MaxLength="10" />
+    <Property Name="FinancialYearWeek" Type="int" />
+    <Property Name="FinancialYearPeriod" Type="int" />
+    <Property Name="CurrentYTD" Type="bit" />
+    <Property Name="CurrentPTD" Type="bit" />
+    <Property Name="CurrentYear" Type="bit" />
+    <Property Name="CurrentPeriod" Type="bit" />
+    <Property Name="CurrentWeek" Type="bit" />
+    <Property Name="PriorWeek" Type="bit" />
+    <Property Name="PriorPeriod" Type="bit" />
+    <Property Name="PriorYear" Type="bit" />
+    <Property Name="PriorYTD" Type="bit" />
+    <Property Name="Prior2Week" Type="bit" />
+    <Property Name="Prior3Week" Type="bit" />
+    <Property Name="FinancialDay" Type="int" />
+  </EntityType>
+  <EntityContainer Name="BaseDataModelStoreContainer">
+    <EntitySet Name="FinancialCalendar" EntityType="Self.FinancialCalendar" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

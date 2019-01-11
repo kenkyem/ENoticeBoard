@@ -1,0 +1,50 @@
+﻿@model ENoticeBoard.Object
+
+<style type="text/css">
+    .dl-horizontal dt {
+        text-align: left;
+        width: auto;
+    }
+
+    .dl-horizontal dd {
+        margin-left: 100px;
+    }
+</style>
+
+<div>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            Object
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ObjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>

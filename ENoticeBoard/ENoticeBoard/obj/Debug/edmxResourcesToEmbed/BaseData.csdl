@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BaseDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="FinancialCalendar">
+    <Key>
+      <PropertyRef Name="Date" />
+    </Key>
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FinancialYear" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="FinancialPeriod" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="FinancialPeriodYear" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="FinancialWeek" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="FinancialWeekYear" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="FinancialStartingDate" Type="DateTime" Precision="3" />
+    <Property Name="FinancialEndingDate" Type="DateTime" Precision="3" />
+    <Property Name="DayOfWeek" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="FinancialYearWeek" Type="Int32" />
+    <Property Name="FinancialYearPeriod" Type="Int32" />
+    <Property Name="CurrentYTD" Type="Boolean" />
+    <Property Name="CurrentPTD" Type="Boolean" />
+    <Property Name="CurrentYear" Type="Boolean" />
+    <Property Name="CurrentPeriod" Type="Boolean" />
+    <Property Name="CurrentWeek" Type="Boolean" />
+    <Property Name="PriorWeek" Type="Boolean" />
+    <Property Name="PriorPeriod" Type="Boolean" />
+    <Property Name="PriorYear" Type="Boolean" />
+    <Property Name="PriorYTD" Type="Boolean" />
+    <Property Name="Prior2Week" Type="Boolean" />
+    <Property Name="Prior3Week" Type="Boolean" />
+    <Property Name="FinancialDay" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="BaseDataEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="FinancialCalendars" EntityType="Self.FinancialCalendar" />
+  </EntityContainer>
+</Schema>

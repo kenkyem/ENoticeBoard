@@ -1,0 +1,125 @@
+﻿@model ENoticeBoard.ViewModels.BreakageFormViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+
+
+
+<form id="frmEditBrk">
+    <div class="form-horizontal">
+        <div class="col-md-12">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Subject)
+                <div>
+                    @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control",required= "required" } })
+                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date)
+                <div>
+                    @Html.TextBoxFor(model => model.Date, "{0:dd/MM/yyyy}", new { @class = "form-control", @Type = "DateTime" })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Site</label>
+                <div>
+                    @Html.DropDownListFor(m => m.SiteId, new SelectList(Model.Sites, "SiteId", "Subject"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SiteId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Cost)
+                <div>
+                    @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Type</label>
+                <div>
+                    @Html.DropDownListFor(m => m.TypeId, new SelectList(Model.Types, "TypeId", "Subject"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.TypeId)
+                </div>
+            </div>
+        </div>
+        <button type="button" id="btnSaveBrk" value="Save" class="btn btn-success">Save</button>
+        
+    </div>
+</form>
+
+<script type="text/javascript">
+        $('input[type=datetime]').datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-2:+10"
+        });
+        $('#btnSaveBrk').click(function () {
+            if ($("#Subject").val().trim() === "" ||
+                $("#Date").val().trim() === "" ||
+                $("#Cost").val().trim() === "")
+            {
+                alert("All fields are required");
+                return;
+            }
+            if ($("#Subject").val().length >100) {
+                alert("Subject is too long");
+                return;
+            }else {
+                var s = moment($('#Date').val(), "DD/MM/YYYY", true);
+                var isValid = s.isValid();
+                if (isValid === false) {
+                    alert("Invalid date format: " + $('#Date').val());
+                    return;
+                }
+            }
+            var $this = $("#frmEditBrk");
+            var dataToSend = $this.serialize();
+            console.log(dataToSend);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Edit", "Breakages")',
+                dataType: 'json',
+                data: dataToSend,
+                success: function () {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Summary", "Breakages")',
+                        dataType: 'html',
+                        success: function (data) {
+                            $("#createModal").modal('hide');
+                            $('#setModalTitle').html("Breakage");
+                            $("#PanelModalBody").html(data);
+                            $("#PanelModal").modal('show');
+                        },
+                        error: function(data) {
+                            console.log(data);
+                        }
+                    });
+                    $('#EditModal')
+                        .modal('hide')
+                        .on('hidden.bs.modal', function () {
+                            $('#PanelModal').modal('show');
+
+                            $(this).off('hidden.bs.modal'); // Remove the 'on' event binding
+                        });
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+    });
+        
+</script>

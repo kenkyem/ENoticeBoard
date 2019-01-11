@@ -1,0 +1,135 @@
+﻿@model IEnumerable<ENoticeBoard.Object>
+
+
+<style type="text/css">.Edit { }</style>
+
+
+<button id="btnCreateObj" name="btnCreate" class="btn" style="float: left">Add</button>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ObjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ObjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <button rid="@item.ObjectId" name="editbtn" class="btn btn-link btn-sm Edit" aria-hidden="true">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </button>
+                @Html.ActionLink("Details", "Details", new {id = item.ObjectId})
+
+            </td>
+        </tr>
+    }
+</table>
+
+
+<div class="modal fade" id="createModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Object</h4>
+            </div>
+            <div class="modal-body" id="createBody">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="EditModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">Object</h4>
+            </div>
+            <div class="modal-body" id="EditBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#btnCreateObj').click(function() {
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("Create", "Objects")',
+            dataType: 'html',
+            success: function(data) {
+
+                $("#createBody").html(data);
+                $('#createModal').modal('show');
+
+            },
+            //compelete: function(data) {
+            //    $('#createModal').modal('hide');
+            //}
+            error: function() {
+                alert("Create Failed");
+            }
+        });
+    });
+    $('.DoneRock').click(function() {
+        var id = $(this).attr("rid");
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("Done", "Rocks")',
+            data: { "id": id },
+            dataType: 'html',
+            success: function(data) {
+
+                $("#DoneModalBody").html(data);
+                $("#DoneRockModal").modal('show');
+            },
+            error: function() {
+                alert("Done Failed");
+            }
+        });
+    });
+    $('.Edit').click(function() {
+        var id = $(this).attr("rid");
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("Edit", "Objects")',
+            data: { "id": id },
+            dataType: 'html',
+            success: function(data) {
+
+                $("#EditBody").html(data);
+                $('#EditModal').modal('show');
+            },
+            error: function() {
+                alert("Edit Failed");
+            }
+        });
+    });
+  
+</script>

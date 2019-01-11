@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BaseDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FinancialCalendar">
+          <Key>
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="FinancialYear" Type="nvarchar" MaxLength="4" />
+          <Property Name="FinancialPeriod" Type="nvarchar" MaxLength="2" />
+          <Property Name="FinancialPeriodYear" Type="nvarchar" MaxLength="10" />
+          <Property Name="FinancialWeek" Type="nvarchar" MaxLength="2" />
+          <Property Name="FinancialWeekYear" Type="nvarchar" MaxLength="10" />
+          <Property Name="FinancialStartingDate" Type="datetime" />
+          <Property Name="FinancialEndingDate" Type="datetime" />
+          <Property Name="DayOfWeek" Type="nvarchar" MaxLength="10" />
+          <Property Name="FinancialYearWeek" Type="int" />
+          <Property Name="FinancialYearPeriod" Type="int" />
+          <Property Name="CurrentYTD" Type="bit" />
+          <Property Name="CurrentPTD" Type="bit" />
+          <Property Name="CurrentYear" Type="bit" />
+          <Property Name="CurrentPeriod" Type="bit" />
+          <Property Name="CurrentWeek" Type="bit" />
+          <Property Name="PriorWeek" Type="bit" />
+          <Property Name="PriorPeriod" Type="bit" />
+          <Property Name="PriorYear" Type="bit" />
+          <Property Name="PriorYTD" Type="bit" />
+          <Property Name="Prior2Week" Type="bit" />
+          <Property Name="Prior3Week" Type="bit" />
+          <Property Name="FinancialDay" Type="int" />
+        </EntityType>
+        <EntityContainer Name="BaseDataModelStoreContainer">
+          <EntitySet Name="FinancialCalendar" EntityType="Self.FinancialCalendar" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BaseDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="FinancialCalendar">
+          <Key>
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FinancialYear" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="FinancialPeriod" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="FinancialPeriodYear" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FinancialWeek" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="FinancialWeekYear" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FinancialStartingDate" Type="DateTime" Precision="3" />
+          <Property Name="FinancialEndingDate" Type="DateTime" Precision="3" />
+          <Property Name="DayOfWeek" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FinancialYearWeek" Type="Int32" />
+          <Property Name="FinancialYearPeriod" Type="Int32" />
+          <Property Name="CurrentYTD" Type="Boolean" />
+          <Property Name="CurrentPTD" Type="Boolean" />
+          <Property Name="CurrentYear" Type="Boolean" />
+          <Property Name="CurrentPeriod" Type="Boolean" />
+          <Property Name="CurrentWeek" Type="Boolean" />
+          <Property Name="PriorWeek" Type="Boolean" />
+          <Property Name="PriorPeriod" Type="Boolean" />
+          <Property Name="PriorYear" Type="Boolean" />
+          <Property Name="PriorYTD" Type="Boolean" />
+          <Property Name="Prior2Week" Type="Boolean" />
+          <Property Name="Prior3Week" Type="Boolean" />
+          <Property Name="FinancialDay" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="BaseDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FinancialCalendars" EntityType="Self.FinancialCalendar" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BaseDataModelStoreContainer" CdmEntityContainer="BaseDataEntities">
+          <EntitySetMapping Name="FinancialCalendars">
+            <EntityTypeMapping TypeName="BaseDataModel.FinancialCalendar">
+              <MappingFragment StoreEntitySet="FinancialCalendar">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="FinancialYear" ColumnName="FinancialYear" />
+                <ScalarProperty Name="FinancialPeriod" ColumnName="FinancialPeriod" />
+                <ScalarProperty Name="FinancialPeriodYear" ColumnName="FinancialPeriodYear" />
+                <ScalarProperty Name="FinancialWeek" ColumnName="FinancialWeek" />
+                <ScalarProperty Name="FinancialWeekYear" ColumnName="FinancialWeekYear" />
+                <ScalarProperty Name="FinancialStartingDate" ColumnName="FinancialStartingDate" />
+                <ScalarProperty Name="FinancialEndingDate" ColumnName="FinancialEndingDate" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="FinancialYearWeek" ColumnName="FinancialYearWeek" />
+                <ScalarProperty Name="FinancialYearPeriod" ColumnName="FinancialYearPeriod" />
+                <ScalarProperty Name="CurrentYTD" ColumnName="CurrentYTD" />
+                <ScalarProperty Name="CurrentPTD" ColumnName="CurrentPTD" />
+                <ScalarProperty Name="CurrentYear" ColumnName="CurrentYear" />
+                <ScalarProperty Name="CurrentPeriod" ColumnName="CurrentPeriod" />
+                <ScalarProperty Name="CurrentWeek" ColumnName="CurrentWeek" />
+                <ScalarProperty Name="PriorWeek" ColumnName="PriorWeek" />
+                <ScalarProperty Name="PriorPeriod" ColumnName="PriorPeriod" />
+                <ScalarProperty Name="PriorYear" ColumnName="PriorYear" />
+                <ScalarProperty Name="PriorYTD" ColumnName="PriorYTD" />
+                <ScalarProperty Name="Prior2Week" ColumnName="Prior2Week" />
+                <ScalarProperty Name="Prior3Week" ColumnName="Prior3Week" />
+                <ScalarProperty Name="FinancialDay" ColumnName="FinancialDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

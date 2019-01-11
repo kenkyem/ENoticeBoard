@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BaseDataModelStoreContainer" CdmEntityContainer="BaseDataEntities">
+    <EntitySetMapping Name="FinancialCalendars">
+      <EntityTypeMapping TypeName="BaseDataModel.FinancialCalendar">
+        <MappingFragment StoreEntitySet="FinancialCalendar">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="FinancialYear" ColumnName="FinancialYear" />
+          <ScalarProperty Name="FinancialPeriod" ColumnName="FinancialPeriod" />
+          <ScalarProperty Name="FinancialPeriodYear" ColumnName="FinancialPeriodYear" />
+          <ScalarProperty Name="FinancialWeek" ColumnName="FinancialWeek" />
+          <ScalarProperty Name="FinancialWeekYear" ColumnName="FinancialWeekYear" />
+          <ScalarProperty Name="FinancialStartingDate" ColumnName="FinancialStartingDate" />
+          <ScalarProperty Name="FinancialEndingDate" ColumnName="FinancialEndingDate" />
+          <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+          <ScalarProperty Name="FinancialYearWeek" ColumnName="FinancialYearWeek" />
+          <ScalarProperty Name="FinancialYearPeriod" ColumnName="FinancialYearPeriod" />
+          <ScalarProperty Name="CurrentYTD" ColumnName="CurrentYTD" />
+          <ScalarProperty Name="CurrentPTD" ColumnName="CurrentPTD" />
+          <ScalarProperty Name="CurrentYear" ColumnName="CurrentYear" />
+          <ScalarProperty Name="CurrentPeriod" ColumnName="CurrentPeriod" />
+          <ScalarProperty Name="CurrentWeek" ColumnName="CurrentWeek" />
+          <ScalarProperty Name="PriorWeek" ColumnName="PriorWeek" />
+          <ScalarProperty Name="PriorPeriod" ColumnName="PriorPeriod" />
+          <ScalarProperty Name="PriorYear" ColumnName="PriorYear" />
+          <ScalarProperty Name="PriorYTD" ColumnName="PriorYTD" />
+          <ScalarProperty Name="Prior2Week" ColumnName="Prior2Week" />
+          <ScalarProperty Name="Prior3Week" ColumnName="Prior3Week" />
+          <ScalarProperty Name="FinancialDay" ColumnName="FinancialDay" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,135 @@
+﻿@model ENoticeBoard.ViewModels.DowntimeFormViewModel
+
+
+
+
+
+<form id="EditDT">
+
+    <div class="form-horizontal">
+
+        <div class="col-md-12">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Subject)
+                <div>
+                    @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date)
+                <div>
+                    @Html.TextBoxFor(model => model.Date, "{0:dd/MM/yyyy}", new { @class = "form-control", Type = "DateTime" })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description)
+                <div>
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Duration)
+                <div class="input-group">
+                    @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                    <div class="input-group-addon">minutes</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Type)
+                <div>
+                    @Html.DropDownListFor(m => m.Type, new SelectList(Model.Types, "TypeId", "Subject"), "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Type)
+                </div>
+            </div>
+        </div>
+        <button type="button" id="btnSaveDT" value="Save" class="btn btn-success">Save</button>
+        
+    </div>
+</form>
+
+
+
+<script type="text/javascript">
+        $('input[type=datetime]').datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-2:+10"
+        });
+    $('#btnSaveDT').click(function () {
+        if ($("#Subject").val().trim() === "" ||
+            $("#Date").val().trim() === "" ||
+            $("#Description").val().trim() === "" ||
+            $("#Duration").val().trim() === "" ||
+            $("#Type").val().trim() === "") {
+            alert("All fields are required");
+            return;
+        }
+        if ($("#Subject").val().length > 100) {
+            alert("Subject is too long");
+            return;
+        }
+        if ($("#Description").val().length > 300) {
+            alert("Description is too long");
+            return;
+        }
+        if ($("#Duration").val() <= 0) {
+            alert("Duration is invalid: " + $("#Duration").val());
+        }
+        else {
+            var s = moment($('#Date').val(), "DD/MM/YYYY", true);
+            var isValid = s.isValid();
+            if (isValid === false) {
+                alert("Invalid date format: " + $('#Date').val());
+                return;
+            }
+        }
+        var $this = $("#EditDT");
+        var dataToSend = $this.serialize();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Edit", "Downtimes")',
+            dataType: 'json',
+            data: dataToSend,
+            success: function () {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Summary", "Downtimes")',
+                    dataType: 'html',
+                    success: function (data) {
+                        $("#createModal").modal('hide');
+                        $('#setModalTitle').html("DownTime");
+                        $("#PanelModalBody").html(data);
+                        $("#PanelModal").modal('show');
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+
+                $('#EditModal')
+                    .modal('hide')
+                    .on('hidden.bs.modal', function () {
+                        $('#PanelModal').modal('show');
+
+                        $(this).off('hidden.bs.modal'); // Remove the 'on' event binding
+                    });
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    });
+</script>

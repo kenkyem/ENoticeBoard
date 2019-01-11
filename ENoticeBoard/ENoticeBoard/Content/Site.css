@@ -1,0 +1,101 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+caption {
+    text-align: center;
+}
+
+.dl-horizontal dt {
+    text-align: left;
+     width: auto;
+}
+.dl-horizontal dd {
+    margin-left: 100px;
+}
+
+/*nav-bar*/
+
+
+
+/*CSS*/
+.body-content {
+    padding-top: 15px;
+}
+
+.huge {
+    font-size: 30px;
+}
+.panel-green {
+    background: #5cb85c;
+}
+.panel-yellow {
+    background: #f0ad4e;
+}
+.panel-red {
+    background: #d9534f;
+}
+.pointer {
+    cursor: pointer;
+}
+
+.modal {
+    max-height: 100%;
+    max-width: 100%;
+    
+}
+
+
+.modal-backdrop {
+    position: unset;
+}
+#PanelModal {
+    height: 70%;
+}
+
+#PanelExtend {
+    height: 70%;
+}
+
+.EditRock {
+    padding: 0
+}
+
+.DelRock {
+    padding: 0
+}
+
+.DoneRock {
+    padding: 0;
+}
+
+th {
+    text-align: center;
+}
+.btn-primary {
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}

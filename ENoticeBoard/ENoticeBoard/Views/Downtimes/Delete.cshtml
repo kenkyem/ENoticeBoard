@@ -1,0 +1,109 @@
+﻿@model ENoticeBoard.Downtime
+
+<style type="text/css">
+    .dl-horizontal dt {
+        text-align: left;
+        width: auto;
+    }
+    .dl-horizontal dd {
+        margin-left: 100px;
+    }
+
+</style>
+
+<div>
+
+    <dl class="dl-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.DownTimeId)
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <input type="button" id="btnDeleteDT" value="Delete" class="btn btn-primary" />
+
+        </div>
+
+    }
+</div>
+
+<script>
+    $('#btnDeleteDT').click(function() {
+        var id = $("#DownTimeId").val();
+
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DeleteConfirmed", "Downtimes")',
+            dataType: 'json',
+            data: { "id" : id },
+            success: function (data) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Summary", "Downtimes")',
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#setModalTitle').html("DownTime");
+                        $("#PanelModalBody").html(data);
+                        $("#PanelModal").modal('show');
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+
+                $('#deleteModal')
+                    .modal('hide')
+                    .on('hidden.bs.modal', function (e) {
+                        $('#PanelModal').modal('show');
+
+                        $(this).off('hidden.bs.modal'); // Remove the 'on' event binding
+                    });
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    });
+</script>

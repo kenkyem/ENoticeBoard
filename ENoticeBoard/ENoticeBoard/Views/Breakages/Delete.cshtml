@@ -1,0 +1,109 @@
+﻿@model ENoticeBoard.Breakage
+<style type="text/css">
+    .dl-horizontal dt {
+        text-align: left;
+        width: auto;
+    }
+
+    .dl-horizontal dd {
+        margin-left: 100px;
+    }
+</style>
+
+<div>
+    <dl class="dl-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.BreakageId)
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Site)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Site)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+
+
+        <div class="form-group">
+            <input type="button" id="btnDeleteBreakage" value="Delete" class="btn btn-primary" />
+            
+        </div>
+    }
+</div>
+
+
+<script>
+    $('#btnDeleteBreakage').click(function() {
+        var id = $("#BreakageId").val();
+
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DeleteConfirmed", "Breakages")',
+            dataType: 'json',
+            data: { "id" : id },
+            success: function (data) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Summary", "Breakages")',
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#setModalTitle').html("Brekage");
+                        $("#PanelModalBody").html(data);
+                        $("#PanelModal").modal('show');
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+
+                $('#deleteModal')
+                    .modal('hide')
+                    .on('hidden.bs.modal', function (e) {
+                        $('#PanelModal').modal('show');
+
+                        $(this).off('hidden.bs.modal'); // Remove the 'on' event binding
+                    });
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    });
+</script>
