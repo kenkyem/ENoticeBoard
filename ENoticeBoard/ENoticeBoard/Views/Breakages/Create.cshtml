@@ -1,5 +1,5 @@
-﻿@using ENoticeBoard.ViewModels
-@model BreakageFormViewModel
+﻿
+@model ENoticeBoard.ViewModels.BreakageFormViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -37,10 +37,11 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Cost)
-
-                @Html.EditorFor(model => model.Cost, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.Cost, "", new {@class = "text-danger"})
-
+                <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control pull-right", @type = "number", @dir = "rtl" } })
+                    @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                </div>
             </div>
 
             <div class="form-group">
@@ -59,12 +60,25 @@
 </form>
 
 <script type="text/javascript">
+
+    $(document).ready(function() {
+        $(".formattedNumberField").on('input propertychange paste change', function (evt) {
+            if (evt.which !== 110 && $(this).val() !== "") {
+                var n = parseFloat($(this).val().replace(/\,/g, ''), 10);
+                $(this).val(n.toLocaleString());
+            }
+        });
+
+    });
+
     $('input[type=datetime]').datepicker({
         dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,
         yearRange: "-2:+10"
     });
+   
+
     $('#btnSaveBrk').click(function() {
         if ($("#Subject").val().trim() === "" ||
             $("#Date").val().trim() === "" ||
@@ -88,6 +102,7 @@
         }
         var $this = $("#createBrk");
         var dataToSend = $this.serialize();
+        console.log(dataToSend);
         $.ajax({
             type: "POST",
             url: '@Url.Action("Create", "Breakages")',
@@ -109,6 +124,17 @@
                         console.log(data);
                     }
                 });
+                @*$.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetSumBreakage", "Home")',
+                    dataType: 'json',
+                    success: function(data) {
+                        $("#BreakageSum").html("$ " +data);
+                    },
+                    error: function() {
+                        alert("Get Failed");
+                    }
+                });*@
 
 
             },
@@ -117,5 +143,5 @@
             }
         });
     });
-    
+
 </script>

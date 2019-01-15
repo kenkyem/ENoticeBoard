@@ -1,4 +1,4 @@
-﻿@model ENoticeBoard.Downtime
+﻿@model ENoticeBoard.ViewModels.DowntimeFormViewModel
 
 
 
@@ -35,7 +35,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Date)
+                @Model.Date.ToShortDateString()
             </dd>
 
             <dt>
@@ -59,7 +59,15 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Type)
+                @foreach (var downtimetype in Model.Types)
+                {
+                    if (downtimetype.TypeId == Model.Type)
+                    {
+                        @downtimetype.Subject
+                    }
+                }
+               
+   
             </dd>
 
        

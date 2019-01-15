@@ -29,7 +29,7 @@
                 @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <label>@Html.LabelFor(model => model.DateDue, htmlAttributes: new { @class = "control-label"})</label>
+                <label>Due Date</label>
 
                 @Html.TextBoxFor(model => model.DateDue, "{0:dd/MM/yyyy}" ,new { @class = "form-control",@Type="DateTime" })
                 @Html.ValidationMessageFor(model => model.DateDue, "", new { @class = "text-danger" })

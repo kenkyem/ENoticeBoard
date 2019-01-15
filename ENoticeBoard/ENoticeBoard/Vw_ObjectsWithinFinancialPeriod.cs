@@ -14,13 +14,13 @@ namespace ENoticeBoard
     
     public partial class Vw_ObjectsWithinFinancialPeriod
     {
+        public System.DateTime Date { get; set; }
+        public string FinancialPeriod { get; set; }
+        public string FinancialYear { get; set; }
         public int ObjectId { get; set; }
         public string ObjectName { get; set; }
         public decimal Cost { get; set; }
-        public System.DateTime Date { get; set; }
         public string Description { get; set; }
         public bool isDeleted { get; set; }
-        public string FinancialPeriod { get; set; }
-        public string FinancialYear { get; set; }
     }
 }

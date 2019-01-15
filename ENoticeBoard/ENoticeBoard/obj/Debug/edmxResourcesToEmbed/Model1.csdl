@@ -14,19 +14,6 @@
     <NavigationProperty Name="Site1" Relationship="MyDatabaseModel.FK_Breakages_ToSites" FromRole="Breakage" ToRole="Site" />
     <Property Name="isDeleted" Type="Boolean" Nullable="false" />
   </EntityType>
-  <EntityType Name="Downtime">
-    <Key>
-      <PropertyRef Name="DownTimeId" />
-    </Key>
-    <Property Name="DownTimeId" Type="Int32" Nullable="false" />
-    <Property Name="Subject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Duration" Type="Int32" Nullable="false" />
-    <Property Name="Type" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Downtimetype" Relationship="MyDatabaseModel.FK_Downtimes_ToDowntimeTypes" FromRole="Downtime" ToRole="Downtimetype" />
-    <Property Name="isDeleted" Type="Boolean" Nullable="false" />
-  </EntityType>
   <EntityType Name="Event">
     <Key>
       <PropertyRef Name="EventID" />
@@ -71,7 +58,6 @@
   </EntityType>
   <EntityContainer Name="MyDatabaseEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Breakages" EntityType="Self.Breakage" />
-    <EntitySet Name="Downtimes" EntityType="Self.Downtime" />
     <EntitySet Name="Events" EntityType="Self.Event" />
     <EntitySet Name="Objects" EntityType="Self.Object" />
     <EntitySet Name="Rocks" EntityType="Self.Rock" />
@@ -87,13 +73,14 @@
       <End Role="Site" EntitySet="Sites" />
       <End Role="Breakage" EntitySet="Breakages" />
     </AssociationSet>
+    <EntitySet Name="Vw_ObjectsWithinFinancialPeriod" EntityType="MyDatabaseModel.Vw_ObjectsWithinFinancialPeriod" />
+    <EntitySet Name="Vw_BreakagesWithinFinancialPeriod" EntityType="MyDatabaseModel.Vw_BreakagesWithinFinancialPeriod" />
+    <EntitySet Name="Downtimes" EntityType="MyDatabaseModel.Downtime" />
     <AssociationSet Name="FK_Downtimes_ToDowntimeTypes" Association="MyDatabaseModel.FK_Downtimes_ToDowntimeTypes">
       <End Role="Downtimetype" EntitySet="Downtimetypes" />
       <End Role="Downtime" EntitySet="Downtimes" />
     </AssociationSet>
-    <EntitySet Name="Vw_BreakagesWithinFinancialPeriod" EntityType="MyDatabaseModel.Vw_BreakagesWithinFinancialPeriod" />
     <EntitySet Name="Vw_DowntimesWithinFinancialPeriod" EntityType="MyDatabaseModel.Vw_DowntimesWithinFinancialPeriod" />
-    <EntitySet Name="Vw_ObjectsWithinFinancialPeriod" EntityType="MyDatabaseModel.Vw_ObjectsWithinFinancialPeriod" />
   </EntityContainer>
   <EntityType Name="BreakageType">
     <Key>
@@ -108,7 +95,7 @@
       <PropertyRef Name="TypeId" />
     </Key>
     <Property Name="TypeId" Type="Int32" Nullable="false" />
-    <Property Name="Subject" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Downtimes" Relationship="MyDatabaseModel.FK_Downtimes_ToDowntimeTypes" FromRole="Downtimetype" ToRole="Downtime" />
   </EntityType>
   <EntityType Name="Site">
@@ -143,6 +130,57 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Vw_ObjectsWithinFinancialPeriod">
+    <Key>
+      <PropertyRef Name="Date" />
+      <PropertyRef Name="ObjectId" />
+      <PropertyRef Name="ObjectName" />
+      <PropertyRef Name="Cost" />
+      <PropertyRef Name="isDeleted" />
+    </Key>
+    <Property Name="Date" Nullable="false" Precision="7" Type="DateTime" />
+    <Property Name="FinancialPeriod" MaxLength="2" FixedLength="false" Unicode="true" Type="String" />
+    <Property Name="FinancialYear" MaxLength="4" FixedLength="false" Unicode="true" Type="String" />
+    <Property Name="ObjectId" Nullable="false" Type="Int32" />
+    <Property Name="ObjectName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+    <Property Name="Cost" Nullable="false" Precision="18" Scale="2" Type="Decimal" />
+    <Property Name="Description" MaxLength="300" FixedLength="false" Unicode="true" Type="String" />
+    <Property Name="isDeleted" Nullable="false" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Vw_BreakagesWithinFinancialPeriod">
+    <Key>
+      <PropertyRef Name="Date" />
+      <PropertyRef Name="BreakageId" />
+      <PropertyRef Name="Site" />
+      <PropertyRef Name="Type" />
+      <PropertyRef Name="Subject" />
+      <PropertyRef Name="Cost" />
+      <PropertyRef Name="isDeleted" />
+    </Key>
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FinancialPeriod" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="FinancialYear" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="BreakageId" Type="Int32" Nullable="false" />
+    <Property Name="Site" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Cost" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Downtime">
+    <Key>
+      <PropertyRef Name="DownTimeId" />
+    </Key>
+    <Property Name="DownTimeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Duration" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Downtimetype" Relationship="MyDatabaseModel.FK_Downtimes_ToDowntimeTypes" FromRole="Downtime" ToRole="Downtimetype" />
+  </EntityType>
   <Association Name="FK_Downtimes_ToDowntimeTypes">
     <End Type="MyDatabaseModel.Downtimetype" Role="Downtimetype" Multiplicity="1" />
     <End Type="MyDatabaseModel.Downtime" Role="Downtime" Multiplicity="*" />
@@ -155,26 +193,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="Vw_BreakagesWithinFinancialPeriod">
-    <Key>
-      <PropertyRef Name="Date" />
-      <PropertyRef Name="BreakageId" />
-      <PropertyRef Name="Site" />
-      <PropertyRef Name="Type" />
-      <PropertyRef Name="Cost" />
-      <PropertyRef Name="isDeleted" />
-      <PropertyRef Name="Subject" />
-    </Key>
-    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="FinancialPeriod" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-    <Property Name="FinancialYear" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
-    <Property Name="BreakageId" Type="Int32" Nullable="false" />
-    <Property Name="Site" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="Type" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="Cost" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-    <Property Name="isDeleted" Type="Boolean" Nullable="false" />
-    <Property Name="Subject" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-  </EntityType>
   <EntityType Name="Vw_DowntimesWithinFinancialPeriod">
     <Key>
       <PropertyRef Name="Date" />
@@ -184,6 +202,7 @@
       <PropertyRef Name="Duration" />
       <PropertyRef Name="isDeleted" />
       <PropertyRef Name="Type" />
+      <PropertyRef Name="Status" />
     </Key>
     <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="FinancialPeriod" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
@@ -194,22 +213,6 @@
     <Property Name="Duration" Type="Int32" Nullable="false" />
     <Property Name="isDeleted" Type="Boolean" Nullable="false" />
     <Property Name="Type" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-  </EntityType>
-  <EntityType Name="Vw_ObjectsWithinFinancialPeriod">
-    <Key>
-      <PropertyRef Name="ObjectId" />
-      <PropertyRef Name="ObjectName" />
-      <PropertyRef Name="Cost" />
-      <PropertyRef Name="Date" />
-      <PropertyRef Name="isDeleted" />
-    </Key>
-    <Property Name="ObjectId" Type="Int32" Nullable="false" />
-    <Property Name="ObjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Cost" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-    <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
-    <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="isDeleted" Type="Boolean" Nullable="false" />
-    <Property Name="FinancialPeriod" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-    <Property Name="FinancialYear" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
   </EntityType>
 </Schema>

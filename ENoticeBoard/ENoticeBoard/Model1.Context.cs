@@ -26,7 +26,6 @@ namespace ENoticeBoard
         }
     
         public virtual DbSet<Breakage> Breakages { get; set; }
-        public virtual DbSet<Downtime> Downtimes { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Object> Objects { get; set; }
         public virtual DbSet<Rock> Rocks { get; set; }
@@ -34,8 +33,9 @@ namespace ENoticeBoard
         public virtual DbSet<BreakageType> BreakageTypes { get; set; }
         public virtual DbSet<Downtimetype> Downtimetypes { get; set; }
         public virtual DbSet<Site> Sites { get; set; }
-        public virtual DbSet<Vw_BreakagesWithinFinancialPeriod> Vw_BreakagesWithinFinancialPeriod { get; set; }
-        public virtual DbSet<Vw_DowntimesWithinFinancialPeriod> Vw_DowntimesWithinFinancialPeriod { get; set; }
         public virtual DbSet<Vw_ObjectsWithinFinancialPeriod> Vw_ObjectsWithinFinancialPeriod { get; set; }
+        public virtual DbSet<Vw_BreakagesWithinFinancialPeriod> Vw_BreakagesWithinFinancialPeriod { get; set; }
+        public virtual DbSet<Downtime> Downtimes { get; set; }
+        public virtual DbSet<Vw_DowntimesWithinFinancialPeriod> Vw_DowntimesWithinFinancialPeriod { get; set; }
     }
 }

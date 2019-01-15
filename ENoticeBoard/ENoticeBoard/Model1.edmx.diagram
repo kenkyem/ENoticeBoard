@@ -4,22 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5accca53a65f4d20a9fd901c8f577ec3" Name="Diagram1" DisplayType="true" ZoomLevel="80">
-        <EntityTypeShape EntityType="MyDatabaseModel.Breakage" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Downtime" Width="1.5" PointX="3.75" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Event" Width="1.5" PointX="0.5" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Object" Width="1.5" PointX="5.375" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Rock" Width="1.5" PointX="2.125" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDatabaseModel.User" Width="1.5" PointX="3.75" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDatabaseModel.BreakageType" Width="1.5" PointX="2.125" PointY="0.5" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Downtimetype" Width="1.5" PointX="3.75" PointY="3.125" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Site" Width="1.5" PointX="2.125" PointY="2.25" />
+      <Diagram DiagramId="5accca53a65f4d20a9fd901c8f577ec3" Name="Diagram1" DisplayType="true" ZoomLevel="100" ShowGrid="false">
+        <EntityTypeShape EntityType="MyDatabaseModel.Breakage" Width="1.5" PointX="4.125" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabaseModel.Event" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabaseModel.Object" Width="1.5" PointX="7.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabaseModel.Rock" Width="1.5" PointX="5.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabaseModel.User" Width="1.5" PointX="7.375" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabaseModel.BreakageType" Width="1.5" PointX="2.5" PointY="0.75" />
+        <EntityTypeShape EntityType="MyDatabaseModel.Downtimetype" Width="1.5" PointX="2.5" PointY="4.25" />
+        <EntityTypeShape EntityType="MyDatabaseModel.Site" Width="1.5" PointX="2.5" PointY="2.5" />
         <AssociationConnector Association="MyDatabaseModel.FK_Breakages_Breakagetypes" />
         <AssociationConnector Association="MyDatabaseModel.FK_Breakages_ToSites" />
+        <EntityTypeShape EntityType="MyDatabaseModel.Vw_ObjectsWithinFinancialPeriod" PointX="7.375" PointY="6.5" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabaseModel.Vw_BreakagesWithinFinancialPeriod" Width="1.5" PointX="5.75" PointY="6.5" />
+        <EntityTypeShape EntityType="MyDatabaseModel.Downtime" Width="1.5" PointX="4.125" PointY="3.625" />
         <AssociationConnector Association="MyDatabaseModel.FK_Downtimes_ToDowntimeTypes" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Vw_BreakagesWithinFinancialPeriod" Width="1.5" PointX="7" PointY="0.5" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Vw_DowntimesWithinFinancialPeriod" Width="1.5" PointX="10" PointY="0.5" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Vw_ObjectsWithinFinancialPeriod" Width="1.5" PointX="8.5" PointY="0.5" />
+        <EntityTypeShape EntityType="MyDatabaseModel.Vw_DowntimesWithinFinancialPeriod" Width="1.625" PointX="4" PointY="6.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

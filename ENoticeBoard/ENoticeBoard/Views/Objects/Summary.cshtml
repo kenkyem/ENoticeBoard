@@ -4,14 +4,13 @@
 <style type="text/css">
     .btn-primary {
         margin-bottom: 5px;
-        margin-left: 5px;
         margin-right: 5px;
     }
 </style>
 
 <form class="form-inline">
     <div class="form-group">
-        <button type="button" id="btnCreateObj" name="btnCreate" class="btn btn-primary btn-group-lg" style="float: left">Add</button>
+        <button type="button" id="btnCreateObj" name="btnCreate" class="btn btn-primary btn-sm" style="float: left">Add</button>
         
     </div>
     <div class="pull-right">
@@ -25,70 +24,74 @@
             @Html.DropDownListFor(m => m.SelectedYear, new SelectList(Model.Yearddl, "Text", "Value"), new { @class = "form-control" })
         </div>
         <div class="form-group">
-            <button type="button" id="btnRefresh" name="btnRefresh class=btn btn-default pull-right">Refresh</button>
+            <button type="button" id="btnRefresh" name="btnRefresh" class="btn pull-right">Refresh</button>
         </div>
     </div>
 
 </form>
 
 
-<table class="table table-bordered table-condensed table-responsive display table-striped" style="word-wrap: normal;table-layout: fixed">
+<table class="table table-bordered table-condensed table-responsive display table-striped" id="BudgetTb"style="word-wrap: normal;table-layout: fixed">
+    <thead>
     <tr>
         <th style="width: 40%!important">
             Object
         </th>
         <th style="width: 10%">
-            Cost
+            Date
         </th>
         <th style="width: 10%">
-            Date
+            Cost
         </th>
         <th style="width: 25%">
             Description
         </th>
         <th></th>
     </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ObjectWFPs)
+        {
+            <tr style="text-align: center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.ObjectName)
+                </td>
+                <td>
 
-    @foreach (var item in Model.ObjectWFPs)
-    {
-        <tr style="text-align: center">
-            <td>
-                @Html.DisplayFor(modelItem => item.ObjectName)
-            </td>
-            <td style="text-align: right">
+                    @item.Date.ToShortDateString()
+                </td>
+                <td style="text-align: right">
 
-                @item.Cost.ToString("#,###.00")
-            </td>
-            <td>
-                @item.Date.ToShortDateString()
-            </td>
-            <td>
+                    @item.Cost.ToString("#,###.00")
+                </td>
+                <td>
 
-                @if (item.Description != null && item.Description.Length > 25)
-                {
-                    @item.Description.Substring(0, 25)
-                }
-                else
-                {
-                    @item.Description
-                }
+                    @if (item.Description != null && item.Description.Length > 25)
+                    {
+                        @item.Description.Substring(0, 25)
+                    }
+                    else
+                    {
+                        @item.Description
+                    }
 
 
-            </td>
-            <td>
-                <button rid="@item.ObjectId" name="editbtn" class="btn btn-link btn-sm Edit" aria-hidden="true">
-                    <span class="glyphicon glyphicon-edit"></span>
-                </button>
-                <button rid="@item.ObjectId" name="detailbtn" class="btn btn-link btn-sm Detail" aria-hidden="true">
-                    <span class="glyphicon glyphicon-eye-open"></span>
-                </button>
-                <button rid="@item.ObjectId" name="deletebtn" class="btn btn-link btn-sm Delete" aria-hidden="true">
-                    <span class="glyphicon glyphicon-trash"></span>
-                </button>
+                </td>
+                <td>
+                    <button rid="@item.ObjectId" name="editbtn" class="btn btn-link btn-sm Edit" aria-hidden="true">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+                    <button rid="@item.ObjectId" name="detailbtn" class="btn btn-link btn-sm Detail" aria-hidden="true">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                    </button>
+                    <button rid="@item.ObjectId" name="deletebtn" class="btn btn-link btn-sm Delete" aria-hidden="true">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
 
-            </td>
-        </tr>
-    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 
@@ -96,7 +99,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
+                <button type="button" id="btnCloseCreate" class="close">×</button>
                 <h4 class="modal-title">Object</h4>
             </div>
             <div class="modal-body" id="createBody">
@@ -109,7 +112,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
+                <button type="button" id="btnCloseEdit" class="close">×</button>
                 <h4 class="modal-title" id="myModalLabel">Object</h4>
             </div>
             <div class="modal-body" id="EditBody">
@@ -121,7 +124,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
+                <button type="button" id="btnCloseDelete" class="close" >×</button>
                 <h4 class="modal-title">You want to delete this task?</h4>
             </div>
             <div class="modal-body" id="deleteBody">
@@ -131,6 +134,20 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $('#BudgetTb').DataTable({
+            autoWidth: false,
+            columns: [
+                { "width": "40%" },
+                { "width": "10%" },
+                { "width": "10%" },
+                { "width": "25%" },
+                null
+            ]
+        });
+
+    });
+
     $('#btnRefresh').click(function() {
         var p = $("#SelectedPeriod").val();
         var y = $('#SelectedYear').val();
@@ -223,5 +240,14 @@
                 alert("Delete Failed");
             }
         });
+    });
+    $('#btnCloseCreate').click(function () {
+        $('#createModal').modal('hide');
+    });
+    $('#btnCloseEdit').click(function () {
+        $('#EditModal').modal('hide');
+    });
+    $('#btnCloseDelete').click(function () {
+        $('#deleteModal').modal('hide');
     });
 </script>

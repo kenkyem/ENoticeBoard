@@ -22,30 +22,29 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Subject)
 
-                @Html.EditorFor(model => model.Subject, new {htmlAttributes = new {@class = "form-control is-valid"}})
-                @Html.ValidationMessageFor(model => model.Subject, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control is-valid" } })
+                @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Date)
 
-                @Html.TextBoxFor(model => model.Date, "{0:dd/MM/yyyy}", new {@class = "form-control", Type = "DateTime"})
-                @Html.ValidationMessageFor(model => model.Date, "", new {@class = "text-danger"})
+                @Html.TextBoxFor(model => model.Date, "{0:dd/MM/yyyy}", new { @class = "form-control", Type = "DateTime" })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
 
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Description)
-
-                @Html.EditorFor(model => model.Description, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows="3" } )
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
 
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Duration)
                 <div class="input-group">
-                    @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control pull-right", @dir="rtl" } })
                     @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
                     <div class="input-group-addon">minutes</div>
                 </div>
@@ -55,8 +54,18 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Type)
 
-                @Html.DropDownListFor(m => m.Type, new SelectList(Model.Types, "TypeId", "Subject"), "", new {@class = "form-control"})
+                @Html.DropDownListFor(m => m.Type, new SelectList(Model.Types, "TypeId", "Subject"), "Please Select", new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Type)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Status)
+                @Html.DropDownListFor(m => m.Status, new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "Planned", Value="Planned"},
+                    new SelectListItem {Text = "Unplanned", Value="Unplanned"},
+                }, "Please Select", new {@class = "form-control control-label"})
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
 
             </div>
         </div>
@@ -75,12 +84,15 @@
         dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,
+        maxDate:0,
         yearRange: "-2:+10"
     });
     $('#btnSaveDT').click(function () {
         if ($("#Subject").val().trim() === "" ||
             $("#Date").val().trim() === "" ||
+            $("#Description").val().trim() === "" ||
             $("#Duration").val().trim() === "" ||
+            $("#Status").val().trim() === "" ||
             $("#Type").val().trim() === "") {
             alert("All fields are required");
             return;
@@ -94,7 +106,8 @@
             return;
         }
         if ($("#Duration").val() <= 0) {
-            alert("Duration is invalid: " + $("#Duration").val());
+            alert("Invalid Duration: " + $("#Duration").val());
+            return;
         }
         else {
             var s = moment($('#Date').val(), "DD/MM/YYYY", true);
@@ -127,6 +140,18 @@
                         console.log(data);
                     }
                 });
+                @*$.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetSumDowntime", "Home")',
+                    dataType: 'json',
+                    success: function(data) {
+                        $("#DowntimeSum").html(data);
+                        
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });*@
 
 
             },

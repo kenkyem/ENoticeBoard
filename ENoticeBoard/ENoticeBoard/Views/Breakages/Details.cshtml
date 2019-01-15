@@ -1,62 +1,85 @@
-﻿@model ENoticeBoard.Breakage
+﻿@model ENoticeBoard.ViewModels.BreakageFormViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<style type="text/css">
-    .dl-horizontal dt {
-        text-align: left;
-        width: auto;
-    }
+<!DOCTYPE html>
 
-    .dl-horizontal dd {
-        margin-left: 100px;
-    }
-</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+    <style type="text/css">
+        .dl-horizontal dt {
+            text-align: left;
+            width: auto;
+        }
 
-<div>
-    
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Subject)
-        </dt>
+        .dl-horizontal dd {
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Subject)
-        </dd>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Subject)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Subject)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Site)
-        </dt>
+            <dd>
+                @Model.Date.ToShortDateString()
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Site)
-        </dd>
+            <dt>
+                Site
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
+            <dd>
+                @foreach (var site in Model.Sites)
+                {
+                    if (site.SiteId == Model.SiteId)
+                    {
+                        @site.Subject   
+                    }
+                }
 
-        <dd>
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Cost)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Cost)
+            </dd>
 
-    </dl>
-</div>
+            <dt>
+                Type
+            </dt>
+
+            <dd>
+                @foreach (var type in Model.Types)
+                {
+                    if (type.TypeId == Model.TypeId)
+                    {
+                        @type.Subject
+                    }
+                }
+
+            </dd>
+
+        </dl>
+    </div>
+</body>
+</html>

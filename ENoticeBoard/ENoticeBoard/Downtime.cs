@@ -21,6 +21,7 @@ namespace ENoticeBoard
         public int Duration { get; set; }
         public int Type { get; set; }
         public bool isDeleted { get; set; }
+        public string Status { get; set; }
     
         public virtual Downtimetype Downtimetype { get; set; }
     }

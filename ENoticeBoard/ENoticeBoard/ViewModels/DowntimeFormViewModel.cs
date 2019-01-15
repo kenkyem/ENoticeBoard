@@ -12,5 +12,6 @@ namespace ENoticeBoard.ViewModels
         public int Duration { get; set; }
         public int Type { get; set; }
         public IEnumerable<Downtimetype> Types { get; set; }
+        public string Status { get; set; }
     }
 }

@@ -30,13 +30,14 @@
     <Property Name="Duration" Type="int" Nullable="false" />
     <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="isDeleted" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="Downtimetypes">
     <Key>
       <PropertyRef Name="TypeId" />
     </Key>
     <Property Name="TypeId" Type="int" Nullable="false" />
-    <Property Name="Subject" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Subject" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Events">
     <Key>
@@ -120,6 +121,7 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_DowntimesWithinFinancialPeriod
       <PropertyRef Name="Duration" />
       <PropertyRef Name="isDeleted" />
       <PropertyRef Name="Type" />
+      <PropertyRef Name="Status" />
     </Key>
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="FinancialPeriod" Type="nvarchar" MaxLength="2" />
@@ -130,6 +132,7 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_DowntimesWithinFinancialPeriod
     <Property Name="Duration" Type="int" Nullable="false" />
     <Property Name="isDeleted" Type="bit" Nullable="false" />
     <Property Name="Type" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Status" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'EnoticeBoard.dbo.Vw_ObjectsWithinFinancialPeriod' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -219,7 +222,8 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_ObjectsWithinFinancialPeriod' 
     [Vw_DowntimesWithinFinancialPeriod].[Description] AS [Description], 
     [Vw_DowntimesWithinFinancialPeriod].[Duration] AS [Duration], 
     [Vw_DowntimesWithinFinancialPeriod].[isDeleted] AS [isDeleted], 
-    [Vw_DowntimesWithinFinancialPeriod].[Type] AS [Type]
+    [Vw_DowntimesWithinFinancialPeriod].[Type] AS [Type], 
+    [Vw_DowntimesWithinFinancialPeriod].[Status] AS [Status]
     FROM [dbo].[Vw_DowntimesWithinFinancialPeriod] AS [Vw_DowntimesWithinFinancialPeriod]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="Vw_ObjectsWithinFinancialPeriod" EntityType="Self.Vw_ObjectsWithinFinancialPeriod" store:Type="Views" store:Schema="dbo">

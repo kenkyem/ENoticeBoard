@@ -72,11 +72,11 @@ caption {
     position: unset;
 }
 #PanelModal {
-    height: 70%;
+    height: 100%;
 }
 
 #PanelExtend {
-    height: 70%;
+    height: 100%;
 }
 
 .EditRock {
@@ -96,6 +96,5 @@ th {
 }
 .btn-primary {
     margin-bottom: 5px;
-    margin-left: 5px;
     margin-right: 5px;
 }

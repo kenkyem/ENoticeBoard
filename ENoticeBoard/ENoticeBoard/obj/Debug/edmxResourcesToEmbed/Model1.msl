@@ -14,19 +14,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Downtimes">
-      <EntityTypeMapping TypeName="MyDatabaseModel.Downtime">
-        <MappingFragment StoreEntitySet="Downtimes">
-          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-          <ScalarProperty Name="DownTimeId" ColumnName="DownTimeId" />
-          <ScalarProperty Name="Subject" ColumnName="Subject" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Duration" ColumnName="Duration" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Events">
       <EntityTypeMapping TypeName="MyDatabaseModel.Event">
         <MappingFragment StoreEntitySet="Events">
@@ -97,12 +84,26 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Vw_ObjectsWithinFinancialPeriod">
+      <EntityTypeMapping TypeName="MyDatabaseModel.Vw_ObjectsWithinFinancialPeriod">
+        <MappingFragment StoreEntitySet="Vw_ObjectsWithinFinancialPeriod">
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="ObjectName" ColumnName="ObjectName" />
+          <ScalarProperty Name="ObjectId" ColumnName="ObjectId" />
+          <ScalarProperty Name="FinancialYear" ColumnName="FinancialYear" />
+          <ScalarProperty Name="FinancialPeriod" ColumnName="FinancialPeriod" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Vw_BreakagesWithinFinancialPeriod">
       <EntityTypeMapping TypeName="MyDatabaseModel.Vw_BreakagesWithinFinancialPeriod">
         <MappingFragment StoreEntitySet="Vw_BreakagesWithinFinancialPeriod">
-          <ScalarProperty Name="Subject" ColumnName="Subject" />
           <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
           <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Site" ColumnName="Site" />
           <ScalarProperty Name="BreakageId" ColumnName="BreakageId" />
@@ -112,9 +113,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Downtimes">
+      <EntityTypeMapping TypeName="MyDatabaseModel.Downtime">
+        <MappingFragment StoreEntitySet="Downtimes">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="DownTimeId" ColumnName="DownTimeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Vw_DowntimesWithinFinancialPeriod">
       <EntityTypeMapping TypeName="MyDatabaseModel.Vw_DowntimesWithinFinancialPeriod">
         <MappingFragment StoreEntitySet="Vw_DowntimesWithinFinancialPeriod">
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
           <ScalarProperty Name="Duration" ColumnName="Duration" />
@@ -124,20 +140,6 @@
           <ScalarProperty Name="FinancialYear" ColumnName="FinancialYear" />
           <ScalarProperty Name="FinancialPeriod" ColumnName="FinancialPeriod" />
           <ScalarProperty Name="Date" ColumnName="Date" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Vw_ObjectsWithinFinancialPeriod">
-      <EntityTypeMapping TypeName="MyDatabaseModel.Vw_ObjectsWithinFinancialPeriod">
-        <MappingFragment StoreEntitySet="Vw_ObjectsWithinFinancialPeriod">
-          <ScalarProperty Name="FinancialYear" ColumnName="FinancialYear" />
-          <ScalarProperty Name="FinancialPeriod" ColumnName="FinancialPeriod" />
-          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Cost" ColumnName="Cost" />
-          <ScalarProperty Name="ObjectName" ColumnName="ObjectName" />
-          <ScalarProperty Name="ObjectId" ColumnName="ObjectId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

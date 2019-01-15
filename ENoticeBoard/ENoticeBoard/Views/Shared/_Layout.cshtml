@@ -8,6 +8,11 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/app")
+    <link rel="stylesheet" type="text/css" href="~/Content/DataTables/datatables.min.css"/>
+    <script src="~/Content/DataTables/datatables.min.js"></script>
+   
+    @RenderSection("scripts", required: false)
     <style>
         .navbar-brand {
             background: url('/Content/themes/base/images/one-harvest-logo.png') no-repeat;
@@ -66,9 +71,6 @@
     </footer>
 </div>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@Scripts.Render("~/bundles/app")
-@RenderSection("scripts", required: false)
+
 </body>
 </html>

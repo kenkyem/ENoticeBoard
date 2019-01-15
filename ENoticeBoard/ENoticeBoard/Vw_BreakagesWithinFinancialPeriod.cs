@@ -20,8 +20,8 @@ namespace ENoticeBoard
         public int BreakageId { get; set; }
         public string Site { get; set; }
         public string Type { get; set; }
+        public string Subject { get; set; }
         public decimal Cost { get; set; }
         public bool isDeleted { get; set; }
-        public string Subject { get; set; }
     }
 }

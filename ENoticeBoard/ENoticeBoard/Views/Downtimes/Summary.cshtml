@@ -3,15 +3,16 @@
 <style type="text/css">
     .btn-primary {
         margin-bottom: 5px;
-        margin-left: 5px;
+        
         margin-right: 5px;
     }
+   
      
 </style>
 
-<form class="form-inline">
+<div id="add" class="form-inline">
     <div class="form-group">
-        <button type="button" id="btnCreateDT" name="btnCreate" class="btn btn-primary btn-group-lg" style="float: left">Add</button>
+        <button type="button" id="btnCreateDT" name="btnCreate" class="btn btn-primary btn-sm pull-left" >Add</button>
         </div>
     <div class="pull-right">
         <div class="form-group">
@@ -24,22 +25,20 @@
             @Html.DropDownListFor(m => m.SelectedYear, new SelectList(Model.Yearddl, "Text", "Value"), new { @class = "form-control" })
         </div>
         <div class="form-group">
-            <button type="button" id="btnRefresh" name="btnRefresh class=btn btn-default pull-right">Refresh</button>
+            <button type="button" id="btnRefresh" name="btnRefresh" class="btn pull-right">Refresh</button>
         </div>
     </div>
 
-</form>
+</div>
 
-<table class="table table-bordered table-condensed table-responsive display table-striped" style="word-wrap: normal;table-layout: fixed">
+<table class="table table-bordered table-condensed  table-responsive display table-striped" id="DTTable" style="word-wrap: normal;width: 100%!important">
+    <thead>
     <tr>
-        <th style="width: 40%!important">
+        <th style="width: 40% !important">
             Subject
         </th>
-        <th style="width: 10%">
+        <th style="width: 12%">
             Date
-        </th>
-        <th>
-            Description
         </th>
         <th style="width: 10%">
             Duration (min)
@@ -47,48 +46,55 @@
         <th style="width: 10%">
             Type
         </th>
+        <th>
+            Status
+        </th>
         <th></th>
     </tr>
+    </thead>
+    <tbody>
 
-    @foreach (var item in Model.DowntimeWFPs)
-    {
-        <tr style="text-align: center">
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            <td>
-                @item.Date.ToShortDateString()
-            </td>
-            <td>
-                @if (item.Description != null && item.Description.Length > 25)
-                {
-                    @item.Description.Substring(0, 25)
-                }
-                else
-                {
-                    @item.Description
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                <button rid="@item.DownTimeId" name="editbtn" class="btn btn-link btn-sm Edit" aria-hidden="true">
-                    <span class="glyphicon glyphicon-edit"></span>
-                </button>
-                <button rid="@item.DownTimeId" name="detailbtn" class="btn btn-link btn-sm Detail" aria-hidden="true">
-                    <span class="glyphicon glyphicon-eye-open"></span>
-                </button>
-                <button rid="@item.DownTimeId" name="deletebtn" class="btn btn-link btn-sm Delete" aria-hidden="true">
-                    <span class="glyphicon glyphicon-trash"></span>
-                </button>
-            </td>
-        </tr>
+        @foreach (var item in Model.DowntimeWFPs)
+        {
+            <tr style="text-align: center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @item.Date.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @*@if (item.Description != null && item.Description.Length > 25)
+                    {
+                        @item.Description.Substring(0, 25)
+                    }
+                    else
+                    {
+                        @item.Description
+                    }*@
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <button rid="@item.DownTimeId" name="editbtn" class="btn btn-link btn-sm Edit" aria-hidden="true">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+                    <button rid="@item.DownTimeId" name="detailbtn" class="btn btn-link btn-sm Detail" aria-hidden="true">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                    </button>
+                    <button rid="@item.DownTimeId" name="deletebtn" class="btn btn-link btn-sm Delete" aria-hidden="true">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </td>
+            </tr>
+       
     }
-
+    </tbody>
 </table>
 
 <div class="modal fade" id="createModal" role="dialog">
@@ -130,6 +136,21 @@
     </div>
 </div>
 <script>
+    $(document).ready( function () {
+        $('#DTTable').DataTable({
+            autoWidth: false,
+            columns: [
+                { "width": "40%" },
+                { "width": "12%" },
+                { "width": "10%" },
+                { "width": "10%" },
+                null,
+                null
+            ]
+        });
+
+    });
+    
     $('#btnRefresh').click(function() {
         var p = $("#SelectedPeriod").val();
         var y = $('#SelectedYear').val();

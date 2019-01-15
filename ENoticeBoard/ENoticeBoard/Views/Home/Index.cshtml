@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ENoticeBoard.ViewModels.RockFormViewModel>
+﻿@model ENoticeBoard.ViewModels.RockFormViewModel
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,15 +19,13 @@
     .modal-backdrop {
         position: unset;
     }
-
     #PanelModal {
-        height: 70%;
+        height: 100%;
     }
 
     #PanelExtend {
-        height: 70%;
+        height: 100%;
     }
-
     .skip-links {
         position: absolute;
         left: -999em;
@@ -65,7 +63,7 @@
                         <i class="fa fa-clock-o fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">@ViewBag.downtime min</div>
+                        <div class="huge" id="DowntimeSum">@ViewBag.downtime min</div>
                         <div>Down Time!</div>
                     </div>
                 </div>
@@ -87,7 +85,7 @@
                         <i class="fa fa-wrench fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">$@Convert.ToDecimal(ViewBag.breakageCost)</div>
+                        <div class="huge" id="BreakageSum">$@Convert.ToDecimal(ViewBag.breakageCost)</div>
                         <div>Breakage Cost!</div>
                     </div>
                 </div>
@@ -109,7 +107,7 @@
                         <i class="fa fa-money fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">$@Convert.ToDecimal(ViewBag.objectSpend)</div>
+                        <div class="huge" id="BudgetSum">$@Convert.ToDecimal(ViewBag.objectSpend)</div>
                         <div>Spend Budget!</div>
                     </div>
                 </div>
@@ -127,17 +125,17 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        
-        <button name="btnCreate" id="btnCreate" class="btn btn-link btn-sm" aria-hidden="true"><span class="glyphicon glyphicon-plus"></span></button>
         <label>Rock List</label>
+        <div class="pull-right">
+            <button type="button" id="btnView" name="btnView" class="btn btn-default" >View All</button>
+        </div>
     </div>
     <div class="panel-body">
         <table class="table container-fluid table-condensed table-responsive">
             <tr style="text-align: center">
                 <th style="width: 75% !important">
-                
-
-                    @Html.DisplayNameFor(model => model.Subject)
+                    <button type="button" id="btnCreate" name="btnCreate" class="btn btn-primary btn-sm" style="float: left">Add</button>
+                    Subject
                 </th>
                 <th>
                     Due Date
@@ -146,7 +144,7 @@
                 <th> </th>
             </tr>
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.Rocks)
             {
                 var datedif = item.DateDue - DateTime.Today;
                 string color;
@@ -170,11 +168,11 @@
                 {
                     color = "alert-danger";
                 }
-                <tr class="@color h4" role="alert" style="text-align: center">
+                <tr class="@color h4" role="alert" >
                     <td>
                         @Html.DisplayFor(modelItem => item.Subject)
                     </td>
-                    <td>
+                    <td style="text-align:center">
 
                         @item.DateDue.ToShortDateString()
                     </td>
@@ -289,11 +287,11 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="PanelModal" role="dialog">
+<div class="modal fade" id="PanelModal" role="dialog" data-backdrop="static">
     <div id="PanelExtend" class="modal-dialog modal-lg">
         <div id="PanelBody" class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
+                <button type="button" onclick="javascript: window.location.reload();" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="setModalTitle"></h4>
             </div>
             <div class="modal-body" id="PanelModalBody">
@@ -377,7 +375,7 @@
                             <textarea id="txtDescription" rows="3" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Theme Color</label>
+                            <label>Member</label>
                             <select id="ddThemeColor" class="form-control">
                                 <option value="">Default</option>
                                 <option value="crimson">Andrew</option>
@@ -409,6 +407,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/cssjqryUi")
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
@@ -417,7 +416,7 @@
     <script type="text/javascript" src="~/Scripts/app/app.js"></script>
     <script>
         $(document).ready(function () {
-
+            
             DatetimePicker.applyDateTimePicker();
             RockController.create();
             RockController.save();
@@ -518,6 +517,15 @@
             var events = [];
             var selectedEvent = null;
             fetchEventAndRenderCalendar();
+
+            
+            $(window).resize(function () {
+                var height = $(window).height();
+                if (height >= 1100) {
+                    console.log(height);
+                    
+                }
+            });
 
             function fetchEventAndRenderCalendar() {
                 events = [];
@@ -626,7 +634,7 @@
                 if (selectedEvent != null && confirm('Are you sure?')) {
                     $.ajax({
                         type: "POST",
-                        url: '/home/DeleteEvent',
+                        url: '@Url.Action("DeleteEvent","Home")',
                         data: { 'eventID': selectedEvent.eventID },
                         success: function(data) {
                             if (data.status) {
@@ -701,7 +709,7 @@
             function saveEvent(data) {
                 $.ajax({
                     type: "POST",
-                    url: '/home/SaveEvent',
+                    url: '@Url.Action("SaveEvent","Home")',
                     data: data,
                     success: function(data) {
                         if (data.status) {

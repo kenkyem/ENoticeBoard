@@ -10,6 +10,7 @@ namespace ENoticeBoard.ViewModels
         public string Subject { get; set; }
 
         public DateTime Date { get; set; }
+       
         public decimal Cost { get; set; }
 
         public IEnumerable<Site> Sites { get; set; }

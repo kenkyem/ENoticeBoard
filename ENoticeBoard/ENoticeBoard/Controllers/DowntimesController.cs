@@ -67,7 +67,20 @@ namespace ENoticeBoard.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView(downtime);
+
+            var model = new DowntimeFormViewModel()
+            {
+                Id = downtime.DownTimeId,
+                Subject = downtime.Subject,
+                Date = downtime.Date,
+                Description = downtime.Description,
+                Duration = downtime.Duration,
+                Type = downtime.Type,
+                Types = _db.Downtimetypes.ToList(),
+                Status = downtime.Status
+            };
+            return PartialView(model);
+
         }
 
         // GET: Downtimes/Create
@@ -100,7 +113,8 @@ namespace ENoticeBoard.Controllers
                 Description = viewModel.Description,
                 Duration = viewModel.Duration,
                 Type = viewModel.Type,
-                isDeleted = false
+                isDeleted = false,
+                Status = viewModel.Status
                 
             };
             
@@ -131,7 +145,8 @@ namespace ENoticeBoard.Controllers
                 Description = downtime.Description,
                 Duration = downtime.Duration,
                 Type = downtime.Type,
-                Types = _db.Downtimetypes.ToList()
+                Types = _db.Downtimetypes.ToList(),
+                Status = downtime.Status
             };
             return PartialView(model);
         }
@@ -155,6 +170,7 @@ namespace ENoticeBoard.Controllers
                 downtime.Description = viewModel.Description;
                 downtime.Duration = viewModel.Duration;
                 downtime.Type = viewModel.Type;
+                downtime.Status = viewModel.Status;
 
                 _db.SaveChanges();
 
