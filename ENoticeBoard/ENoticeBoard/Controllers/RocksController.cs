@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ENoticeBoard.ViewModels;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -21,6 +22,38 @@ namespace ENoticeBoard.Controllers
         // POST: Rocks/Create
         // To protect from over-posting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        public PartialViewResult Summary(string month, string year)
+        {
+            if(month==null && year==null)
+            {
+                month = DateTime.Today.Month.ToString();
+                year = DateTime.Today.Year.ToString();
+            }
+
+            var rockModel = new RockFormViewModel()
+            {
+                Rocks = _db.Rocks
+                    .Where(x => x.DateCreated.Month.ToString() == month && x.DateCreated.Year.ToString() == year)
+                    .ToList(),
+                Monthddl = _db.Rocks.Select(x=>new DropDownBoxList()
+                {
+                    text = x.DateCreated.Month.ToString(),
+                    value= x.DateCreated.Month.ToString()
+                }).Distinct().ToList(),
+                Yearddl = _db.Rocks.Select(x=>new DropDownBoxList()
+                {
+                    text = x.DateCreated.Year.ToString(),
+                    value= x.DateCreated.Year.ToString()
+                }).Distinct().ToList(),
+                selectedMonth = month,
+                selectedYear = year
+            };
+            
+            return PartialView(rockModel);
+        }
+
+
         [HttpPost]
         public JsonResult Create(String subject,int? priority, string dateDue)
         {

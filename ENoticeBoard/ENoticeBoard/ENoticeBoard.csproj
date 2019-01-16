@@ -490,6 +490,7 @@
     <Content Include="Views\Downtimes\Edit.cshtml" />
     <Content Include="Views\Downtimes\Index.cshtml" />
     <Content Include="Views\Downtimes\Summary.cshtml" />
+    <Content Include="Views\Rocks\Summary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

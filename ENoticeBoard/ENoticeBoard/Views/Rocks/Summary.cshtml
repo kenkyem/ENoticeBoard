@@ -1,0 +1,141 @@
+﻿@using Microsoft.Ajax.Utilities
+@model ENoticeBoard.ViewModels.RockFormViewModel
+<style type="text/css">
+    .pull-right {
+        margin-bottom: 5px;
+    }
+</style>
+<div class="form-inline">
+    <div class="pull-right">
+        <div class="form-group">
+            <label>Month: </label>
+            @Html.DropDownListFor(m => m.selectedMonth, new SelectList(Model.Monthddl, "Text", "Value"), new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Year: </label>
+            @Html.DropDownListFor(y => y.selectedYear, new SelectList(Model.Yearddl, "Text", "Value"), new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <button type="button" id="btnRefresh" name="btnRefresh" class="btn ">Refresh</button>
+        </div>
+    </div>
+</div>
+<table id="rockTb" class="table">
+    <thead>
+        <tr>
+            <th>
+                Subject
+            </th>
+            <th>
+                Priority
+            </th>
+            <th>
+                Date Created
+            </th>
+            <th>
+                Due Date
+            </th>
+            <th>
+                Done
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Rocks)
+        {
+            string priority = null;
+            <tr style="text-align: center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @switch (item.Priority)
+                    {
+                        case 1:
+                            priority = item.Priority + ". Low ";
+                            break;
+                        case 2:
+                            priority = item.Priority +  ". Medium Low";
+                            break;
+                        case 3:
+                            priority = item.Priority +  ". Medium";
+                            break;
+                        case 4:
+                            priority = item.Priority +  ". High";
+                            break;
+                        case 5:
+                            priority = item.Priority +  ". Very High";
+                            break;
+                    }
+                    @priority
+                </td>
+                <td>
+                    @item.DateCreated.ToShortDateString()
+                </td>
+                <td>
+                    @item.DateDue.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Done)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<div class="modal fade" id="createModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="btnCloseCreate">×</button>
+                <h4 class="modal-title">Rock</h4>
+            </div>
+            <div class="modal-body" id="createBody">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#rockTb').DataTable({
+            autoWidth: false,
+            columns: [
+                { "width": "40%" },
+                { "width": "12%" },
+                { "width": "10%" },
+                { "width": "10%" },
+                { "width": "10%" }
+            ]
+        });
+        DatetimePicker.applyDateTimePicker();
+        
+    });
+    
+    $('#btnRefresh').click(function() {
+        var m = $("#selectedMonth").val();
+        var y = $('#selectedYear').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Summary","Rocks")',
+            datatype: "html",
+            data: { "month": m, "year": y },
+            success: function (data) {
+
+                $('#setModalTitle').html("Rock");
+                $("#PanelModalBody").html(data);
+
+            },
+            error: function(data) {
+                console.log(data);
+            }
+
+        });
+    });
+</script>

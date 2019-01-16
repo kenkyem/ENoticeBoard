@@ -1,4 +1,5 @@
-﻿@model ENoticeBoard.Rock
+﻿@using System.Web.Services.Configuration
+@model ENoticeBoard.Rock
 
 <div>
     <div class="form-horizontal">
@@ -8,13 +9,13 @@
                 @Html.DisplayFor(model => model.Subject, new { @class = "form-control" })
             </div>
 
-            <div class="form-group">
-                <label>@Html.DisplayNameFor(model => model.Priority): </label>
-                @Html.DisplayFor(model => model.Priority, new { @class = "form-control" })
+            <div class="form-group form-inline">
+                <label>Priority:  </label>
+                <p id="priority" style="display: inline-block"></p>
             </div>
             <div class="form-group">
                 <label>@Html.DisplayNameFor(model => model.DateDue): </label>
-                @Html.DisplayFor(model => model.DateDue, new { @class = "form-control" })
+                @Model.DateDue.ToShortDateString()
             </div>
             
         </div>
@@ -26,7 +27,28 @@
 
         <div class="form-group">
             <input type="submit" value="Done" class="btn btn-primary" />
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            
         </div>
     }
 </div>
+
+
+<script>
+    var priority;
+    switch (@Model.Priority)
+    {
+        case 1: priority = "Low";
+            break;
+        case 2: priority="Low Medium";
+            break;
+        case 3: priority="Medium";
+            break;
+        case 4: priority="Medium High";
+            break;
+        case 5: priority="High";
+            break;
+    }
+    document.getElementById("priority").innerHTML = priority;
+    
+
+</script>

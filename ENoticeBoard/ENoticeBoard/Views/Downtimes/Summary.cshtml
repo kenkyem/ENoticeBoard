@@ -1,10 +1,8 @@
 ﻿@model ENoticeBoard.ViewModels.DowntimeSummaryViewModel
 
 <style type="text/css">
-    .btn-primary {
+    .pull-right{
         margin-bottom: 5px;
-        
-        margin-right: 5px;
     }
    
      
@@ -12,8 +10,8 @@
 
 <div id="add" class="form-inline">
     <div class="form-group">
-        <button type="button" id="btnCreateDT" name="btnCreate" class="btn btn-primary btn-sm pull-left" >Add</button>
-        </div>
+        <button id="btnCreateDT" name="btnCreateDT" class="btn pull-left glyphicon glyphicon-plus" aria-hidden="true"></button>
+    </div>
     <div class="pull-right">
         <div class="form-group">
             <label>Period: </label>
@@ -25,7 +23,7 @@
             @Html.DropDownListFor(m => m.SelectedYear, new SelectList(Model.Yearddl, "Text", "Value"), new { @class = "form-control" })
         </div>
         <div class="form-group">
-            <button type="button" id="btnRefresh" name="btnRefresh" class="btn pull-right">Refresh</button>
+            <button type="button" id="btnRefresh" name="btnRefresh" class="btn ">Refresh</button>
         </div>
     </div>
 
