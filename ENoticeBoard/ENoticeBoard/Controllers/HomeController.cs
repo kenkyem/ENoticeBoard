@@ -34,7 +34,7 @@ namespace ENoticeBoard.Controllers
             user = user.ToLower().Replace("oneharvest\\", "");
 
             List<string> groupOnfo = AdInfo.GetDepartmentFromAd(user);
-            if (groupOnfo.Contains(("IT-Wacol")))
+            if (groupOnfo.Contains(("IT-WACOL")))
             {
                 string currentPeriod = _basedata.FinancialCalendars
                     .Where(x => x.CurrentPeriod == true)
@@ -90,7 +90,7 @@ namespace ENoticeBoard.Controllers
             else
             {
 
-                return null;
+                return View();
             }
         }
 
