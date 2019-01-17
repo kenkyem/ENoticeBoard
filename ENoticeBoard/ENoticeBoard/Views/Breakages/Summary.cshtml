@@ -18,6 +18,9 @@
         margin-bottom: 5px;
         margin-right: 5px;
     }
+    .pull-right {
+        margin-bottom: 5px;
+    }
 </style>
 <form class="form-inline">
     <div class="form-group">
@@ -34,7 +37,7 @@
             @Html.DropDownListFor(m => m.selectedYear, new SelectList(Model.Yearddl, "Text", "Value"), new { @class = "form-control" })
         </div>
         <div class="form-group">
-            <button type="button" id="btnRefresh" name="btnRefresh" class= "btn pull-right" >Refresh</button>
+            <button type="button" id="btnRefresh" name="btnRefresh" class= "btn" >Refresh</button>
         </div>
     </div>
    

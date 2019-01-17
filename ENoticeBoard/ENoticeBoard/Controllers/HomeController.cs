@@ -1,5 +1,7 @@
-﻿using ENoticeBoard.ViewModels;
+﻿using ENoticeBoard.Models;
+using ENoticeBoard.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -24,59 +26,72 @@ namespace ENoticeBoard.Controllers
             return View();
         }
 
-        
+        [Authorize]
         // GET: Rocks
         public ActionResult Index()
-        {   
-            string currentPeriod=_basedata.FinancialCalendars
-                .Where(x=>x.CurrentPeriod==true)
-                .Select(x => x.FinancialPeriod)
-                .FirstOrDefault();
-            string currentYear= _basedata.FinancialCalendars
-                .Where(x=>x.CurrentYear==true)
-                .Select(x => x.FinancialYear)
-                .FirstOrDefault();
-            var brreakage = _db.Vw_BreakagesWithinFinancialPeriod.Where(x =>
-                x.FinancialPeriod == currentPeriod 
-                && x.FinancialYear == currentYear 
-                && x.isDeleted == false)
-                .ToList();
-            var downtime = _db.Vw_DowntimesWithinFinancialPeriod.Where(x =>
-                x.FinancialPeriod == currentPeriod 
-                && x.FinancialYear == currentYear 
-                && x.isDeleted == false)
-                .ToList();
-            var spend = _db.Vw_ObjectsWithinFinancialPeriod.Where(
-                x=>x.FinancialPeriod==currentPeriod && x.FinancialYear==currentYear && x.isDeleted==false)
-                .ToList();
-            ViewBag.downtime = downtime.Any() ? downtime.Sum(x => x.Duration) : 0;
-            ViewBag.objectSpend = spend.Any() ? spend.Sum(x => x.Cost) : 0M;
-            ViewBag.breakageCost = brreakage.Any() ? brreakage.Sum(x => x.Cost) : 0M;
+        {
+            string user = System.Web.HttpContext.Current.User.Identity.Name;
+            user = user.ToLower().Replace("oneharvest\\", "");
 
-            var rockModel = new RockFormViewModel()
+            List<string> groupOnfo = AdInfo.GetDepartmentFromAd(user);
+            if (groupOnfo.Contains(("IT-Wacol")))
             {
-                Rocks = _db.Rocks.OrderByDescending(s => s.Priority)
-                    .Where(s => s.Done == false)
-                    .ToList()
-            };
-            //var rocksViewModel = _db.Rocks.OrderByDescending(s => s.Priority)
-            //                                .Where(s => s.Done == false)
-            //                                .ToList();
-            //List<RockFormViewModel> model=new List<RockFormViewModel>();
-            //foreach (var r in rocksViewModel)
-            //{
-            //    var modelToSend = new RockFormViewModel
-            //    {
-            //        RockId = r.RockId, 
-            //        Subject = r.Subject,
-            //        DateDue = r.DateDue,
-            //        Priority = r.Priority,
-            //        Done = r.Done
-            //    };
-            //    model.Add(modelToSend);
-            //}
-            
-            return View(rockModel);
+                string currentPeriod = _basedata.FinancialCalendars
+                    .Where(x => x.CurrentPeriod == true)
+                    .Select(x => x.FinancialPeriod)
+                    .FirstOrDefault();
+                string currentYear = _basedata.FinancialCalendars
+                    .Where(x => x.CurrentYear == true)
+                    .Select(x => x.FinancialYear)
+                    .FirstOrDefault();
+                var brreakage = _db.Vw_BreakagesWithinFinancialPeriod.Where(x =>
+                        x.FinancialPeriod == currentPeriod
+                        && x.FinancialYear == currentYear
+                        && x.isDeleted == false)
+                    .ToList();
+                var downtime = _db.Vw_DowntimesWithinFinancialPeriod.Where(x =>
+                        x.FinancialPeriod == currentPeriod
+                        && x.FinancialYear == currentYear
+                        && x.isDeleted == false)
+                    .ToList();
+                var spend = _db.Vw_ObjectsWithinFinancialPeriod.Where(
+                        x => x.FinancialPeriod == currentPeriod && x.FinancialYear == currentYear &&
+                             x.isDeleted == false)
+                    .ToList();
+                ViewBag.downtime = downtime.Any() ? downtime.Sum(x => x.Duration) : 0;
+                ViewBag.objectSpend = spend.Any() ? spend.Sum(x => x.Cost) : 0M;
+                ViewBag.breakageCost = brreakage.Any() ? brreakage.Sum(x => x.Cost) : 0M;
+
+                var rockModel = new RockFormViewModel()
+                {
+                    Rocks = _db.Rocks.OrderByDescending(s => s.Priority)
+                        .Where(s => s.Done == false)
+                        .ToList()
+                };
+                //var rocksViewModel = _db.Rocks.OrderByDescending(s => s.Priority)
+                //                                .Where(s => s.Done == false)
+                //                                .ToList();
+                //List<RockFormViewModel> model=new List<RockFormViewModel>();
+                //foreach (var r in rocksViewModel)
+                //{
+                //    var modelToSend = new RockFormViewModel
+                //    {
+                //        RockId = r.RockId, 
+                //        Subject = r.Subject,
+                //        DateDue = r.DateDue,
+                //        Priority = r.Priority,
+                //        Done = r.Done
+                //    };
+                //    model.Add(modelToSend);
+                //}
+
+                return View(rockModel);
+            }
+            else
+            {
+
+                return null;
+            }
         }
 
         
