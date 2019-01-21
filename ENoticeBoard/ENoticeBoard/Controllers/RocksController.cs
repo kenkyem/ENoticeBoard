@@ -1,6 +1,5 @@
 ﻿using ENoticeBoard.ViewModels;
 using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -23,31 +22,29 @@ namespace ENoticeBoard.Controllers
         // To protect from over-posting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public PartialViewResult Summary(string month, string year)
+        public PartialViewResult Summary(string period, string year)
         {
-            if(month==null && year==null)
+            if(period==null && year==null)
             {
-                month = DateTime.Today.Month.ToString();
-                year = DateTime.Today.Year.ToString();
+                period = BreakagesController.CurrentPeriod();
+                year = BreakagesController.CurrentYear();
             }
 
-            var rockModel = new RockFormViewModel()
+            var rockModel = new RockSummaryViewModel()
             {
-                Rocks = _db.Rocks
-                    .Where(x => x.DateCreated.Month.ToString() == month && x.DateCreated.Year.ToString() == year)
-                    .ToList(),
-                Monthddl = _db.Rocks.Select(x=>new DropDownBoxList()
+                RockWFPs = _db.Vw_RocksWithinFinancialPeriod.Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted ==false  ).ToList(),
+                Periodddl = _db.Vw_RocksWithinFinancialPeriod.Select(x=>new DropDownBoxList()
                 {
-                    text = x.DateCreated.Month.ToString(),
-                    value= x.DateCreated.Month.ToString()
+                    text=x.FinancialPeriod,
+                    value=x.FinancialPeriod
                 }).Distinct().ToList(),
-                Yearddl = _db.Rocks.Select(x=>new DropDownBoxList()
+                Yearddl = _db.Vw_RocksWithinFinancialPeriod.Select(x=>new DropDownBoxList()
                 {
-                    text = x.DateCreated.Year.ToString(),
-                    value= x.DateCreated.Year.ToString()
+                    text=x.FinancialYear,
+                    value=x.FinancialYear
                 }).Distinct().ToList(),
-                selectedMonth = month,
-                selectedYear = year
+                SelectedPeriod = period,
+                SelectedYear = year
             };
             
             return PartialView(rockModel);
@@ -69,7 +66,9 @@ namespace ENoticeBoard.Controllers
                         Priority = priority.Value,
                         DateCreated = DateTime.Today,
                         DateDue=  dueDateInDateTime,
-                        Done = false
+                        Done = false,
+                        isDeleted = false
+                        
                     };
                     _db.Rocks.Add(rock);
                 }
@@ -93,7 +92,17 @@ namespace ENoticeBoard.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView(rock);
+
+            var model = new RockFormViewModel()
+            {
+                RockId = rock.RockId,
+                Subject = rock.Subject,
+                Priority = rock.Priority,
+                DateCreated = rock.DateCreated,
+                DateDue = rock.DateDue,
+                Done = rock.Done
+            };
+            return PartialView(model);
         }
 
        
@@ -102,29 +111,105 @@ namespace ENoticeBoard.Controllers
         // To protect from over-posting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public JsonResult Edit(Rock rock)
+        public ActionResult Edit(RockFormViewModel viewModel)
         {
             
             if (ModelState.IsValid)
             {
-                 
-                _db.Entry(rock).State = EntityState.Modified;
+                Rock rock = _db.Rocks.Find(viewModel.RockId);
+                if (rock == null)
+                {
+                    return HttpNotFound();
+                }
+
+                rock.Subject = viewModel.Subject;
+                rock.Priority = viewModel.Priority;
+                rock.DateDue = viewModel.DateDue;
+                rock.Done = viewModel.Done;
                 _db.SaveChanges();
             }
 
             return Json("success",JsonRequestBehavior.AllowGet);
         }
-
         
-        // POST: Rocks/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult EditinSummary(int? id)
         {
-            var rock = _db.Rocks.FirstOrDefault(x => x.RockId == id);
-            if (rock != null) _db.Rocks.Remove(rock);
+            
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Rock rock = _db.Rocks.Find(id);
+            if (rock == null)
+            {
+                return HttpNotFound();
+            }
+
+            var model = new RockFormViewModel()
+            {
+                RockId = rock.RockId,
+                Subject = rock.Subject,
+                Priority = rock.Priority,
+                DateDue = rock.DateDue,
+                Done = rock.Done
+            };
+            return PartialView(model);
+        }
+
+        // GET: Breakages/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Rock rock = _db.Rocks.Find(id);
+            if (rock == null)
+            {
+                return HttpNotFound();
+            }
+            
+            var model = new RockFormViewModel()
+            {
+                RockId= rock.RockId,
+                Subject = rock.Subject,
+                Priority = rock.Priority,
+                DateCreated = rock.DateCreated,
+                DateDue = rock.DateDue,
+                Done = rock.Done
+            };
+            
+
+            return PartialView(model);
+        }
+        
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Rock rock = _db.Rocks.Find(id);
+            if (rock == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(rock);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteConfirmed(int? id)
+        {
+            Rock rock = _db.Rocks.Find(id);
+            if (rock != null)
+            {
+                rock.isDeleted = true;
+            }
+
             _db.SaveChanges();
-            return RedirectToAction("Index","Home");
+            return Json("success", JsonRequestBehavior.AllowGet);
+            
         }
 
 

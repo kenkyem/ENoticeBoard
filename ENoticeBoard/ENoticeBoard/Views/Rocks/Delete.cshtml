@@ -1,21 +1,12 @@
-﻿@model ENoticeBoard.Downtime
-
-<style type="text/css">
-    .dl-horizontal dt {
-        text-align: left;
-        width: auto;
-    }
-    .dl-horizontal dd {
-        margin-left: 100px;
-    }
-
-</style>
-
+﻿@model ENoticeBoard.Rock
+@functions {
+    public object Priority { get; set; }
+}
 <div>
 
     <dl class="dl-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.DownTimeId)
+        @Html.HiddenFor(model => model.RockId)
         <dt>
             @Html.DisplayNameFor(model => model.Subject)
         </dt>
@@ -25,66 +16,85 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.DisplayNameFor(model => model.Priority)
         </dt>
 
         <dd>
-            @Model.Date.ToShortDateString()
+           @switch (Model.Priority)
+            {
+                case 1:
+                    Priority = " Low ";
+                    break;
+                case 2:
+                    Priority = " Medium Low";
+                    break;
+                case 3:
+                    Priority = " Medium";
+                    break;
+                case 4:
+                    Priority = " High";
+                    break;
+                case 5:
+                    Priority = " Very High";
+                    break;
+            }
+            @Priority
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.DateCreated)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Model.DateCreated.ToShortDateString()
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Duration)
+            @Html.DisplayNameFor(model => model.DateDue)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Duration)
+            @Model.DateDue.ToShortDateString()
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Type)
+            @Html.DisplayNameFor(model => model.Done)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Type)
+            @Html.DisplayFor(model => model.Done)
         </dd>
 
     </dl>
 
     @using (Html.BeginForm())
     {
+        @Html.AntiForgeryToken()
+
         <div class="form-group">
-            <input type="button" id="btnDeleteDT" value="Delete" class="btn btn-primary" />
+            <input type="button" id="btnDeleteRock" value="Delete" class="btn btn-primary" />
 
         </div>
-
     }
 </div>
 
 <script>
-    $('#btnDeleteDT').click(function() {
-        var id = $("#DownTimeId").val();
+    $('#btnDeleteRock').click(function() {
+        var id = $("#RockId").val();
 
 
         $.ajax({
             type: "POST",
-            url: '@Url.Action("DeleteConfirmed", "Downtimes")',
+            url: '@Url.Action("DeleteConfirmed", "Rocks")',
             dataType: 'json',
             data: { "id" : id },
             success: function (data) {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("Summary", "Downtimes")',
+                    url: '@Url.Action("Summary", "Rocks")',
                     dataType: 'html',
                     success: function (data) {
-                        $('#setModalTitle').html("DownTime");
+                        $('#setModalTitle').html("Rock");
                         $("#PanelModalBody").html(data);
                         $("#PanelModal").modal('show');
                     },

@@ -47,6 +47,7 @@
     <Property Name="DateCreated" Type="DateTime" Precision="7" Nullable="false" />
     <Property Name="DateDue" Type="DateTime" Precision="7" Nullable="false" />
     <Property Name="Done" Type="Boolean" Nullable="false" />
+    <Property Name="isDeleted" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -81,6 +82,8 @@
       <End Role="Downtime" EntitySet="Downtimes" />
     </AssociationSet>
     <EntitySet Name="Vw_DowntimesWithinFinancialPeriod" EntityType="MyDatabaseModel.Vw_DowntimesWithinFinancialPeriod" />
+    <EntitySet Name="Targets" EntityType="MyDatabaseModel.Target" />
+    <EntitySet Name="Vw_RocksWithinFinancialPeriod" EntityType="MyDatabaseModel.Vw_RocksWithinFinancialPeriod" />
   </EntityContainer>
   <EntityType Name="BreakageType">
     <Key>
@@ -214,5 +217,33 @@
     <Property Name="isDeleted" Type="Boolean" Nullable="false" />
     <Property Name="Type" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Target">
+    <Key>
+      <PropertyRef Name="TargetId" />
+    </Key>
+    <Property Name="TargetId" Type="Int32" Nullable="false" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="TargetNum" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vw_RocksWithinFinancialPeriod">
+    <Key>
+      <PropertyRef Name="DateCreated" />
+      <PropertyRef Name="RockId" />
+      <PropertyRef Name="Subject" />
+      <PropertyRef Name="Priority" />
+      <PropertyRef Name="DateDue" />
+      <PropertyRef Name="Done" />
+      <PropertyRef Name="isDeleted" />
+    </Key>
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="FinancialPeriod" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="FinancialYear" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="RockId" Type="Int32" Nullable="false" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Priority" Type="Int32" Nullable="false" />
+    <Property Name="DateDue" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="Done" Type="Boolean" Nullable="false" />
+    <Property Name="isDeleted" Type="Boolean" Nullable="false" />
   </EntityType>
 </Schema>

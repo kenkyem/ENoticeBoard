@@ -1,0 +1,69 @@
+﻿@model ENoticeBoard.ViewModels.RockFormViewModel
+
+@functions {
+    public object Priority { get; set; }
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+
+        <dd>
+            @switch (Model.Priority)
+            {
+                case 1:
+                    Priority = " Low ";
+                    break;
+                case 2:
+                    Priority = " Medium Low";
+                    break;
+                case 3:
+                    Priority = " Medium";
+                    break;
+                case 4:
+                    Priority = " High";
+                    break;
+                case 5:
+                    Priority = " Very High";
+                    break;
+            }
+            @Priority
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Model.DateCreated.ToShortDateString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateDue)
+        </dt>
+
+        <dd>
+            @Model.DateDue.ToShortDateString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Done)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Done)
+            
+        </dd>
+
+    </dl>
+</div>

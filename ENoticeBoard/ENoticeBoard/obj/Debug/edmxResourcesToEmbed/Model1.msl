@@ -42,6 +42,7 @@
     <EntitySetMapping Name="Rocks">
       <EntityTypeMapping TypeName="MyDatabaseModel.Rock">
         <MappingFragment StoreEntitySet="Rocks">
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
           <ScalarProperty Name="Done" ColumnName="Done" />
           <ScalarProperty Name="RockId" ColumnName="RockId" />
           <ScalarProperty Name="Subject" ColumnName="Subject" />
@@ -140,6 +141,30 @@
           <ScalarProperty Name="FinancialYear" ColumnName="FinancialYear" />
           <ScalarProperty Name="FinancialPeriod" ColumnName="FinancialPeriod" />
           <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Targets">
+      <EntityTypeMapping TypeName="MyDatabaseModel.Target">
+        <MappingFragment StoreEntitySet="Target">
+          <ScalarProperty Name="TargetNum" ColumnName="TargetNum" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="TargetId" ColumnName="TargetId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vw_RocksWithinFinancialPeriod">
+      <EntityTypeMapping TypeName="MyDatabaseModel.Vw_RocksWithinFinancialPeriod">
+        <MappingFragment StoreEntitySet="Vw_RocksWithinFinancialPeriod">
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="Done" ColumnName="Done" />
+          <ScalarProperty Name="DateDue" ColumnName="DateDue" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="RockId" ColumnName="RockId" />
+          <ScalarProperty Name="FinancialYear" ColumnName="FinancialYear" />
+          <ScalarProperty Name="FinancialPeriod" ColumnName="FinancialPeriod" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

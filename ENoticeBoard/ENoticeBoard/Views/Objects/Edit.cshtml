@@ -107,17 +107,6 @@
                             console.log(data);
                         }
                     });
-                    $.ajax({
-                        type: "GET",
-                        url: '@Url.Action("GetSumBudget", "Home")',
-                        dataType: 'json',
-                        success: function(data) {
-                            $(".huge").html(data);
-                        },
-                        error: function() {
-                            alert("Set Failed");
-                        }
-                    });
                     $('#EditModal')
                         .modal('hide')
                         .on('hidden.bs.modal', function () {

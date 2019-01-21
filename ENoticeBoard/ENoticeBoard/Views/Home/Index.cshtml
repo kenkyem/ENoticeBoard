@@ -1,4 +1,4 @@
-﻿@model ENoticeBoard.ViewModels.RockFormViewModel
+﻿@model ENoticeBoard.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -71,70 +71,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 </head>
-@if (Model != null)
+@if (Model == null)
+{
+    <div class="alert alert-danger">
+        <div class="h4">401 - Unauthorized</div>
+        <p>You do not have permission to access this page. Please contact IT Department for further infomation.</p>
+    </div>
+}
+else
 {
     <div class="row">
         <div class="col-sm-4">
-            <div class="panel panel-green">
+            <div class="panel 
+                @(Model.OnTarget(Convert.ToDecimal(Model.DowntimeTargetPlanned.TargetNum), ViewBag.downtimePlanned) ? "panel-green" : "panel-red")
+                @(Model.OnTarget(Convert.ToDecimal(Model.DowntimeTargetUnplanned.TargetNum), ViewBag.downtimeUnplanned) ? "panel-green" : "panel-red")
+                 ">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
                             <i class="fa fa-clock-o fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge" id="DowntimeSum">@ViewBag.downtime min</div>
-                            <div>Down Time!</div>
+                            <div class="huge" id="DowntimeSum">@Model.DowntimeSum min</div>
+                            <div>Downtime Duration</div>
                         </div>
                     </div>
                 </div>
                 <a id="downtimePanel" class="pointer">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <span class="pull-right">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="panel panel-yellow">
+            <div class="panel 
+                 @(Model.OnTarget(Convert.ToDecimal(Model.BreakageTarget.TargetNum), Model.BreakageSum) ? "panel-green" : "panel-red") ">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
                             <i class="fa fa-wrench fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge" id="BreakageSum">$@Convert.ToDecimal(ViewBag.breakageCost)</div>
-                            <div>Breakage Cost!</div>
+                            <div class="huge" id="BreakageSum">$ @Model.BreakageSum</div>
+                            <div>Breakage Cost</div>
                         </div>
                     </div>
                 </div>
                 <a id="breakagepanel" class="pointer">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <span class="pull-right">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="panel panel-red">
+            <div class="panel 
+                 @(Model.OnTarget(Convert.ToDecimal(Model.BudgetTarget.TargetNum), Model.BudgetSum) ? "panel-green" : "panel-red") ">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
                             <i class="fa fa-money fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge" id="BudgetSum">$@Convert.ToDecimal(ViewBag.objectSpend)</div>
-                            <div>Spend Budget!</div>
+                            <div class="huge" id="BudgetSum">$@Model.BudgetSum</div>
+                            <div>Spend Budget</div>
                         </div>
                     </div>
                 </div>
                 <a id="budgetpanel" class="pointer">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <span class="pull-right">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
@@ -158,7 +176,9 @@
             <table class="table container-fluid table-condensed table-responsive">
                 <tr class="dt-head-center">
                     <th style="width: 75%">
-                        <button id="btnCreate" name="btnCreate" class="btn btn-link btn-xs pull-left" aria-hidden="true"><span class="glyphicon glyphicon-plus"></span></button>
+                        <button id="btnCreate" name="btnCreate" class="btn btn-link btn-xs pull-left" aria-hidden="true">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
                         Subject
                     </th>
                     <th>
@@ -176,21 +196,24 @@
                     {
                         color = "alert-primary";
                     }
-                    else if (item.Priority == 2)
-                    {
-                        color = "alert-info";
-                    }
-                    else if (item.Priority == 3)
-                    {
-                        color = "alert-success";
-                    }
-                    else if (item.Priority == 4)
-                    {
-                        color = "alert-warning";
-                    }
                     else
                     {
-                        color = "alert-danger";
+                        if (item.Priority == 2)
+                        {
+                            color = "alert-info";
+                        }
+                        else if (item.Priority == 3)
+                        {
+                            color = "alert-success";
+                        }
+                        else if (item.Priority == 4)
+                        {
+                            color = "alert-warning";
+                        }
+                        else
+                        {
+                            color = "alert-danger";
+                        }
                     }
                     <tr class="@color h4" role="alert">
                         <td>
@@ -204,8 +227,12 @@
                             @*@Html.ActionLink("Edit", "Edit", new { id = item.RockId }) |
                         @Html.ActionLink("Details", "Details", new { id = item.RockId }) |
                         @Html.ActionLink("Delete", "Delete", new { id = item.RockId })*@
-                            <button rid="@item.RockId" data-url="@Url.Action("Edit", "Rocks")"name="editbtn" class="btn btn-link btn-sm EditRock" aria-hidden="true"><span class="glyphicon glyphicon-edit"></span></button>
-                            <button rid="@item.RockId" data-url="@Url.Action("Done", "Rocks")"name="donebtn" class="btn btn-link btn-sm DoneRock" aria-hidden="true"><span class="glyphicon glyphicon-ok"></span></button>
+                            <button rid="@item.RockId" data-url="@Url.Action("Edit", "Rocks")"name="editbtn" class="btn btn-link btn-sm EditRock" aria-hidden="true">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                            <button rid="@item.RockId" data-url="@Url.Action("Done", "Rocks")"name="donebtn" class="btn btn-link btn-sm DoneRock" aria-hidden="true">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
 
                         </td>
                         <td>
@@ -214,15 +241,16 @@
                             {
                                 <button type="button" class="btn btn-block btn-danger btn-sm pull-right">Over</button>
                             }
-                            else if (item.DateDue == DateTime.Today)
+                            else
                             {
-                                <button type="button" class="btn btn-block btn-info btn-sm" style="float: right">Today</button>
-
-                            }
-                            else if (datedif.Days > 0 && datedif.Days <= 9)
-                            {
-                                <button type="button" class="btn btn-block btn-default btn-sm" style="float: right"> @datedif.Days days </button>
-
+                                if (item.DateDue == DateTime.Today)
+                                {
+                                    <button type="button" class="btn btn-block btn-info btn-sm" style="float: right">Today</button>
+                                }
+                                else if (datedif.Days > 0 && datedif.Days <= 9)
+                                {
+                                    <button type="button" class="btn btn-block btn-default btn-sm" style="float: right"> @datedif.Days days </button>
+                                }
                             }
 
                         </td>
@@ -324,9 +352,7 @@
     </div>
 
 
-
-
-@*Calendar*@
+/*Calendar*/
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -411,7 +437,6 @@
                                     <option value="black">Sam</option>
 
 
-
                                 </select>
                             </div>
                             <button type="button" id="btnSaveCal" class="btn btn-success">Save</button>
@@ -422,14 +447,6 @@
                 </div>
             </div>
         </div>
-    </div>
-}
-else
-{
-    
-    <div class="alert alert-danger">
-        <div class="h4">401 - Unauthorized</div>
-        <p>You do not have permission to access this page. Please contact IT Department for further infomation.</p>
     </div>
 }
 @section Scripts
@@ -749,7 +766,7 @@ else
                     Description: $('#txtDescription').val(),
                     ThemeColor: $('#ddThemeColor').val(),
                     IsFullDay: $('#chkIsFullDay').is(':checked')
-                }
+                };
                 saveEvent(data);
                 // call function for submit data to the server
             });

@@ -12,12 +12,14 @@ namespace ENoticeBoard
     using System;
     using System.Collections.Generic;
     
-    public partial class Rock
+    public partial class Vw_RocksWithinFinancialPeriod
     {
+        public System.DateTime DateCreated { get; set; }
+        public string FinancialPeriod { get; set; }
+        public string FinancialYear { get; set; }
         public int RockId { get; set; }
         public string Subject { get; set; }
         public int Priority { get; set; }
-        public System.DateTime DateCreated { get; set; }
         public System.DateTime DateDue { get; set; }
         public bool Done { get; set; }
         public bool isDeleted { get; set; }

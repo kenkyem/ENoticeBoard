@@ -254,6 +254,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Target.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -265,7 +268,9 @@
     <Compile Include="ViewModels\GroupByModel.cs" />
     <Compile Include="ViewModels\ObjectFormViewModel.cs" />
     <Compile Include="ViewModels\ObjectSummaryViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\RockFormViewModel.cs" />
+    <Compile Include="ViewModels\RockSummaryViewModel.cs" />
     <Compile Include="Vw_BreakagesWithinFinancialPeriod.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -273,6 +278,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Vw_ObjectsWithinFinancialPeriod.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_RocksWithinFinancialPeriod.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -493,6 +501,9 @@
     <Content Include="Views\Downtimes\Index.cshtml" />
     <Content Include="Views\Downtimes\Summary.cshtml" />
     <Content Include="Views\Rocks\Summary.cshtml" />
+    <Content Include="Views\Rocks\Details.cshtml" />
+    <Content Include="Views\Rocks\EditinSummary.cshtml" />
+    <Content Include="Views\Rocks\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace ENoticeBoard.ViewModels
 {
     public class RockFormViewModel
     {
-        
-        public List<Rock> Rocks { get; set; }
-        public List<DropDownBoxList> Monthddl { get; set; }
-        public List<DropDownBoxList> Yearddl { get; set; }
-        public string selectedMonth { get; set; }
-        public string selectedYear { get; set; }
+        public int RockId { get; set; }
+        public string Subject { get; set; }
+        public int Priority { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateDue { get; set; }
+        public bool Done { get; set; }
     }
 }

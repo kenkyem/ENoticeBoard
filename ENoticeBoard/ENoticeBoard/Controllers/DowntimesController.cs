@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
+
 namespace ENoticeBoard.Controllers
 {
     public class DowntimesController : Controller
@@ -23,6 +24,8 @@ namespace ENoticeBoard.Controllers
                 year = BreakagesController.CurrentYear();
             }
 
+            ViewBag.DTPlanned = _db.Targets.Single(t => t.Subject == "Downtime_Planned").TargetNum;
+            ViewBag.DTUnplanned= _db.Targets.Single(t => t.Subject == "Downtime_Unplanned").TargetNum;
             var model = new DowntimeSummaryViewModel()
             {
                 DowntimeWFPs = _db.Vw_DowntimesWithinFinancialPeriod
@@ -49,6 +52,7 @@ namespace ENoticeBoard.Controllers
                 }).Distinct().ToList(),
                 SelectedPeriod = period,
                 SelectedYear = year
+                
 
             };
             

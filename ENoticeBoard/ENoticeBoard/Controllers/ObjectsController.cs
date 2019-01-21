@@ -25,6 +25,7 @@ namespace ENoticeBoard.Controllers
                 period= BreakagesController.CurrentPeriod();
                 year = BreakagesController.CurrentYear();
             }
+            var o= ViewBag.budget = _db.Targets.Single(t => t.Subject == "Budget").TargetNum;
             var model = new ObjectSummaryViewModel()
             {
                 ObjectWFPs = _db.Vw_ObjectsWithinFinancialPeriod.Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false).ToList(),

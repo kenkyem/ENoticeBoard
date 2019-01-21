@@ -37,5 +37,7 @@ namespace ENoticeBoard
         public virtual DbSet<Vw_BreakagesWithinFinancialPeriod> Vw_BreakagesWithinFinancialPeriod { get; set; }
         public virtual DbSet<Downtime> Downtimes { get; set; }
         public virtual DbSet<Vw_DowntimesWithinFinancialPeriod> Vw_DowntimesWithinFinancialPeriod { get; set; }
+        public virtual DbSet<Target> Targets { get; set; }
+        public virtual DbSet<Vw_RocksWithinFinancialPeriod> Vw_RocksWithinFinancialPeriod { get; set; }
     }
 }

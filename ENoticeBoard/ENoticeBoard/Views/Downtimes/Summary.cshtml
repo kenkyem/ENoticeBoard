@@ -9,8 +9,10 @@
 </style>
 
 <div id="add" class="form-inline">
-    <div class="form-group">
-        <button id="btnCreateDT" name="btnCreateDT" class="btn pull-left glyphicon glyphicon-plus" aria-hidden="true"></button>
+    <div class="pull-left">
+        <div class="form-group">
+            <button id="btnCreateDT" name="btnCreateDT" class="btn glyphicon glyphicon-plus" aria-hidden="true"></button>
+        </div>
     </div>
     <div class="pull-right">
         <div class="form-group">
@@ -31,6 +33,13 @@
 
 <table class="table table-bordered table-condensed  table-responsive display table-striped" id="DTTable" style="word-wrap: normal;width: 100%!important">
     <thead>
+    <tr>
+        <th colspan="1"> Downtime Target </th>
+        <th colspan="5">Planned:
+            @ViewBag.DTPlanned min -
+            Unplanned:
+            @ViewBag.DTUnplanned min</th>
+    </tr>
     <tr>
         <th style="width: 40% !important">
             Subject
@@ -145,6 +154,7 @@
                 null,
                 null
             ]
+
         });
 
     });

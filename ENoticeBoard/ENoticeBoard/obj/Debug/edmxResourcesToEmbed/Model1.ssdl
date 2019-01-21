@@ -72,6 +72,7 @@
     <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
     <Property Name="DateDue" Type="datetime2" Precision="7" Nullable="false" />
     <Property Name="Done" Type="bit" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Sites">
     <Key>
@@ -79,6 +80,14 @@
     </Key>
     <Property Name="SiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Subject" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Target">
+    <Key>
+      <PropertyRef Name="TargetId" />
+    </Key>
+    <Property Name="TargetId" Type="int" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="TargetNum" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -153,6 +162,28 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_ObjectsWithinFinancialPeriod' 
     <Property Name="Description" Type="nvarchar" MaxLength="300" />
     <Property Name="isDeleted" Type="bit" Nullable="false" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_RocksWithinFinancialPeriod">
+    <Key>
+      <PropertyRef Name="DateCreated" />
+      <PropertyRef Name="RockId" />
+      <PropertyRef Name="Subject" />
+      <PropertyRef Name="Priority" />
+      <PropertyRef Name="DateDue" />
+      <PropertyRef Name="Done" />
+      <PropertyRef Name="isDeleted" />
+    </Key>
+    <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="FinancialPeriod" Type="nvarchar" MaxLength="2" />
+    <Property Name="FinancialYear" Type="nvarchar" MaxLength="4" />
+    <Property Name="RockId" Type="int" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Priority" Type="int" Nullable="false" />
+    <Property Name="DateDue" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Done" Type="bit" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+  </EntityType>
   <Association Name="FK_Breakages_Breakagetypes">
     <End Role="BreakageTypes" Type="Self.BreakageTypes" Multiplicity="1" />
     <End Role="Breakages" Type="Self.Breakages" Multiplicity="*" />
@@ -198,6 +229,7 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_ObjectsWithinFinancialPeriod' 
     <EntitySet Name="Object" EntityType="Self.Object" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rocks" EntityType="Self.Rocks" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sites" EntityType="Self.Sites" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Target" EntityType="Self.Target" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Vw_BreakagesWithinFinancialPeriod" EntityType="Self.Vw_BreakagesWithinFinancialPeriod" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -237,6 +269,19 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_ObjectsWithinFinancialPeriod' 
     [Vw_ObjectsWithinFinancialPeriod].[Description] AS [Description], 
     [Vw_ObjectsWithinFinancialPeriod].[isDeleted] AS [isDeleted]
     FROM [dbo].[Vw_ObjectsWithinFinancialPeriod] AS [Vw_ObjectsWithinFinancialPeriod]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_RocksWithinFinancialPeriod" EntityType="Self.Vw_RocksWithinFinancialPeriod" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_RocksWithinFinancialPeriod].[DateCreated] AS [DateCreated], 
+    [Vw_RocksWithinFinancialPeriod].[FinancialPeriod] AS [FinancialPeriod], 
+    [Vw_RocksWithinFinancialPeriod].[FinancialYear] AS [FinancialYear], 
+    [Vw_RocksWithinFinancialPeriod].[RockId] AS [RockId], 
+    [Vw_RocksWithinFinancialPeriod].[Subject] AS [Subject], 
+    [Vw_RocksWithinFinancialPeriod].[Priority] AS [Priority], 
+    [Vw_RocksWithinFinancialPeriod].[DateDue] AS [DateDue], 
+    [Vw_RocksWithinFinancialPeriod].[Done] AS [Done], 
+    [Vw_RocksWithinFinancialPeriod].[isDeleted] AS [isDeleted]
+    FROM [dbo].[Vw_RocksWithinFinancialPeriod] AS [Vw_RocksWithinFinancialPeriod]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_Breakages_Breakagetypes" Association="Self.FK_Breakages_Breakagetypes">
       <End Role="BreakageTypes" EntitySet="BreakageTypes" />

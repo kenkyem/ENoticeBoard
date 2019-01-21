@@ -23,6 +23,7 @@ namespace ENoticeBoard.Controllers
                 period= CurrentPeriod();
                 year = CurrentYear();
             }
+            var b= ViewBag.breakage = _db.Targets.Single(t => t.Subject == "Breakage").TargetNum;
             var model = new BreakageSummaryViewFormModel()
             {
                 BreakageWFPs = _db.Vw_BreakagesWithinFinancialPeriod.Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false).ToList(),

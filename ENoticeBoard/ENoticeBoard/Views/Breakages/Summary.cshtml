@@ -23,8 +23,10 @@
     }
 </style>
 <form class="form-inline">
-    <div class="form-group">
-        <button type="button" id="btnCreateBrk" name="btnCreate" class="btn pull-left glyphicon glyphicon-plus" aria-hidden="true"></button>
+    <div class="pull-left" >
+        <div class="form-group">
+            <button type="button" id="btnCreateBrk" name="btnCreate" class="btn glyphicon glyphicon-plus" aria-hidden="true"></button>
+        </div>
     </div>
     <div class="pull-right">
         <div class="form-group">
@@ -44,26 +46,29 @@
 </form>    
     
 
-<table class="table table-bordered table-condensed table-responsive display table-striped" id="BreakageTB" style="word-wrap: normal; table-layout: fixed">
+<table class="table table-bordered table-condensed table-responsive display table-striped" id="BreakageTB" style="word-wrap: normal; width: 100%">
     <thead>
-        <tr>
-            <th style="width: 45%">
-                Subject
-            </th>
-            <th style="width: 10%">
-                Date
-            </th>
-            <th style="width: 10%">
-                Site
-            </th>
-            <th style="width: 10%">
-                Cost
-            </th>
-            <th style="width: 10%">
-                Type
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th colspan="6">Breakage Target : $ @ViewBag.breakage.ToString("###,0.00")</th>
+    </tr>
+    <tr>
+        <th style="width: 40%">
+            Subject
+        </th>
+        <th style="width: 10%">
+            Date
+        </th>
+        <th style="width: 10%">
+            Site
+        </th>
+        <th style="width: 10%">
+            Cost
+        </th>
+        <th style="width: 10%">
+            Type
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
     @foreach (var item in Model.BreakageWFPs)
@@ -143,7 +148,7 @@
         $('#BreakageTB').DataTable({
             autoWidth: false,
             columns: [
-                { "width": "45%" },
+                { "width": "40%" },
                 { "width": "10%" },
                 { "width": "10%" },
                 { "width": "10%" },
