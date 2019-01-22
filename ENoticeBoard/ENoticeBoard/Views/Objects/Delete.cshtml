@@ -18,7 +18,7 @@
         @Html.HiddenFor(model => model.ObjectId)
 
         <dt>
-            @Html.DisplayNameFor(model => model.ObjectName)
+            Object
         </dt>
 
         <dd>
@@ -38,7 +38,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Date)
+            @Model.Date.ToShortDateString()
         </dd>
 
         <dt>

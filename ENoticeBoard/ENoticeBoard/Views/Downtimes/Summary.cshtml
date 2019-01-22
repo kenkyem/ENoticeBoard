@@ -4,14 +4,19 @@
     .pull-right{
         margin-bottom: 5px;
     }
-   
+    th {
+        vertical-align: middle;
+        text-align: center;
+    }
      
 </style>
 
 <div id="add" class="form-inline">
     <div class="pull-left">
         <div class="form-group">
-            <button id="btnCreateDT" name="btnCreateDT" class="btn glyphicon glyphicon-plus" aria-hidden="true"></button>
+            <button type="button" id="btnCreateDT" name="btnCreateDT" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </button>
         </div>
     </div>
     <div class="pull-right">
@@ -25,7 +30,7 @@
             @Html.DropDownListFor(m => m.SelectedYear, new SelectList(Model.Yearddl, "Text", "Value"), new { @class = "form-control" })
         </div>
         <div class="form-group">
-            <button type="button" id="btnRefresh" name="btnRefresh" class="btn ">Refresh</button>
+            <button type="button" id="btnRefresh" name="btnRefresh" class="btn btn-default">Refresh</button>
         </div>
     </div>
 

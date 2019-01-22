@@ -1,0 +1,37 @@
+﻿@model ENoticeBoard.Target
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Subject)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Subject)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TargetNum)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TargetNum)
+            </dd>
+    
+        </dl>
+    </div>
+    
+</body>
+</html>

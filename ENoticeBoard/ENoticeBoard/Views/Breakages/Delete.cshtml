@@ -1,4 +1,4 @@
-﻿@model ENoticeBoard.Breakage
+﻿@model ENoticeBoard.ViewModels.BreakageFormViewModel
 <style type="text/css">
     .dl-horizontal dt {
         text-align: left;
@@ -13,7 +13,7 @@
 <div>
     <dl class="dl-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.BreakageId)
+        @Html.HiddenFor(model => model.Id)
         <dt>
             @Html.DisplayNameFor(model => model.Subject)
         </dt>
@@ -27,15 +27,21 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Date)
+            @Model.Date.ToShortDateString()
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Site)
+            Site
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Site)
+            @foreach (var site in Model.Sites)
+            {
+                if (site.SiteId == Model.SiteId)
+                {
+                    @site.Subject   
+                }
+            }
         </dd>
 
         <dt>
@@ -47,11 +53,17 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Type)
+            Type
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Type)
+            @foreach (var type in Model.Types)
+            {
+                if (type.TypeId == Model.TypeId)
+                {
+                    @type.Subject
+                }
+            }
         </dd>
 
     </dl>
@@ -70,7 +82,7 @@
 
 <script>
     $('#btnDeleteBreakage').click(function() {
-        var id = $("#BreakageId").val();
+        var id = $("#Id").val();
 
 
         $.ajax({

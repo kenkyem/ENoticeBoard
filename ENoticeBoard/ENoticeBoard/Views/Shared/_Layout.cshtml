@@ -11,11 +11,12 @@
     @Scripts.Render("~/bundles/app")
     <link rel="stylesheet" type="text/css" href="~/Content/DataTables/datatables.min.css"/>
     <script src="~/Content/DataTables/datatables.min.js"></script>
+    
    
     @RenderSection("scripts", required: false)
     <style>
         .navbar-brand {
-            background: url('Content/themes/base/images/one-harvest-logo.png') no-repeat;
+            background: url('/Content/themes/base/images/one-harvest-logo.png') no-repeat;
             background-size: 50px 45px;
             width: 50px;
             background-color: white;
@@ -56,10 +57,10 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("E-Board", "Index", "Home")</li>
-                @*<li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                <li>@Html.ActionLink("Manage", "Manage", "Home")</li>
+                @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
             </ul>
-            @*@Html.Partial("_LoginPartial")*@
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
 </div>
@@ -67,7 +68,7 @@
     @RenderBody()
     <hr/>
     <footer>
-        <p>&copy; @DateTime.Now.Year - One Harvest IT Department</p>
+        <p>&copy; 2019 - One Harvest IT Department</p>
     </footer>
 </div>
 

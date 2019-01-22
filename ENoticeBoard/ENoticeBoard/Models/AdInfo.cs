@@ -6,11 +6,11 @@ namespace ENoticeBoard.Models
 {
     public class AdInfo
     {
-         public static string GetDisplayNameFromAd(string username)
+         public static string GetDisplayNameFromAd(string name)
         {
-            using (PrincipalContext ctx = new System.DirectoryServices.AccountManagement.PrincipalContext(ContextType.Domain, "Oneharvest"))
+            using (PrincipalContext ctx = new PrincipalContext(ContextType.Domain, "Oneharvest"))
             {
-                using (UserPrincipal user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, username))
+                using (UserPrincipal user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, name))
                 {
                     if (user != null)
                     {
@@ -28,11 +28,11 @@ namespace ENoticeBoard.Models
             return "";
         }
            
-        public static List<string> GetDepartmentFromAd(string username)
+        public static List<string> GetDepartmentFromAd(string name)
         {
             using (PrincipalContext ctx = new PrincipalContext(ContextType.Domain, "Oneharvest"))
             {
-                using (UserPrincipal user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, username))
+                using (UserPrincipal user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, name))
                 {
                     if (user != null)
                     {
@@ -44,11 +44,11 @@ namespace ENoticeBoard.Models
         }
 
 
-        public static string GetEmpNoFromAd(string username)
+        public static string GetEmpNoFromAd(string name)
         {
-            using (PrincipalContext ctx = new System.DirectoryServices.AccountManagement.PrincipalContext(ContextType.Domain, "Oneharvest"))
+            using (PrincipalContext ctx = new PrincipalContext(ContextType.Domain, "Oneharvest"))
             {
-                using (UserPrincipal user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, username))
+                using (UserPrincipal user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, name))
                 {
                     if (user != null)
                     {
@@ -58,11 +58,11 @@ namespace ENoticeBoard.Models
             }
             return "";
         }
-        public static string GetEmailFromAd(string username)
+        public static string GetEmailFromAd(string name)
         {
-            using (PrincipalContext ctx = new System.DirectoryServices.AccountManagement.PrincipalContext(ContextType.Domain, "Oneharvest"))
+            using (PrincipalContext ctx = new PrincipalContext(ContextType.Domain, "Oneharvest"))
             {
-                using (UserPrincipal user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, username))
+                using (UserPrincipal user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, name))
                 {
                     if (user != null)
                     {

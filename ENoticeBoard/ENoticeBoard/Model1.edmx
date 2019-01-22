@@ -21,7 +21,7 @@
           <Key>
             <PropertyRef Name="TypeId" />
           </Key>
-          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subject" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Downtimes">
@@ -41,7 +41,7 @@
           <Key>
             <PropertyRef Name="TypeId" />
           </Key>
-          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subject" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Events">
@@ -98,9 +98,10 @@
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Color" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Color" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'EnoticeBoard.dbo.Vw_BreakagesWithinFinancialPeriod' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -354,20 +355,11 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
           <Property Name="Done" Type="Boolean" Nullable="false" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityContainer Name="MyDatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Breakages" EntityType="Self.Breakage" />
           <EntitySet Name="Events" EntityType="Self.Event" />
           <EntitySet Name="Objects" EntityType="Self.Object" />
           <EntitySet Name="Rocks" EntityType="Self.Rock" />
-          <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="BreakageTypes" EntityType="MyDatabaseModel.BreakageType" />
           <EntitySet Name="Downtimetypes" EntityType="MyDatabaseModel.Downtimetype" />
           <EntitySet Name="Sites" EntityType="MyDatabaseModel.Site" />
@@ -389,6 +381,7 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
           <EntitySet Name="Vw_DowntimesWithinFinancialPeriod" EntityType="MyDatabaseModel.Vw_DowntimesWithinFinancialPeriod" />
           <EntitySet Name="Targets" EntityType="MyDatabaseModel.Target" />
           <EntitySet Name="Vw_RocksWithinFinancialPeriod" EntityType="MyDatabaseModel.Vw_RocksWithinFinancialPeriod" />
+          <EntitySet Name="Users" EntityType="MyDatabaseModel.User" />
         </EntityContainer>
         <EntityType Name="BreakageType">
           <Key>
@@ -551,6 +544,15 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
           <Property Name="Done" Type="Boolean" Nullable="false" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -605,15 +607,6 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="DateDue" ColumnName="DateDue" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="MyDatabaseModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Color" ColumnName="Color" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -721,6 +714,16 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
                 <ScalarProperty Name="FinancialYear" ColumnName="FinancialYear" />
                 <ScalarProperty Name="FinancialPeriod" ColumnName="FinancialPeriod" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MyDatabaseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

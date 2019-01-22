@@ -219,7 +219,20 @@ namespace ENoticeBoard.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView(downtime);
+            
+            var model = new DowntimeFormViewModel()
+            {
+                Id = downtime.DownTimeId,
+                Subject = downtime.Subject,
+                Date = downtime.Date,
+                Description = downtime.Description,
+                Duration = downtime.Duration,
+                Type = downtime.Type,
+                Types = _db.Downtimetypes.ToList(),
+                Status = downtime.Status
+            };
+            return PartialView(model);
+
         }
 
         [HttpPost]

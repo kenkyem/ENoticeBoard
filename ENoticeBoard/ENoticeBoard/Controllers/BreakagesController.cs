@@ -236,12 +236,29 @@ namespace ENoticeBoard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Breakage breakage = _db.Breakages.Find(id);
             if (breakage == null)
             {
                 return HttpNotFound();
             }
-            return PartialView(breakage);
+            
+            var model = new BreakageFormViewModel()
+            {
+                Id= breakage.BreakageId,
+                Subject = breakage.Subject,
+                Date = breakage.Date,
+                SiteId = breakage.Site,
+                Cost = breakage.Cost,
+                TypeId = breakage.Type,
+                Sites = _db.Sites.ToList(),
+                Types = _db.BreakageTypes.ToList()
+                
+                
+            };
+            
+
+            return PartialView(model);
         }
 
         [HttpPost]

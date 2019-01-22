@@ -62,7 +62,11 @@
 
         .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
             vertical-align: middle;
-        }
+    }
+    th {
+        vertical-align: middle;
+        text-align: center;
+    }
 </style>
 <!DOCTYPE html>
 
@@ -423,21 +427,9 @@ else
                                 <label>Description</label>
                                 <textarea id="txtDescription" rows="3" class="form-control"></textarea>
                             </div>
+                            <label>Member</label>
                             <div class="form-group">
-                                <label>Member</label>
-                                <select id="ddThemeColor" class="form-control">
-                                    <option value="">Default</option>
-                                    <option value="crimson">Andrew</option>
-                                    <option value="lightcoral">Angela</option>
-                                    <option value="SlateBlue">Ash</option>
-                                    <option value="purple">Brad</option>
-                                    <option value="indego">Felipe</option>
-                                    <option value="orange">Miles</option>
-                                    <option value="green">Peter</option>
-                                    <option value="black">Sam</option>
-
-
-                                </select>
+                                @Html.DropDownListFor(m => m.User, new SelectList(Model.Users, "Color", "Name"), "", new {@class = "form-control" })
                             </div>
                             <button type="button" id="btnSaveCal" class="btn btn-success">Save</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -729,8 +721,10 @@ else
                     ed.setDate(ed.getDate() - 1);
                     $('#txtEnd').val(selectedEvent.end != null ? ed.toLocaleDateString("en-GB") : '');
                     $('#txtDescription').val(selectedEvent.description);
-                    $('#ddThemeColor').val(selectedEvent.color);
+                    $('#User').val(selectedEvent.color);
                 }
+                var s = $('#User').val(selectedEvent.color);
+                console.log("fsa");
                 $('#myCalModal').modal('hide');
                 $('#myCalModalSave').modal();
             }
@@ -764,7 +758,7 @@ else
                     Start: $('#txtStart').val().trim(),
                     End: $('#chkIsFullDay').is(':checked') ? null : end.toLocaleDateString("en-GB").trim(),
                     Description: $('#txtDescription').val(),
-                    ThemeColor: $('#ddThemeColor').val(),
+                    ThemeColor: $('#User').val(),
                     IsFullDay: $('#chkIsFullDay').is(':checked')
                 };
                 saveEvent(data);

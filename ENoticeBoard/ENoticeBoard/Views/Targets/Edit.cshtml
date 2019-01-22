@@ -1,0 +1,58 @@
+﻿@model ENoticeBoard.Target
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    @using (Html.BeginForm("Edit", "Targets", FormMethod.Post, new { @id = "Target" }))
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <div class="container-fluid">
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+            @Html.HiddenFor(model => model.TargetId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Subject)
+                @Html.EditorFor(model => model.Subject, new {htmlAttributes = new {@class = "form-control DisabledText" } })
+                @Html.ValidationMessageFor(model => model.Subject, "", new {@class = "text-danger"})
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TargetNum)
+                @Html.EditorFor(model => model.TargetNum, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.TargetNum, "", new {@class = "text-danger"})
+            </div>
+            </div>
+            <div>
+                <input type="submit" value="Save" class="btn btn-success"/>
+            </div>
+        </div>
+    }
+    
+    
+</body>
+</html>
+<script>
+    $('.DisabledText').keydown(function (event) {
+
+        var key = (event.which) ? event.which : event.keyCode;
+        if (key === 8 || key === 46) {
+            event.preventDefault();
+            return false;
+        } else {
+            event.preventDefault();
+            return false;
+        }
+    });
+
+</script>

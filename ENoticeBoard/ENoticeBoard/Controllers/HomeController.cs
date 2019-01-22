@@ -70,12 +70,23 @@ namespace ENoticeBoard.Controllers
                 DowntimeTargetPlanned = _db.Targets.SingleOrDefault(t => t.Subject == "Downtime_Planned"),
                 DowntimeTargetUnplanned = _db.Targets.SingleOrDefault(t => t.Subject == "Downtime_Unplanned"),
                 BreakageTarget = _db.Targets.SingleOrDefault(t => t.Subject == "Breakage"),
-                BudgetTarget = _db.Targets.SingleOrDefault(t => t.Subject =="Budget")
+                BudgetTarget = _db.Targets.SingleOrDefault(t => t.Subject =="Budget"),
+                Users = _db.Users.ToList()
                 
             };
             
 
 
+            return View(model);
+        }
+
+        public ActionResult Manage()
+        {
+            var model = new ManageFormViewModel()
+            {
+                Users = _db.Users.ToList(),
+                Targets = _db.Targets.ToList()
+            };
             return View(model);
         }
 
@@ -99,39 +110,7 @@ namespace ENoticeBoard.Controllers
         //    decimal objectSpend = spend.Any() ? spend.Sum(x => x.Cost) : 0M;
         //    return objectSpend;
         //}
-        //public decimal GetSumBreakage()
-        //{
-        //    var brreakage = _db.Vw_BreakagesWithinFinancialPeriod.Where(x =>
-        //            x.FinancialPeriod == _currentPeriod 
-        //            && x.FinancialYear == _currentYear 
-        //            && x.isDeleted == false)
-        //        .ToList();
-        //    var breakageCost= brreakage.Any() ? brreakage.Sum(x => x.Cost) : 0M;
-        //    return breakageCost;
-        //}
-
-        //public int GetSumDowntime()
-        //{
-        //    var downtime = _db.Vw_DowntimesWithinFinancialPeriod.Where(x =>
-        //        x.FinancialPeriod == _currentPeriod
-        //        && x.FinancialYear == _currentYear
-        //        && x.isDeleted == false)
-        //        .ToList();
-        //    var downtimeDuration= downtime.Any() ? downtime.Sum(x => x.Duration) : 0;
-        //    return downtimeDuration;
-
-        //}
-
-
-
-
-
-
-
-
-
-
-
+        
 
 
         //Calendar

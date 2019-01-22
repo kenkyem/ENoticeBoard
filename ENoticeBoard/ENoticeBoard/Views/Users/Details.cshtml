@@ -1,0 +1,47 @@
+﻿@model ENoticeBoard.User
+
+@{
+    ViewBag.Title = "Details";
+    
+}
+
+
+<style type="text/css">
+    .dl-horizontal dt {
+        text-align: left;
+        width: auto;
+    }
+
+    .dl-horizontal dd {
+        margin-left: 45px;
+    }
+</style>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+    </dl>
+</div>
+
