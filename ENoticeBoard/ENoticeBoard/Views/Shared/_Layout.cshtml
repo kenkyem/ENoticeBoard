@@ -9,10 +9,15 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/app")
-    <link rel="stylesheet" type="text/css" href="~/Content/DataTables/datatables.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/DataTables/datatables.min.css" />
     <script src="~/Content/DataTables/datatables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.simple-color.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-colorpicker/css/bootstrap-colorpicker.css" />
+    <script src="~/Scripts/bootstrap-colorpicker.js"></script>
     
-   
+
+
     @RenderSection("scripts", required: false)
     <style>
         .navbar-brand {
@@ -22,15 +27,18 @@
             background-color: white;
             display: block;
         }
+
         .navbar-inverse .navbar-brand:hover {
             color: white;
             background-color: white;
         }
+
         .skip-links {
             position: absolute;
             left: -999em;
             width: 990em;
         }
+
         .skip-link:focus {
             top: 0; /* Now the link will appear */
         }

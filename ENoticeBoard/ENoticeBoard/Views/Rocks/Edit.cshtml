@@ -43,6 +43,7 @@
 </form>
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
+    
 }
 
 <script type="text/javascript">
@@ -52,6 +53,11 @@
         changeYear: true,
         minDate: 0,
         yearRange: "-2:+10"
+    });
+    $(document).ready(function () {
+    $('input[type=color]').colorpicker({
+        
+    });
     });
     $('#btnSaveEditt').click(function () {
         if ($('#Subject').val().trim() === "") {
