@@ -14,6 +14,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="MyDatabaseModel.Event">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="EventID" ColumnName="EventID" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Start" ColumnName="Start" />
+          <ScalarProperty Name="End" ColumnName="End" />
+          <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
+          <ScalarProperty Name="TempCol" ColumnName="TempCol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Objects">
       <EntityTypeMapping TypeName="MyDatabaseModel.Object">
         <MappingFragment StoreEntitySet="Object">
@@ -149,25 +162,10 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="MyDatabaseModel.User">
         <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-          <ScalarProperty Name="Role" ColumnName="Role" />
           <ScalarProperty Name="Color" ColumnName="Color" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Events">
-      <EntityTypeMapping TypeName="MyDatabaseModel.Event">
-        <MappingFragment StoreEntitySet="Events">
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
-          <ScalarProperty Name="End" ColumnName="End" />
-          <ScalarProperty Name="Start" ColumnName="Start" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Subject" ColumnName="Subject" />
-          <ScalarProperty Name="EventID" ColumnName="EventID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

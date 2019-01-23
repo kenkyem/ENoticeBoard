@@ -26,6 +26,7 @@ namespace ENoticeBoard
         }
     
         public virtual DbSet<Breakage> Breakages { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Object> Objects { get; set; }
         public virtual DbSet<Rock> Rocks { get; set; }
         public virtual DbSet<BreakageType> BreakageTypes { get; set; }
@@ -38,6 +39,5 @@ namespace ENoticeBoard
         public virtual DbSet<Target> Targets { get; set; }
         public virtual DbSet<Vw_RocksWithinFinancialPeriod> Vw_RocksWithinFinancialPeriod { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Event> Events { get; set; }
     }
 }

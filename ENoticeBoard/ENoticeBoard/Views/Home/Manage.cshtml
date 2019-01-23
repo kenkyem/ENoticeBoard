@@ -1,178 +1,155 @@
-﻿
-@using System.Drawing
-@model ENoticeBoard.ViewModels.ManageFormViewModel
+﻿@model ENoticeBoard.ViewModels.ManageFormViewModel
 
 @{
     ViewBag.Title = "Manage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<head>
-    <style type="text/css">
-        .fa {
-        }
+<style type="text/css">.fa { }</style>
 
-        
-    </style>
+<h2>Manage</h2>
 
-</head>
-<body>
-    <h2>Manage</h2>
-
-    @if (Model == null)
-    {
-        <div class="alert alert-danger">
-            <div class="h4">401 - Unauthorized</div>
-            <p>Only Admin can access this page.</p>
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-list-alt fa-fw"></i> User List
         </div>
-    }
-    else
-    {
-        <div class="container-fluid">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-list-alt fa-fw"></i> User List
-                    </div>
 
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <button type="button" id="btnAddUser" class="btn btn-default btn-sm">
-                                <span class="glyphicon glyphicon-plus"></span> Add
+        <div class="panel-body">
+            <div class="form-group">
+                <button type="button" id="btnAddUser" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-plus"></span> Add
+                </button>
+            </div>
+            <table class="table table-bordered table-condensed table-responsive display table-striped" id="userTB" style="word-wrap: normal; width: 100%">
+                <thead>
+                <tr>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Color
+                    </th>
+                    <th>
+                        
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Users)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Color)
+                        </td>
+                        <td>
+                            <button rid="@item.UserId" aria-hidden="true" class="btn btn-link btn-sm Edit">
+                                <span class="glyphicon glyphicon-edit"></span>
                             </button>
-                        </div>
-                        <table class="table table-bordered table-condensed table-responsive display table-striped" id="userTB" style="word-wrap: normal; width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Email
-                                    </th>
-                                    <th>
-                                        Name
-                                    </th>
-                                    <th>
-                                        Color
-                                    </th>
-                                    <th>
-                                        Role
-                                    </th>
-                                    <th>
-
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Users)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Email)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Name)
-                                        </td>
-                                        <td style="background:@item.Color">
-                                            @Html.DisplayFor(modelItem => item.Color)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Role)
-                                        </td>
-                                        <td>
-                                            <button rid="@item.UserId" aria-hidden="true" class="btn btn-link btn-sm Edit">
-                                                <span class="glyphicon glyphicon-edit"></span>
-                                            </button>
-                                            <button rid="@item.UserId" aria-hidden="true" class="btn btn-link btn-sm Detail">
-                                                <span class="glyphicon glyphicon-eye-open"></span>
-                                            </button>
-                                            <button rid="@item.UserId" aria-hidden="true" class="btn btn-link btn-sm Delete">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </td>
+                            <button rid="@item.UserId" aria-hidden="true" class="btn btn-link btn-sm Detail">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </button>
+                            <button rid="@item.UserId" aria-hidden="true" class="btn btn-link btn-sm Delete">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
 
 
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+            Target List
         </div>
 
-        <div class="container-fluid">
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
-                        Target List
-                    </div>
-
-                    <div class="panel-body">
-                        <table class="table table-bordered table-condensed table-responsive display table-striped" id="targetTB" style="word-wrap: normal; width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Subject
-                                    </th>
-                                    <th>
-                                        Target
-                                    </th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Targets)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Subject)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TargetNum)
-                                        </td>
-                                        <td>
-                                            <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetEdit">
-                                                <span class="glyphicon glyphicon-edit"></span>
-                                            </button>
-                                            <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetDetail">
-                                                <span class="glyphicon glyphicon-eye-open"></span>
-                                            </button>
-                                            <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetDelete">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </td>
+        <div class="panel-body">
+            <table class="table table-bordered table-condensed table-responsive display table-striped" id="targetTB" style="word-wrap: normal; width: 100%">
+                <thead>
+                <tr>
+                    <th>
+                        Subject
+                    </th>
+                    <th>
+                        Target
+                    </th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Targets)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Subject)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TargetNum)
+                            </td>
+                            <td>
+                                <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetEdit">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                                <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetDetail">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </button>
+                                <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetDelete">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
 
 
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="userModal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" onclick="javascript: window.location.reload();" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body" id="userBody">
+                @Html.Partial("Create","Users")
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="modal fade" id="userModal" role="dialog" data-backdrop="static">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" onclick="javascript: window.location.reload();" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel"></h4>
-                    </div>
-                    <div class="modal-body" id="userBody">
-                        @Html.Partial("Create", "Users")
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-</body>
 @section Scripts{
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <script type="text/javascript" src="farbtastic.js"></script>
+    <link rel="stylesheet" href="farbtastic.css" type="text/css" />
+    
 }
 
 <script>
-
+    $(document).ready(function() {
+        $('#userTB').DataTable({
+            
+        });
+       
+    });
 
     $('#btnAddUser').click(function() {
         $.ajax({
@@ -184,6 +161,7 @@
                 $('#myModalLabel').html("User");
                 $("#userBody").html(data);
                 $('#userModal').modal('show');
+
 
             },
             //compelete: function(data) {

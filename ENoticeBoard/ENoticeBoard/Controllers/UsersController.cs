@@ -39,7 +39,7 @@ namespace ENoticeBoard.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "UserId,Email,Name,Color,Role")] User user)
+        public ActionResult Create([Bind(Include = "UserId,Email,Name,Color")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -76,7 +76,7 @@ namespace ENoticeBoard.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserId,Email,Name,Color,Role")] User user)
+        public ActionResult Edit([Bind(Include = "UserId,Email,Name,Color")] User user)
         {
             if (ModelState.IsValid)
             {

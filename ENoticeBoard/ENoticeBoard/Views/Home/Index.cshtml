@@ -429,7 +429,7 @@ else
                             </div>
                             <label>Member</label>
                             <div class="form-group">
-                                @Html.DropDownListFor(m => m.User, new SelectList(Model.Users, "Email", "Name"), "", new {@class = "form-control" })
+                                @Html.DropDownListFor(m => m.User, new SelectList(Model.Users, "Color", "Name"), "", new {@class = "form-control" })
                             </div>
                             <button type="button" id="btnSaveCal" class="btn btn-success">Save</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -599,7 +599,6 @@ else
                                     start: moment(v.Start),
                                     end: v.End != null ? moment(v.End) : null,
                                     color: v.ThemeColor,
-                                    email: v.Email,
                                     allDay: v.IsFullDay
                                 });
                             });
@@ -677,7 +676,6 @@ else
                             End: event.end != null ? event.end.format('DD/MM/YYYY') : null,
                             Description: event.description,
                             ThemeColor: event.color,
-                            Email: event.email,
                             IsFullDay: event.allDay
                         };
                         saveEvent(data);
@@ -723,9 +721,10 @@ else
                     ed.setDate(ed.getDate() - 1);
                     $('#txtEnd').val(selectedEvent.end != null ? ed.toLocaleDateString("en-GB") : '');
                     $('#txtDescription').val(selectedEvent.description);
-                    $('#User').val(selectedEvent.email);
-                    
+                    $('#User').val(selectedEvent.color);
                 }
+                var s = $('#User').val(selectedEvent.color);
+                console.log("fsa");
                 $('#myCalModal').modal('hide');
                 $('#myCalModalSave').modal();
             }
@@ -759,7 +758,7 @@ else
                     Start: $('#txtStart').val().trim(),
                     End: $('#chkIsFullDay').is(':checked') ? null : end.toLocaleDateString("en-GB").trim(),
                     Description: $('#txtDescription').val(),
-                    Email: $('#User').val(),
+                    ThemeColor: $('#User').val(),
                     IsFullDay: $('#chkIsFullDay').is(':checked')
                 };
                 saveEvent(data);

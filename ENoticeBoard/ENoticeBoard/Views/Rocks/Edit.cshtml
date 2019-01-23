@@ -43,7 +43,6 @@
 </form>
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
-    
 }
 
 <script type="text/javascript">
@@ -54,7 +53,6 @@
         minDate: 0,
         yearRange: "-2:+10"
     });
-    
     $('#btnSaveEditt').click(function () {
         if ($('#Subject').val().trim() === "") {
             alert('Subject required');

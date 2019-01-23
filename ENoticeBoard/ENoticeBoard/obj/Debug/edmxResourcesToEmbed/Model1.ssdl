@@ -49,7 +49,7 @@
     <Property Name="Start" Type="datetime" Nullable="false" />
     <Property Name="End" Type="datetime" />
     <Property Name="ThemeColor" Type="nvarchar" MaxLength="10" />
-    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="TempCol" Type="nchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="Object">
     <Key>
@@ -97,8 +97,6 @@
     <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Color" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="Role" Type="nvarchar" MaxLength="10" />
-    <Property Name="EmployeeId" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'EnoticeBoard.dbo.Vw_BreakagesWithinFinancialPeriod' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
