@@ -82,6 +82,10 @@ namespace ENoticeBoard.Controllers
 
         public ActionResult Manage()
         {
+            if (!UserIsAdmin() || !UserIsIT())
+            {
+                return View();
+            }
             var model = new ManageFormViewModel()
             {
                 Users = _db.Users.ToList(),
@@ -99,6 +103,19 @@ namespace ENoticeBoard.Controllers
             return v;
 
         }
+        public bool UserIsAdmin()
+        {
+            string user = System.Web.HttpContext.Current.User.Identity.Name;
+            user = user.ToLower().Replace("oneharvest\\", "");
+            string userEmail = AdInfo.GetEmailFromAd(user);
+            foreach (var p in _db.Users)
+            {
+                if (userEmail.Equals(p.Email.ToLower()) && p.Role == "Admin")
+                    return true;
+            }
+            return false;
+        }
+        
         
 
         //public decimal GetSumBudget()
@@ -119,7 +136,19 @@ namespace ENoticeBoard.Controllers
             using (MyDatabaseEntities dc = new MyDatabaseEntities())
             {
                 var today = DateTime.Now.Date;
-                var events = dc.Events.Where(x=>x.End>=today).ToList();
+                //var events = dc.Events.Where(x=>x.End>=today).ToList();
+                //var users = dc.Users.ToList();
+                var eventtpreturn = from t1 in dc.Events
+                    join t2 in dc.Users on t1.Email equals t2.Email
+                    select new 
+                    {
+                        EventId = t1.EventID, Subject = t1.Subject, Description = t1.Description, Start = t1.Start,
+                        End = t1.End, ThemeColor = t2.Color, Email = t1.Email
+                    };
+
+                var events = eventtpreturn.ToList().Select(x => new Event {EventID =x.EventId,Subject = x.Subject,Description = x.Description,Start = x.Start,End=x.End,ThemeColor = x.ThemeColor,Email = x.Email}).ToList();
+
+
                 return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
@@ -141,7 +170,7 @@ namespace ENoticeBoard.Controllers
                         v.Start = e.Start;
                         v.End = e.End;
                         v.Description = e.Description;
-                        v.ThemeColor = e.ThemeColor;
+                        v.Email = e.Email;
                     }
                 }
                 else

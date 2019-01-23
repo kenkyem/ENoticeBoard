@@ -20,6 +20,6 @@ namespace ENoticeBoard
         public System.DateTime Start { get; set; }
         public Nullable<System.DateTime> End { get; set; }
         public string ThemeColor { get; set; }
-        public string TempCol { get; set; }
+        public string Email { get; set; }
     }
 }

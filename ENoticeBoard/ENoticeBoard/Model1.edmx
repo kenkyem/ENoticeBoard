@@ -54,7 +54,7 @@
           <Property Name="Start" Type="datetime" Nullable="false" />
           <Property Name="End" Type="datetime" />
           <Property Name="ThemeColor" Type="nvarchar" MaxLength="10" />
-          <Property Name="TempCol" Type="nchar" MaxLength="10" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Object">
           <Key>
@@ -102,6 +102,8 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Color" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="10" />
+          <Property Name="EmployeeId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'EnoticeBoard.dbo.Vw_BreakagesWithinFinancialPeriod' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -320,18 +322,6 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
           <NavigationProperty Name="Site1" Relationship="MyDatabaseModel.FK_Breakages_ToSites" FromRole="Breakage" ToRole="Site" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="Event">
-          <Key>
-            <PropertyRef Name="EventID" />
-          </Key>
-          <Property Name="EventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Subject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Start" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="End" Type="DateTime" Precision="3" />
-          <Property Name="ThemeColor" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="TempCol" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
         <EntityType Name="Object">
           <Key>
             <PropertyRef Name="ObjectId" />
@@ -357,7 +347,6 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
         </EntityType>
         <EntityContainer Name="MyDatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Breakages" EntityType="Self.Breakage" />
-          <EntitySet Name="Events" EntityType="Self.Event" />
           <EntitySet Name="Objects" EntityType="Self.Object" />
           <EntitySet Name="Rocks" EntityType="Self.Rock" />
           <EntitySet Name="BreakageTypes" EntityType="MyDatabaseModel.BreakageType" />
@@ -382,6 +371,7 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
           <EntitySet Name="Targets" EntityType="MyDatabaseModel.Target" />
           <EntitySet Name="Vw_RocksWithinFinancialPeriod" EntityType="MyDatabaseModel.Vw_RocksWithinFinancialPeriod" />
           <EntitySet Name="Users" EntityType="MyDatabaseModel.User" />
+          <EntitySet Name="Events" EntityType="MyDatabaseModel.Event" />
         </EntityContainer>
         <EntityType Name="BreakageType">
           <Key>
@@ -552,6 +542,20 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Color" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Name="EventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="End" Type="DateTime" Precision="3" />
+          <Property Name="ThemeColor" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -569,19 +573,6 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
                 <ScalarProperty Name="Site" ColumnName="Site" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Events">
-            <EntityTypeMapping TypeName="MyDatabaseModel.Event">
-              <MappingFragment StoreEntitySet="Events">
-                <ScalarProperty Name="EventID" ColumnName="EventID" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Start" ColumnName="Start" />
-                <ScalarProperty Name="End" ColumnName="End" />
-                <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
-                <ScalarProperty Name="TempCol" ColumnName="TempCol" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -720,10 +711,25 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MyDatabaseModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Color" ColumnName="Color" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="MyDatabaseModel.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
