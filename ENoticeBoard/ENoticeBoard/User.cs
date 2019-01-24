@@ -15,10 +15,10 @@ namespace ENoticeBoard
     {
         public int UserId { get; set; }
         [Required]
-        [StringLength(30)]
+        [StringLength(50)]
         public string Email { get; set; }
         [Required]
-        [StringLength(30)]
+        [StringLength(50)]
         public string Name { get; set; }
         [Required]
         public string Color { get; set; }

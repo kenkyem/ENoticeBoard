@@ -33,9 +33,6 @@ namespace ENoticeBoard.Controllers
             {
                 return View();
             }
-            
-
-
             string currentPeriod = _basedata.FinancialCalendars
                 .Where(x => x.CurrentPeriod == true)
                 .Select(x => x.FinancialPeriod)
