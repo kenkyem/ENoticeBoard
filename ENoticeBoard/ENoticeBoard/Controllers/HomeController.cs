@@ -106,7 +106,7 @@ namespace ENoticeBoard.Controllers
         {
             string user = System.Web.HttpContext.Current.User.Identity.Name;
             user = user.ToLower().Replace("oneharvest\\", "");
-            string userEmail = GetEmailFromAd(user);
+            string userEmail = GetEmailFromAd(user).ToLower();
             foreach (var p in _db.Users)
             {
                 if (userEmail.Equals(p.Email.ToLower()) && p.Role == "Admin")
