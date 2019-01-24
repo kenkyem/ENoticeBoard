@@ -1,9 +1,9 @@
-﻿using ENoticeBoard.Models;
-using ENoticeBoard.ViewModels;
+﻿using ENoticeBoard.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using static ENoticeBoard.Models.AdInfo;
 
 namespace ENoticeBoard.Controllers
 {
@@ -11,7 +11,6 @@ namespace ENoticeBoard.Controllers
     {
         private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
         private readonly BaseDataEntities _basedata = new BaseDataEntities();
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -25,7 +24,7 @@ namespace ENoticeBoard.Controllers
 
             return View();
         }
-
+        
         [Authorize]
         // GET: Rocks
         public ActionResult Index()
@@ -34,6 +33,8 @@ namespace ENoticeBoard.Controllers
             {
                 return View();
             }
+            
+
 
             string currentPeriod = _basedata.FinancialCalendars
                 .Where(x => x.CurrentPeriod == true)
@@ -82,7 +83,7 @@ namespace ENoticeBoard.Controllers
 
         public ActionResult Manage()
         {
-            if (!UserIsAdmin() || !UserIsIT())
+            if (!UserIsAdmin())
             {
                 return View();
             }
@@ -95,10 +96,11 @@ namespace ENoticeBoard.Controllers
         }
 
         public bool UserIsIT()
+        
         {
             string user = System.Web.HttpContext.Current.User.Identity.Name;
             user = user.ToLower().Replace("oneharvest\\", "");
-            List<string> groupOnfo = AdInfo.GetDepartmentFromAd(user);
+            List<string> groupOnfo = GetDepartmentFromAd(user);
             bool v = groupOnfo.Contains("IT-WACOL") ? true : false;
             return v;
 
@@ -107,7 +109,7 @@ namespace ENoticeBoard.Controllers
         {
             string user = System.Web.HttpContext.Current.User.Identity.Name;
             user = user.ToLower().Replace("oneharvest\\", "");
-            string userEmail = AdInfo.GetEmailFromAd(user);
+            string userEmail = GetEmailFromAd(user);
             foreach (var p in _db.Users)
             {
                 if (userEmail.Equals(p.Email.ToLower()) && p.Role == "Admin")

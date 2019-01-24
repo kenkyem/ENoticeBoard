@@ -18,6 +18,7 @@ namespace ENoticeBoard
         [StringLength(30)]
         public string Email { get; set; }
         [Required]
+        [StringLength(30)]
         public string Name { get; set; }
         [Required]
         public string Color { get; set; }

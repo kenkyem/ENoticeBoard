@@ -45,7 +45,11 @@ namespace ENoticeBoard.Models
         }
         public static string GetEmailFromAd(string username)
         {
-            using (System.DirectoryServices.AccountManagement.PrincipalContext ctx = new System.DirectoryServices.AccountManagement.PrincipalContext(ContextType.Domain, "Oneharvest"))
+            if (username == "")
+            {
+                return null;
+            }
+            using (PrincipalContext ctx = new PrincipalContext(ContextType.Domain, "Oneharvest"))
             {
                 using (UserPrincipal user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, username))
                 {
@@ -55,10 +59,14 @@ namespace ENoticeBoard.Models
                     }
                 }
             }
-            return "";
+            return null;
         }
         public static List<string> GetDepartmentFromAd(string username)
         {
+            if (username == "")
+            {
+                return null;
+            }
             using (PrincipalContext ctx = new PrincipalContext(ContextType.Domain, "Oneharvest"))
             {
                 using (UserPrincipal user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, username))
