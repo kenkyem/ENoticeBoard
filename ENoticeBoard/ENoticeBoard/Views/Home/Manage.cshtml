@@ -7,13 +7,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
-    <style type="text/css">
-        .fa {
-        }
-
-        
-    </style>
-
 </head>
 <body>
     <h2>Manage</h2>
@@ -29,12 +22,13 @@
     {
         <div class="container-fluid">
             <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-list-alt fa-fw"></i> User List
+                <div class="box">
+                    <div class="box-header with-border">
+                        <i class="fa fa-list-alt fa-fw"></i> 
+                        <h3 class="box-title">User List</h3>
                     </div>
 
-                    <div class="panel-body">
+                    <div class="box-body">
                         <div class="form-group">
                             <button type="button" id="btnAddUser" class="btn btn-default btn-sm">
                                 <span class="glyphicon glyphicon-plus"></span> Add
@@ -98,15 +92,15 @@
             </div>
         </div>
 
-        <div class="container-fluid">
+        <div class="container">
             <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="box">
+                    <div class="box-header with-border">
                         <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
-                        Target List
+                        <h3 class="box-title">Target List</h3>
                     </div>
 
-                    <div class="panel-body">
+                    <div class="box-body">
                         <table class="table table-bordered table-condensed table-responsive display table-striped" id="targetTB" style="word-wrap: normal; width: 100%">
                             <thead>
                                 <tr>

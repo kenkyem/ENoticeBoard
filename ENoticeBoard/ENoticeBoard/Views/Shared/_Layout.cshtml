@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>@ViewBag.Title - E-Notice Board</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -12,74 +13,79 @@
 
     <link rel="stylesheet" type="text/css" href="~/Content/DataTables/datatables.min.css" />
     <script src="~/Content/DataTables/datatables.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.simple-color.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-colorpicker/css/bootstrap-colorpicker.css" />
-    <script src="~/Scripts/bootstrap-colorpicker.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/admin-lte/plugins/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/admin-lte/plugins/Ionicons/css/ionicons.min.css">
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     
-
-
     @RenderSection("scripts", required: false)
-    <style>
-        .navbar-brand {
-            background: url('/Content/themes/base/images/one-harvest-logo.png') no-repeat;
-            background-size: 50px 45px;
-            width: 50px;
-            background-color: white;
-            display: block;
-        }
-
-        .navbar-inverse .navbar-brand:hover {
-            color: white;
-            background-color: white;
-        }
-
-        .skip-links {
-            position: absolute;
-            left: -999em;
-            width: 990em;
-        }
-
-        .skip-link:focus {
-            top: 0; /* Now the link will appear */
-        }
-    </style>
+    
 </head>
-<body>
-<ul class="skip-links">
-    <li><a href="#main">Skip to main content</a></li>
-</ul>
-<div class="navbar navbar-inverse navbar-fixed-top">    
-    <div class="container">
-        <a style="background-color: gainsboro" href='@Url.Action("Index","Home")'><span class="navbar-brand"></span></a>
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+<!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
+<body class="skin-blue sidebar-collapse">
+<div class="wrapper">
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="@Url.Action("Index", "Home")" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>ENB</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>E-NoticeBoard</b></span>
+        </a>
+        <!-- Header Navbar -->
+        <div class="navbar navbar-static-top" role="navigation">
 
 
-
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Manage", "Manage", "Home")</li>
+                        @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                        <li>@Html.Partial("_LoginPartial")</li>
+                        <!-- Control Sidebar Toggle Button -->
+                        
+                    </ul>
+                </div>
+            </div>
         </div>
-
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("E-Board", "Index", "Home")</li>
-                <li>@Html.ActionLink("Manage", "Manage", "Home")</li>
-                @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-            </ul>
-            @Html.Partial("_LoginPartial")
-        </div>
+    </header>
+    
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" id="main">
+        <section class="content">
+            @RenderBody()
+        </section>
     </div>
-</div>
-<div class="container body-content" id="main">
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; 2019 - One Harvest IT Department</p>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b>
+            1.0.0
+        </div>
+        <strong>&copy; 2019 - One Harvest IT Department</strong>
     </footer>
-</div>
-
-
+    </div>
 </body>
 </html>

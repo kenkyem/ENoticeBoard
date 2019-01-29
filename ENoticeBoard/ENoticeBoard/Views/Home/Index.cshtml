@@ -3,71 +3,7 @@
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style type="text/css">
-    .EditRock {
-        padding: 0
-    }
 
-    .DelRock {
-        padding: 0
-    }
-
-    .DoneRock {
-        padding: 0;
-    }
-
-    .modal-backdrop {
-        position: unset;
-    }
-
-    #PanelModal {
-        height: 100%;
-    }
-
-    #PanelExtend {
-        height: 100%;
-    }
-
-    .skip-links {
-        position: absolute;
-        left: -999em;
-        width: 990em;
-    }
-
-        .skip-links:active, .skip-links:focus {
-            left: -8.5em;
-            border: 3px #3399cc solid;
-            background-color: #fff;
-        }
-
-    .body-content {
-        padding-top: 15px;
-    }
-
-    .fc-sat, .fc-sun {
-        background-color: rgb(250, 250, 250);
-    }
-
-    .fc-event {
-        font-size: 1em;
-    }
-
-    #btnView {
-        margin-bottom: 5px;
-    }
-
-    .table {
-        border: 1px solid #ddd;
-    }
-
-        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-            vertical-align: middle;
-    }
-    th {
-        vertical-align: middle;
-        text-align: center;
-    }
-</style>
 <!DOCTYPE html>
 
 
@@ -85,89 +21,63 @@
 else
 {
     <div class="row">
-        <div class="col-sm-4">
-            <div class="panel 
-                @(Model.OnTarget(Convert.ToDecimal(Model.DowntimeTargetPlanned.TargetNum), ViewBag.downtimePlanned) ? "panel-green" : "panel-red")
-                @(Model.OnTarget(Convert.ToDecimal(Model.DowntimeTargetUnplanned.TargetNum), ViewBag.downtimeUnplanned) ? "panel-green" : "panel-red")
+        <div class="col-lg-4 col-md-4 col-xs-4">
+            <!-- small box -->
+            <div class="small-box
+                @(Model.OnTarget(Convert.ToDecimal(Model.DowntimeTargetPlanned.TargetNum), ViewBag.downtimePlanned) ? "bg-green" : "bg-red")
+                @(Model.OnTarget(Convert.ToDecimal(Model.DowntimeTargetUnplanned.TargetNum), ViewBag.downtimeUnplanned) ? "bg-green" : "bg-red")
                  ">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-clock-o fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge" id="DowntimeSum">@Model.DowntimeSum min</div>
-                            <div>Downtime Duration</div>
-                        </div>
-                    </div>
+                <div class="inner">
+                    <h3>@Model.DowntimeSum min</h3>
+
+                    <p>Downtime </p>
                 </div>
-                <a id="downtimePanel" class="pointer">
-                    <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right">
-                            <i class="fa fa-arrow-circle-right"></i>
-                        </span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
+                <div class="icon">
+                    <i class="fa fa-clock-o"></i>
+                </div>
+                <a id="downtimePanel" class="small-box-footer pointer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="panel 
-                 @(Model.OnTarget(Convert.ToDecimal(Model.BreakageTarget.TargetNum), Model.BreakageSum) ? "panel-green" : "panel-red") ">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-wrench fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge" id="BreakageSum">$ @Model.BreakageSum</div>
-                            <div>Breakage Cost</div>
-                        </div>
-                    </div>
+        <div class="col-lg-4 col-md-4 col-xs-4">
+            <!-- small box -->
+            <div class="small-box
+                @(Model.OnTarget(Convert.ToDecimal(Model.BreakageTarget.TargetNum), Model.BreakageSum) ? "bg-green" : "bg-red")
+                 ">
+                <div class="inner">
+                    <h3>$@Model.BreakageSum</h3>
+
+                    <p>Breakage Cost</p>
                 </div>
-                <a id="breakagepanel" class="pointer">
-                    <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right">
-                            <i class="fa fa-arrow-circle-right"></i>
-                        </span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
+                <div class="icon">
+                    <i class="fa fa-wrench"></i>
+                </div>
+                <a id="breakagePanel" class="small-box-footer pointer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="panel 
-                 @(Model.OnTarget(Convert.ToDecimal(Model.BudgetTarget.TargetNum), Model.BudgetSum) ? "panel-green" : "panel-red") ">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-money fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge" id="BudgetSum">$@Model.BudgetSum</div>
-                            <div>Spend Budget</div>
-                        </div>
-                    </div>
+
+        <div class="col-lg-4 col-md-4 col-xs-4">
+            <!-- small box -->
+            <div class="small-box
+                @(Model.OnTarget(Convert.ToDecimal(Model.BudgetTarget.TargetNum), Model.BudgetSum) ? "bg-green" : "bg-red")
+                 ">
+                <div class="inner">
+                    <h3>$@Model.BudgetSum</h3>
+
+                    <p>Spend Budget</p>
                 </div>
-                <a id="budgetpanel" class="pointer">
-                    <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right">
-                            <i class="fa fa-arrow-circle-right"></i>
-                        </span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
+                <div class="icon">
+                    <i class="fa fa-money"></i>
+                </div>
+                <a id="budgetPanel" class="small-box-footer pointer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <div class="box">
+        <div class="box-header with-border">
             <i class="fa fa-list fa-fw"></i>
-            Rock List
+            <h3 class="box-title">Rock List</h3>
             <div class="pull-right">
                 <div class="btn-group">
                     <button type="button" id="rockPanel" name="rockPanel" class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false">
@@ -176,7 +86,7 @@ else
                 </div>
             </div>
         </div>
-        <div class="panel-body">
+        <div class="box-body">
             <table class="table container-fluid table-condensed table-responsive">
                 <tr class="dt-head-center">
                     <th style="width: 75%">
@@ -243,7 +153,7 @@ else
 
                             @if (item.DateDue < DateTime.Today)
                             {
-                                <button type="button" class="btn btn-block btn-danger btn-sm pull-right">Over</button>
+                                <button type="button" class="btn btn-block btn-danger btn-sm" style="float: right">Over</button>
                             }
                             else
                             {
@@ -358,12 +268,12 @@ else
 
 /*Calendar*/
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <div class="box">
+        <div class="box-header with-border" >
             <i class="fa fa-calendar fa-fw"></i>
-            Schedule Calendar
+            <h3 class="box-title">Schedule Calendar</h3>
         </div>
-        <div class="panel-body">
+        <div class="box-body">
             <div id="calender"></div>
             <div id="myCalModal" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -465,7 +375,7 @@ else
             
 
             
-            $('#budgetpanel').click(function() {
+            $('#budgetPanel').click(function() {
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("Summary", "Objects")',
@@ -483,7 +393,7 @@ else
                 });
             });
 
-            $('#breakagepanel').click(function() {
+            $('#breakagePanel').click(function() {
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("Summary", "Breakages")',
@@ -595,7 +505,7 @@ else
                                 events.push({
                                     eventID: v.EventID,
                                     title: v.Subject,
-                                    description: v.Description,
+                                    description: v.Description != null ? v.Description : '',
                                     start: moment(v.Start),
                                     end: v.End != null ? moment(v.End) : null,
                                     color: v.ThemeColor,

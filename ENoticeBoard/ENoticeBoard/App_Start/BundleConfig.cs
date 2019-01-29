@@ -26,14 +26,21 @@ namespace ENoticeBoard
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/admin-lte/css/AdminLTE.css",
+                      "~/admin-lte/css/skins/skin-blue.css"    
+                      ));
             //Create bundel for jQueryUI  
                 //js  
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(  
                 "~/Scripts/jquery-ui-{version}.js"));  
                 //css  
             bundles.Add(new StyleBundle("~/Content/cssjqryUi").Include(  
-                "~/Content/themes/base/jquery-ui.css"));  
+                "~/Content/themes/base/jquery-ui.css"));
+            bundles.Add(new ScriptBundle("~/admin-lte/js").Include(
+                "~/admin-lte/js/app.js",
+                "~/admin-lte/plugins/fastclick/lib/fastclick.js"
+                ));
           
         }
     }
