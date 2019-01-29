@@ -339,7 +339,7 @@ else
                             </div>
                             <label>Member</label>
                             <div class="form-group">
-                                @Html.DropDownListFor(m => m.User, new SelectList(Model.Users, "Email", "Name"), "", new {@class = "form-control" })
+                                @Html.DropDownListFor(m => m.User, new SelectList(Model.Users, "Email", "Name"), new {@class = "form-control" })
                             </div>
                             <button type="button" id="btnSaveCal" class="btn btn-success">Save</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -653,7 +653,14 @@ else
                 if ($('#txtEnd').val().trim() === "") {
                     alert('End date required');
                     return;
-                } else {
+                }
+                
+                if ($('#User').val() == null) {
+                    alert('Member required');
+                    return;
+                }
+
+                else {
                     var startDate = moment($('#txtStart').val(), "DD/MM/YYYY").toDate();
                     var endDate = moment($('#txtEnd').val(), "DD/MM/YYYY").toDate();
                     if (startDate > endDate) {
