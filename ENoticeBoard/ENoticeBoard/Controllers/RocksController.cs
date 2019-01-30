@@ -3,13 +3,14 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using ENoticeBoard.Models;
 
 namespace ENoticeBoard.Controllers
 {
     public class RocksController : Controller
     {
         private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
-
+        private readonly BaseDataEntities _baseData = new BaseDataEntities();
         // GET: Rocks
         //public ActionResult Index()
         //{
@@ -26,23 +27,24 @@ namespace ENoticeBoard.Controllers
         {
             if(period==null && year==null)
             {
-                period = BreakagesController.CurrentPeriod();
-                year = BreakagesController.CurrentYear();
+                period = DateConversion.CurrentPeriod();
+                year = DateConversion.CurrentYear();
             }
 
+            var publishedDate = DateConversion.PublishedDate();
             var rockModel = new RockSummaryViewModel()
             {
                 RockWFPs = _db.Vw_RocksWithinFinancialPeriod.Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted ==false  ).ToList(),
-                Periodddl = _db.Vw_RocksWithinFinancialPeriod.Select(x=>new DropDownBoxList()
+                Periodddl = _baseData.FinancialCalendars.Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialPeriod,
                     value=x.FinancialPeriod
-                }).Distinct().ToList(),
-                Yearddl = _db.Vw_RocksWithinFinancialPeriod.Select(x=>new DropDownBoxList()
+                }).Distinct().OrderBy(x=>x.value).ToList(),
+                Yearddl = _baseData.FinancialCalendars.Where(x=>x.Date >= publishedDate).Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialYear,
                     value=x.FinancialYear
-                }).Distinct().ToList(),
+                }).Distinct().OrderBy(x=>x.value).ToList(),
                 SelectedPeriod = period,
                 SelectedYear = year
             };

@@ -3,13 +3,14 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using ENoticeBoard.Models;
 
 namespace ENoticeBoard.Controllers
 {
     public class ObjectsController : Controller
     {
         private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
-        private readonly BaseDataEntities _basedata = new BaseDataEntities();
+        private readonly BaseDataEntities _baseData = new BaseDataEntities();
         // GET: Objects
         [HttpPost]
         public PartialViewResult Index()
@@ -22,9 +23,11 @@ namespace ENoticeBoard.Controllers
         {
             if(period==null && year==null)
             {
-                period= BreakagesController.CurrentPeriod();
-                year = BreakagesController.CurrentYear();
+                period= DateConversion.CurrentPeriod();
+                year = DateConversion.CurrentYear();
             }
+
+            var publishedDate = DateConversion.PublishedDate();
             var o= ViewBag.budget = _db.Targets.Single(t => t.Subject == "Budget").TargetNum;
             var model = new ObjectSummaryViewModel()
             {
@@ -35,16 +38,16 @@ namespace ENoticeBoard.Controllers
                         Period = y.Key.FinancialPeriod, Year = y.Key.FinancialYear,
                         Sum = y.Sum(z => z.Cost)
                     }).ToList(),
-                Periodddl = _db.Vw_ObjectsWithinFinancialPeriod.Select(x=>new DropDownBoxList()
+                Periodddl = _baseData.FinancialCalendars.Where(x=>x.Date >= publishedDate).Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialPeriod,
                     value=x.FinancialPeriod
-                }).Distinct().ToList(),
-                Yearddl = _db.Vw_ObjectsWithinFinancialPeriod.Select(x=>new DropDownBoxList()
+                }).Distinct().OrderBy(x=>x.value).ToList(),
+                Yearddl = _baseData.FinancialCalendars.Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialYear,
                     value=x.FinancialYear
-                }).Distinct().ToList(),
+                }).Distinct().OrderBy(x=>x.value).ToList(),
                 SelectedPeriod = period,
                 SelectedYear = year
                 

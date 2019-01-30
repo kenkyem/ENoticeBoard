@@ -55,20 +55,37 @@ namespace ENoticeBoard.Controllers
                     x => x.FinancialPeriod == currentPeriod && x.FinancialYear == currentYear &&
                          x.isDeleted == false)
                 .ToList();
-            ViewBag.downtimePlanned = downtime.Where(dt=>dt.Status == "Planned").Sum(dt => dt.Duration);
-            ViewBag.downtimeUnplanned = downtime.Where(dt=>dt.Status == "Unplanned").Sum(dt => dt.Duration);
+            
+            //Get Target Value for Comparision
+            var downtimePlannedTarget = _db.Targets.Single(t => t.Subject == "Downtime_Planned").TargetNum;
+            var downtimeUnplannedTarget = _db.Targets.Single(t => t.Subject == "Downtime_Unplanned").TargetNum;
+            var breakageTarget = _db.Targets.Single(t => t.Subject == "Breakage").TargetNum;
+            var budgetTarget = _db.Targets.Single(t => t.Subject == "Budget").TargetNum;
+
+            //Get Actual Value for Comparision
+            var downtimeSum = downtime.Any() ? downtime.Sum(x => x.Duration) : 0;
+            var budgetSum = spend.Any() ? spend.Sum(x => x.Cost) : 0M;
+            var breakageSum = brreakage.Any() ? brreakage.Sum(x => x.Cost) : 0M;
+            
+
+            //Downtime has 2 statement for bgcolor
+            var downtimePlannedMin = downtime.Where(dt=>dt.Status == "Planned").Sum(dt => dt.Duration);
+            var downtimeUnplannedMin = downtime.Where(dt=>dt.Status == "Unplanned").Sum(dt => dt.Duration);
+            var bgDtPlanned = SetBgColor(downtimePlannedTarget, downtimePlannedMin);
+            var bgDtUnplanned = SetBgColor(downtimeUnplannedTarget, downtimeUnplannedMin);
+                
+
             var model = new HomeViewModel()
             {
                 Rocks = _db.Rocks.OrderByDescending(s => s.Priority)
                     .Where(s => s.Done == false)
                     .ToList(),
-                DowntimeSum =  downtime.Any() ? downtime.Sum(x => x.Duration) : 0,
-                BudgetSum =  spend.Any() ? spend.Sum(x => x.Cost) : 0M,
-                BreakageSum =  brreakage.Any() ? brreakage.Sum(x => x.Cost) : 0M,
-                DowntimeTargetPlanned = _db.Targets.SingleOrDefault(t => t.Subject == "Downtime_Planned"),
-                DowntimeTargetUnplanned = _db.Targets.SingleOrDefault(t => t.Subject == "Downtime_Unplanned"),
-                BreakageTarget = _db.Targets.SingleOrDefault(t => t.Subject == "Breakage"),
-                BudgetTarget = _db.Targets.SingleOrDefault(t => t.Subject =="Budget"),
+                DowntimeSum =  downtimeSum,
+                BudgetSum =  budgetSum,
+                BreakageSum =  breakageSum,
+                BgColorBreakage = SetBgColor(breakageTarget,breakageSum),
+                BgColorBudget = SetBgColor(budgetTarget,budgetSum),
+                BgColorDowntime = (bgDtPlanned.Contains("bg-red") || bgDtUnplanned.Contains("bg-red") ? "bg-red" : "bg-green"),
                 Users = _db.Users.ToList()
                 
             };
@@ -113,6 +130,15 @@ namespace ENoticeBoard.Controllers
                     return true;
             }
             return false;
+        }
+        //Set Bg Color for Panel
+        public string SetBgColor(decimal target, decimal actual)
+        {
+            if(target >= actual)
+                return "bg-green";
+            else
+                return "bg-red";
+
         }
         
         

@@ -245,6 +245,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ADInfo.cs" />
+    <Compile Include="Models\DateConversion.cs" />
     <Compile Include="Object.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

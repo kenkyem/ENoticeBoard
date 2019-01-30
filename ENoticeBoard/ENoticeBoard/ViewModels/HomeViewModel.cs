@@ -19,9 +19,10 @@ namespace ENoticeBoard.ViewModels
 
         public List<User> Users { get; set; }
         public User User { get; set; }
-        public bool OnTarget(decimal target, decimal actual)
-        {
-            return target > actual;
-        }
+        public string BgColorDowntime { get; set; }
+        public string BgColorBreakage { get; set; }
+        public string BgColorBudget { get; set; }
+
+        
     }
 }

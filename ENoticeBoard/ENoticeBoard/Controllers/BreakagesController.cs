@@ -3,13 +3,15 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using ENoticeBoard.Models;
 
 namespace ENoticeBoard.Controllers
 {
     public class BreakagesController : Controller
     {
         private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
-        private static readonly BaseDataEntities _basedata = new BaseDataEntities();
+        private static readonly BaseDataEntities BaseData = new BaseDataEntities();
+
         // GET: Breakages
         public ActionResult Index()
         {
@@ -20,9 +22,11 @@ namespace ENoticeBoard.Controllers
         {
             if(period==null && year==null)
             {
-                period= CurrentPeriod();
-                year = CurrentYear();
+                period= DateConversion.CurrentPeriod();
+                year = DateConversion.CurrentYear();
             }
+
+            var publishedDate = DateConversion.PublishedDate();
             var b= ViewBag.breakage = _db.Targets.Single(t => t.Subject == "Breakage").TargetNum;
             var model = new BreakageSummaryViewFormModel()
             {
@@ -33,16 +37,16 @@ namespace ENoticeBoard.Controllers
                         Period = y.Key.FinancialPeriod, Year = y.Key.FinancialYear,
                         Sum = y.Sum(z => z.Cost)
                     }).ToList(),
-                Periodddl = _db.Vw_BreakagesWithinFinancialPeriod.Select(x=>new DropDownBoxList()
+                Periodddl = BaseData.FinancialCalendars.Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialPeriod,
                     value=x.FinancialPeriod
-                }).Distinct().ToList(),
-                Yearddl = _db.Vw_BreakagesWithinFinancialPeriod.Select(x=>new DropDownBoxList()
+                }).Distinct().OrderBy(x=>x.value).ToList(),
+                Yearddl = BaseData.FinancialCalendars.Where(x=>x.Date >= publishedDate).Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialYear,
                     value=x.FinancialYear
-                }).Distinct().ToList(),
+                }).Distinct().OrderBy(x=>x.value).ToList(),
                 selectedPeriod = period,
                 selectedYear = year
                 
@@ -54,23 +58,7 @@ namespace ENoticeBoard.Controllers
             return PartialView(model);
         }
 
-        public static string CurrentPeriod()
-        {
-            var currentPeriod=_basedata.FinancialCalendars
-                .Where(x=>x.CurrentPeriod==true)
-                .Select(x => x.FinancialPeriod)
-                .FirstOrDefault();
-            return currentPeriod;
-        }
-        public static string CurrentYear()
-        {
-            var currentYear= _basedata.FinancialCalendars
-                .Where(x=>x.CurrentYear==true)
-                .Select(x => x.FinancialYear)
-                .FirstOrDefault();
-            return currentYear;
-        }
-
+        
         // GET: Breakages/Details/5
         public ActionResult Details(int? id)
         {

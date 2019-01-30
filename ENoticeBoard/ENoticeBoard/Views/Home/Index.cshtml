@@ -1,4 +1,5 @@
-﻿@model ENoticeBoard.ViewModels.HomeViewModel
+﻿@using Microsoft.Ajax.Utilities
+@model ENoticeBoard.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,10 +24,7 @@ else
     <div class="row">
         <div class="col-lg-4 col-md-4 col-xs-4">
             <!-- small box -->
-            <div class="small-box
-                @(Model.OnTarget(Convert.ToDecimal(Model.DowntimeTargetPlanned.TargetNum), ViewBag.downtimePlanned) ? "bg-green" : "bg-red")
-                @(Model.OnTarget(Convert.ToDecimal(Model.DowntimeTargetUnplanned.TargetNum), ViewBag.downtimeUnplanned) ? "bg-green" : "bg-red")
-                 ">
+            <div id="DowntimeColor" class="small-box @Model.BgColorDowntime">
                 <div class="inner">
                     <h3>@Model.DowntimeSum min</h3>
 
@@ -40,9 +38,7 @@ else
         </div>
         <div class="col-lg-4 col-md-4 col-xs-4">
             <!-- small box -->
-            <div class="small-box
-                @(Model.OnTarget(Convert.ToDecimal(Model.BreakageTarget.TargetNum), Model.BreakageSum) ? "bg-green" : "bg-red")
-                 ">
+            <div class="small-box @Model.BgColorBreakage">
                 <div class="inner">
                     <h3>$@Model.BreakageSum</h3>
 
@@ -57,9 +53,7 @@ else
 
         <div class="col-lg-4 col-md-4 col-xs-4">
             <!-- small box -->
-            <div class="small-box
-                @(Model.OnTarget(Convert.ToDecimal(Model.BudgetTarget.TargetNum), Model.BudgetSum) ? "bg-green" : "bg-red")
-                 ">
+            <div class="small-box @Model.BgColorBudget">
                 <div class="inner">
                     <h3>$@Model.BudgetSum</h3>
 
@@ -103,32 +97,32 @@ else
                 </tr>
 
                 @foreach (var item in Model.Rocks)
-                {
-                    var datedif = item.DateDue - DateTime.Today;
-                    string color;
-                    if (item.Priority == 1)
-                    {
-                        color = "alert-primary";
-                    }
-                    else
-                    {
-                        if (item.Priority == 2)
-                        {
-                            color = "alert-info";
-                        }
-                        else if (item.Priority == 3)
-                        {
-                            color = "alert-success";
-                        }
-                        else if (item.Priority == 4)
-                        {
-                            color = "alert-warning";
-                        }
-                        else
-                        {
-                            color = "alert-danger";
-                        }
-                    }
+{
+    var datedif = item.DateDue - DateTime.Today;
+    string color;
+    if (item.Priority == 1)
+    {
+        color = "alert-primary";
+    }
+    else
+    {
+        if (item.Priority == 2)
+        {
+            color = "alert-info";
+        }
+        else if (item.Priority == 3)
+        {
+            color = "alert-success";
+        }
+        else if (item.Priority == 4)
+        {
+            color = "alert-warning";
+        }
+        else
+        {
+            color = "alert-danger";
+        }
+    }
                     <tr class="@color h4" role="alert">
                         <td>
                             @Html.DisplayFor(modelItem => item.Subject)
