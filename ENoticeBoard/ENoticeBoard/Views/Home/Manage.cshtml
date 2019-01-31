@@ -20,80 +20,78 @@
     }
     else
     {
-        <div class="container-fluid">
-            <div class="col-lg-12">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <i class="fa fa-list-alt fa-fw"></i> 
-                        <h3 class="box-title">User List</h3>
+        <div class="row">
+        <div class="col-lg-8 col-md-8">
+            <div class="box">
+                <div class="box-header with-border">
+                    <i class="fa fa-list-alt fa-fw"></i> 
+                    <h3 class="box-title">User List</h3>
+                </div>
+
+                <div class="box-body">
+                    <div class="form-group">
+                        <button type="button" id="btnAddUser" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-plus"></span> Add
+                        </button>
                     </div>
+                    <table class="table table-bordered table-condensed table-responsive display table-striped" id="userTB" style="word-wrap: normal; width: 100%">
+                        <thead>
+                        <tr>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Color
+                            </th>
+                            <th>
+                                Role
+                            </th>
+                            <th>
 
-                    <div class="box-body">
-                        <div class="form-group">
-                            <button type="button" id="btnAddUser" class="btn btn-default btn-sm">
-                                <span class="glyphicon glyphicon-plus"></span> Add
-                            </button>
-                        </div>
-                        <table class="table table-bordered table-condensed table-responsive display table-striped" id="userTB" style="word-wrap: normal; width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Email
-                                    </th>
-                                    <th>
-                                        Name
-                                    </th>
-                                    <th>
-                                        Color
-                                    </th>
-                                    <th>
-                                        Role
-                                    </th>
-                                    <th>
-
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Users)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Email)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Name)
-                                        </td>
-                                        <td style="background:@item.Color">
-                                            @Html.DisplayFor(modelItem => item.Color)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Role)
-                                        </td>
-                                        <td>
-                                            <button rid="@item.UserId" aria-hidden="true" class="btn btn-link btn-sm Edit">
-                                                <span class="glyphicon glyphicon-edit"></span>
-                                            </button>
-                                            <button rid="@item.UserId" aria-hidden="true" class="btn btn-link btn-sm Detail">
-                                                <span class="glyphicon glyphicon-eye-open"></span>
-                                            </button>
-                                            <button rid="@item.UserId" aria-hidden="true" class="btn btn-link btn-sm Delete">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </td>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model.Users)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td style="background:@item.Color">
+                                    @Html.DisplayFor(modelItem => item.Color)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Role)
+                                </td>
+                                <td>
+                                    <button rid="@item.UserId" aria-hidden="true" class="btn btn-link btn-sm Edit">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                    <button rid="@item.UserId" aria-hidden="true" class="btn btn-link btn-sm Detail">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                    </button>
+                                    <button rid="@item.UserId" aria-hidden="true" class="btn btn-link btn-sm Delete">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </td>
 
 
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
-        <div class="container">
-            <div class="col-lg-6">
+            <div class="col-lg-4 col-md-4">
                 <div class="box">
                     <div class="box-header with-border">
                         <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
@@ -103,61 +101,61 @@
                     <div class="box-body">
                         <table class="table table-bordered table-condensed table-responsive display table-striped" id="targetTB" style="word-wrap: normal; width: 100%">
                             <thead>
-                                <tr>
-                                    <th>
-                                        Subject
-                                    </th>
-                                    <th>
-                                        Target
-                                    </th>
-                                    <th></th>
-                                </tr>
+                            <tr>
+                                <th>
+                                    Subject
+                                </th>
+                                <th>
+                                    Target
+                                </th>
+                                <th></th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.Targets)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Subject)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TargetNum)
-                                        </td>
-                                        <td>
-                                            <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetEdit">
-                                                <span class="glyphicon glyphicon-edit"></span>
-                                            </button>
-                                            <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetDetail">
-                                                <span class="glyphicon glyphicon-eye-open"></span>
-                                            </button>
-                                            <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetDelete">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </td>
+                            @foreach (var item in Model.Targets)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Subject)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TargetNum)
+                                    </td>
+                                    <td>
+                                        <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetEdit">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
+                                        <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetDetail">
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                        </button>
+                                        <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetDelete">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </td>
 
 
-                                    </tr>
-                                }
+                                </tr>
+                            }
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="modal fade" id="userModal" role="dialog" data-backdrop="static">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" onclick="javascript: window.location.reload();" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel"></h4>
-                    </div>
-                    <div class="modal-body" id="userBody">
-                        @Html.Partial("Create", "Users")
-                    </div>
-                </div>
+            <div class="modal fade" id="userModal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" onclick="javascript: window.location.reload();" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body" id="userBody">
+                @Html.Partial("Create", "Users")
             </div>
         </div>
+    </div>
+</div>
+</div>
     }
 </body>
 @section Scripts{

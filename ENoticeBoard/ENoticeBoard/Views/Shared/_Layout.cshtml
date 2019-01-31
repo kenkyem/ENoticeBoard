@@ -44,7 +44,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="skin-blue sidebar-collapse">
+<body class="skin-blue-light sidebar-collapse">
 <div class="wrapper">
     <header class="main-header">
         <!-- Logo -->
@@ -56,21 +56,19 @@ desired effect
         </a>
         <!-- Header Navbar -->
         <div class="navbar navbar-static-top" role="navigation">
-
-
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Manage", "Manage", "Home")</li>
-                        @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-                        <li>@Html.Partial("_LoginPartial")</li>
-                        <!-- Control Sidebar Toggle Button -->
-                        
-                    </ul>
-                </div>
+
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Manage", "Manage", "Home")</li>
+                    @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    <li>@Html.Partial("_LoginPartial")</li>
+                    <!-- Control Sidebar Toggle Button -->
+
+                </ul>
             </div>
         </div>
+        
     </header>
     
     <!-- Content Wrapper. Contains page content -->

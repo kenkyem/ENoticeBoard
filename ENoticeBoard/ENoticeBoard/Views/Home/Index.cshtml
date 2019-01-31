@@ -21,6 +21,7 @@
 }
 else
 {
+
     <div class="row">
         <div class="col-lg-4 col-md-4 col-xs-4">
             <!-- small box -->
@@ -83,17 +84,17 @@ else
         <div class="box-body">
             <table class="table container-fluid table-condensed table-responsive">
                 <tr class="dt-head-center">
-                    <th style="width: 75%">
+                    <th>
                         <button id="btnCreate" name="btnCreate" class="btn btn-link btn-xs pull-left" aria-hidden="true">
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
                         Subject
                     </th>
-                    <th>
+                    <th style="width: 10%">
                         Due Date
                     </th>
-                    <th> </th>
-                    <th> </th>
+                    <th style="width: 5%"> </th>
+                    <th style="width: 5%"> </th>
                 </tr>
 
                 @foreach (var item in Model.Rocks)
@@ -147,17 +148,18 @@ else
 
                             @if (item.DateDue < DateTime.Today)
                             {
-                                <button type="button" class="btn btn-block btn-danger btn-sm" style="float: right">Over</button>
+                                <div class="label label-danger">  Over </div>
                             }
                             else
                             {
                                 if (item.DateDue == DateTime.Today)
                                 {
-                                    <button type="button" class="btn btn-block btn-info btn-sm" style="float: right">Today</button>
+                                    
+                                    <div class="label label-info">Today</div>
                                 }
                                 else if (datedif.Days > 0 && datedif.Days <= 9)
                                 {
-                                    <button type="button" class="btn btn-block btn-default btn-sm" style="float: right"> @datedif.Days days </button>
+                                    <div class="label label-default">@datedif.Days days</div>
                                 }
                             }
 
@@ -467,12 +469,6 @@ else
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-    <style type="text/css">
-        .fc-event {
-            font-size: 1em;
-            font-weight: 900;
-        }
-    </style>
     <script>
         $(document).ready(function() {
             var events = [];

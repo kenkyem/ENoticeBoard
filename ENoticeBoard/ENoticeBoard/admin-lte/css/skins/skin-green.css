@@ -132,3 +132,11 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 0;
 }
+.skin-green.layout-top-nav .main-header > .logo {
+    background-color: #00a65a;
+    color: #ffffff;
+    border-bottom: 0 solid transparent;
+}
+    .skin-green.layout-top-nav .main-header > .logo:hover {
+        background-color: #00a65a;
+    }
