@@ -1,6 +1,8 @@
-﻿using ENoticeBoard.ViewModels;
+﻿using ENoticeBoard.Models;
+using ENoticeBoard.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using static ENoticeBoard.Models.AdInfo;
@@ -11,11 +13,17 @@ namespace ENoticeBoard.Controllers
     {
         private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
         private readonly BaseDataEntities _basedata = new BaseDataEntities();
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+
+            SqlLite ticketslist = new SqlLite();
+            DataTable ticketTable = ticketslist.ConnectSqLite();
+
+
+            return View(ticketTable);
         }
 
         public ActionResult Contact()
@@ -24,7 +32,7 @@ namespace ENoticeBoard.Controllers
 
             return View();
         }
-        
+
         [Authorize]
         // GET: Rocks
         public ActionResult Index()
@@ -33,6 +41,7 @@ namespace ENoticeBoard.Controllers
             {
                 return View();
             }
+
             string currentPeriod = _basedata.FinancialCalendars
                 .Where(x => x.CurrentPeriod == true)
                 .Select(x => x.FinancialPeriod)
@@ -55,41 +64,48 @@ namespace ENoticeBoard.Controllers
                     x => x.FinancialPeriod == currentPeriod && x.FinancialYear == currentYear &&
                          x.isDeleted == false)
                 .ToList();
+
             
+
             //Get Target Value for Comparision
             var downtimePlannedTarget = _db.Targets.Single(t => t.Subject == "Downtime_Planned").TargetNum;
             var downtimeUnplannedTarget = _db.Targets.Single(t => t.Subject == "Downtime_Unplanned").TargetNum;
             var breakageTarget = _db.Targets.Single(t => t.Subject == "Breakage").TargetNum;
             var budgetTarget = _db.Targets.Single(t => t.Subject == "Budget").TargetNum;
+            var openTicketTarget = _db.Targets.Single(t => t.Subject == "OpenTicket").TargetNum;
 
-            //Get Actual Value for Comparision
+            //Get Actual Value 
             var downtimeSum = downtime.Any() ? downtime.Sum(x => x.Duration) : 0;
             var budgetSum = spend.Any() ? spend.Sum(x => x.Cost) : 0M;
             var breakageSum = brreakage.Any() ? brreakage.Sum(x => x.Cost) : 0M;
             
-
             //Downtime has 2 statement for bgcolor
-            var downtimePlannedMin = downtime.Where(dt=>dt.Status == "Planned").Sum(dt => dt.Duration);
-            var downtimeUnplannedMin = downtime.Where(dt=>dt.Status == "Unplanned").Sum(dt => dt.Duration);
+            var downtimePlannedMin = downtime.Where(dt => dt.Status == "Planned").Sum(dt => dt.Duration);
+            var downtimeUnplannedMin = downtime.Where(dt => dt.Status == "Unplanned").Sum(dt => dt.Duration);
             var bgDtPlanned = SetBgColor(downtimePlannedTarget, downtimePlannedMin);
             var bgDtUnplanned = SetBgColor(downtimeUnplannedTarget, downtimeUnplannedMin);
-                
+            //Get no of tickets from sqlite
+            SqlLite helpDesk = new SqlLite();
+            var openTicketSum = helpDesk.ConnectSqLite().Rows.Count; 
+
 
             var model = new HomeViewModel()
             {
                 Rocks = _db.Rocks.OrderByDescending(s => s.Priority)
                     .Where(s => s.Done == false)
                     .ToList(),
-                DowntimeSum =  downtimeSum,
-                BudgetSum =  budgetSum,
-                BreakageSum =  breakageSum,
-                BgColorBreakage = SetBgColor(breakageTarget,breakageSum),
-                BgColorBudget = SetBgColor(budgetTarget,budgetSum),
-                BgColorDowntime = (bgDtPlanned.Contains("bg-red") || bgDtUnplanned.Contains("bg-red") ? "bg-red" : "bg-green"),
+                DowntimeSum = downtimeSum,
+                BudgetSum = budgetSum,
+                BreakageSum = breakageSum,
+                OpenticketSum= openTicketSum,
+                BgColorBreakage = SetBgColor(breakageTarget, breakageSum),
+                BgColorBudget = SetBgColor(budgetTarget, budgetSum),
+                BgColorDowntime = (bgDtPlanned.Contains("bg-red") || bgDtUnplanned.Contains("bg-red")
+                    ? "bg-red"
+                    : "bg-green"),
+                BgColorOpenTicket = SetBgColor(openTicketTarget, openTicketSum),
                 Users = _db.Users.ToList()
-                
             };
-            
 
 
             return View(model);
@@ -101,6 +117,7 @@ namespace ENoticeBoard.Controllers
             {
                 return View();
             }
+
             var model = new ManageFormViewModel()
             {
                 Users = _db.Users.ToList(),
@@ -110,15 +127,15 @@ namespace ENoticeBoard.Controllers
         }
 
         public bool UserIsIT()
-        
+
         {
             string user = System.Web.HttpContext.Current.User.Identity.Name;
             user = user.ToLower().Replace("oneharvest\\", "");
             List<string> groupOnfo = GetDepartmentFromAd(user);
             bool v = groupOnfo.Contains("IT-WACOL") ? true : false;
             return v;
-
         }
+
         public bool UserIsAdmin()
         {
             string user = System.Web.HttpContext.Current.User.Identity.Name;
@@ -129,19 +146,19 @@ namespace ENoticeBoard.Controllers
                 if (userEmail.Equals(p.Email.ToLower()) && p.Role == "Admin")
                     return true;
             }
+
             return false;
         }
+
         //Set Bg Color for Panel
         public string SetBgColor(decimal target, decimal actual)
         {
-            if(target >= actual)
+            if (target >= actual)
                 return "bg-green";
             else
                 return "bg-red";
-
         }
-        
-        
+
 
         //public decimal GetSumBudget()
         //{
@@ -152,7 +169,6 @@ namespace ENoticeBoard.Controllers
         //    decimal objectSpend = spend.Any() ? spend.Sum(x => x.Cost) : 0M;
         //    return objectSpend;
         //}
-        
 
 
         //Calendar
@@ -165,16 +181,20 @@ namespace ENoticeBoard.Controllers
                 //var users = dc.Users.ToList();
                 var eventtpreturn = from t1 in dc.Events
                     join t2 in dc.Users on t1.Email equals t2.Email
-                    select new 
+                    select new
                     {
                         EventId = t1.EventID, Subject = t1.Subject, Description = t1.Description, Start = t1.Start,
                         End = t1.End, ThemeColor = t2.Color, Email = t1.Email
                     };
 
-                var events = eventtpreturn.ToList().Select(x => new Event {EventID =x.EventId,Subject = x.Subject,Description = x.Description,Start = x.Start,End=x.End,ThemeColor = x.ThemeColor,Email = x.Email}).ToList();
+                var events = eventtpreturn.ToList().Select(x => new Event
+                {
+                    EventID = x.EventId, Subject = x.Subject, Description = x.Description, Start = x.Start, End = x.End,
+                    ThemeColor = x.ThemeColor, Email = x.Email
+                }).ToList();
 
 
-                return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                return new JsonResult {Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet};
             }
         }
 
@@ -190,7 +210,6 @@ namespace ENoticeBoard.Controllers
                     var v = dc.Events.FirstOrDefault(a => a.EventID == e.EventID);
                     if (v != null)
                     {
-                        
                         v.Subject = e.Subject;
                         v.Start = e.Start;
                         v.End = e.End;
@@ -205,9 +224,9 @@ namespace ENoticeBoard.Controllers
 
                 dc.SaveChanges();
                 status = true;
-
             }
-            return new JsonResult { Data = new { status = status } };
+
+            return new JsonResult {Data = new {status = status}};
         }
 
         [HttpPost]
@@ -224,8 +243,8 @@ namespace ENoticeBoard.Controllers
                     status = true;
                 }
             }
-            return new JsonResult { Data = new { status = status} };
-        }
 
+            return new JsonResult {Data = new {status = status}};
+        }
     }
 }

@@ -23,7 +23,7 @@ else
 {
 
     <div class="row">
-        <div class="col-lg-4 col-md-4 col-xs-4">
+        <div class="col-lg-3 col-xs-3">
             <!-- small box -->
             <div id="DowntimeColor" class="small-box @Model.BgColorDowntime">
                 <div class="inner">
@@ -37,7 +37,7 @@ else
                 <a id="downtimePanel" class="small-box-footer pointer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-xs-4">
+        <div class="col-lg-3 col-xs-3">
             <!-- small box -->
             <div class="small-box @Model.BgColorBreakage">
                 <div class="inner">
@@ -52,7 +52,7 @@ else
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 col-xs-4">
+        <div class="col-lg-3 col-xs-3">
             <!-- small box -->
             <div class="small-box @Model.BgColorBudget">
                 <div class="inner">
@@ -66,7 +66,21 @@ else
                 <a id="budgetPanel" class="small-box-footer pointer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        
+        <div class="col-lg-3 col-xs-3">
+            <!-- small box -->
+            <div class="small-box @Model.BgColorOpenTicket">
+                <div class="inner">
+                    <h3>@Model.OpenticketSum</h3>
+
+                    <p>Open Ticket</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-ticket"></i>
+                </div>
+                <a id="ticketPanel" class="small-box-footer pointer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
     </div>
 
     <div class="box">
@@ -431,6 +445,23 @@ else
                     dataType: 'html',
                     success: function(data) {
                         $('#setModalTitle').html("Rock");
+                        $("#PanelModalBody").html(data);
+                        $("#PanelModal").modal('show');
+
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            });
+            $('#ticketPanel').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Summary", "Tickets")',
+
+                    dataType: 'html',
+                    success: function(data) {
+                        $('#setModalTitle').html("Ticket");
                         $("#PanelModalBody").html(data);
                         $("#PanelModal").modal('show');
 

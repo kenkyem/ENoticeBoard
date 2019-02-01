@@ -113,3 +113,8 @@ C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.cspro
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.csproj.CopyComplete
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.dll
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.pdb
+C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\bin\System.Data.SQLite.dll
+C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\bin\System.Data.SQLite.EF6.dll
+C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\bin\System.Data.SQLite.Linq.dll
+C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\bin\System.Data.SQLite.xml
+C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\bin\System.Data.SQLite.dll.config
