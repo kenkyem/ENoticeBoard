@@ -9,10 +9,10 @@ namespace ENoticeBoard.Models
 
         public SqlLite()
         {
-            //myConnection = new SQLiteConnection(
-            //    "Data Source=//vapp01/c$/Program Files (x86)/Spiceworks/db/spiceworks_prod.db;Version=3");
             myConnection = new SQLiteConnection(
-                "Data Source=C://Users/tle/Desktop/SQLite/spiceworks_prod.db;Version=3");
+                "Data Source=//vapp01/c$/Program Files (x86)/Spiceworks/db/spiceworks_prod.db;Version=3");
+            //myConnection = new SQLiteConnection(
+            //    "Data Source=C://Users/tle/Desktop/SQLite/spiceworks_prod.db;Version=3");
         }
 
         public DataTable ConnectSqLite()
