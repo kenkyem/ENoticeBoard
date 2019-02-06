@@ -5,8 +5,8 @@
         public bool CopyDB()
         {
             string fileName = "spiceworks_prod.db";
-            string sourcePath = "//vapp01/c$/Program Files (x86)/Spiceworks/db";
-            string targetPath = "//vapp01/c$/Program Files (x86)/Spiceworks/db/backup/temp";
+            string sourcePath = "//vapp01/Spiceworks/db";
+            string targetPath = "//vapp01/Spiceworks/db/backup/temp";
 
             // Use Path class to manipulate file and directory paths.
             string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
@@ -21,9 +21,11 @@
 
             // To copy a file to another location and 
             // overwrite the destination file if it already exists.
-            System.IO.File.Copy(sourceFile, destFile, true);
             if (!System.IO.Directory.Exists(destFile))
             {
+                File.SetAttributes(destFile, FileAttributes.Normal);
+                System.IO.File.Copy(sourceFile, destFile, true);
+
                 return true;
             }
             else
