@@ -13,17 +13,17 @@ namespace ENoticeBoard.Controllers
     {
         private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
         private readonly BaseDataEntities _basedata = new BaseDataEntities();
-
+        private FileCopy _sqlitecopy = new FileCopy();
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
 
-            SqlLite ticketslist = new SqlLite();
-            DataTable ticketTable = ticketslist.ConnectSqLite();
+            //SqlLite ticketslist = new SqlLite();
+            //DataTable ticketTable = ticketslist.ConnectSqLite();
 
 
-            return View(ticketTable);
+            return View();
         }
 
         public ActionResult Contact()
@@ -86,8 +86,7 @@ namespace ENoticeBoard.Controllers
             var bgDtUnplanned = SetBgColor(downtimeUnplannedTarget, downtimeUnplannedMin);
             //Get no of tickets from sqlite
             SqlLite helpDesk = new SqlLite();
-            var openTicketSum = helpDesk.ConnectSqLite().Rows.Count; 
-
+            var openTicketSum = _sqlitecopy.CopyDB() ? helpDesk.ConnectSqLite().Rows.Count : 0;
 
             var model = new HomeViewModel()
             {

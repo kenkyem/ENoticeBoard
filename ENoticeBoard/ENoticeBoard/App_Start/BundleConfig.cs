@@ -10,6 +10,9 @@ namespace ENoticeBoard
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                     "~/scripts/app/app.js"
                 ));
+            bundles.Add(new ScriptBundle("~/bundles/moment").Include(
+                    "~/scripts/moment.js"
+                    ));
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-{version}.js"));
 

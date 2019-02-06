@@ -6,10 +6,12 @@ using System.Web.Mvc;
 namespace ENoticeBoard.Controllers
 {
     public class TicketsController : Controller
-    {   
-        private readonly MyDatabaseEntities _db =new MyDatabaseEntities();
+    {
+        private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
+        
+
         // GET: Tickets
-        public ActionResult Summary(string period,string year)
+        public ActionResult Summary(string period, string year)
         {
             if (period == null && year == null)
             {
@@ -20,8 +22,10 @@ namespace ENoticeBoard.Controllers
             ViewBag.TicketTarget = _db.Targets.Single(x => x.Subject == "OpenTicket").TargetNum;
             SqlLite ticketslist = new SqlLite();
             DataTable ticketTable = ticketslist.ConnectSqLite();
-            
             return PartialView(ticketTable);
+        
         }
     }
+
+
 }

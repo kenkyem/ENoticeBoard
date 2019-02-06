@@ -1,7 +1,9 @@
 ﻿@using System.Web.Mvc.Html
 @model ENoticeBoard.ViewModels.BreakageSummaryViewFormModel
 
-
+<head>
+    <script src="~/Scripts/datetime-moment.js"></script>
+</head>
 
 
 <form class="form-inline">
@@ -129,20 +131,24 @@
 </div>
 <script>
     $(document).ready(function () {
+        moment.locale('Au');
+        $.fn.dataTable.moment("DD/MM/YYYY");
         $('#BreakageTB').DataTable({
+            
             autoWidth: false,
             columns: [
                 { "width": "40%" },
-                { "width": "10%" },
+                { "width": "10%"},
                 { "width": "10%" },
                 { "width": "10%" },
                 { "width": "10%" },
                 null
+                
             ]
         });
 
     });
-
+    
     $('#btnRefresh').click(function() {
         var p = $("#selectedPeriod").val();
         var y = $('#selectedYear').val();

@@ -9,6 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/moment")
     @Scripts.Render("~/bundles/app")
 
     <link rel="stylesheet" type="text/css" href="~/Content/DataTables/datatables.min.css" />
@@ -20,8 +21,6 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    
-    @RenderSection("scripts", required: false)
     
 </head>
 <!--
@@ -84,6 +83,7 @@ desired effect
         </div>
         <strong>&copy; 2019 - One Harvest IT Department</strong>
     </footer>
-    </div>
+</div>
+@RenderSection("scripts", required:false)
 </body>
 </html>

@@ -1,24 +1,30 @@
-﻿@model dynamic
+﻿@model System.Data.DataTable
 
 <table class="table table-bordered table-condensed table-responsive display table-striped" id="ticketTB" style="word-wrap: normal; width: 100%">
     <thead>
         <tr>
-            @foreach (System.Data.DataColumn col in Model.Columns)
-            {
-                <th>@col.Caption</th>
-            }
+            <th>Id</th>
+            <th width="30%">Summary</th>
+            <th width="10%">Status</th>
+            <th width="10%">Date Created </th>
+            <th width="10%">Date Updated</th>
+            <th width="15%">Catergory</th>
+            <th width="10%">Assigned</th>
+            
+
         </tr>
     </thead>
     <tbody>
-        @foreach (System.Data.DataRow row in Model.Rows)
+    @foreach (System.Data.DataRow row in Model.Rows)
         {
-            <tr>
+            <tr style="text-align: center">
                 @foreach (var cell in row.ItemArray)
                 {
                     <td>@cell.ToString()</td>
                 }
             </tr>
         }
+   
     </tbody>
 </table>
 
