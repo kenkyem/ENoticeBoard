@@ -77,7 +77,8 @@ namespace ENoticeBoard.Controllers
             request.ContentType = "application/json; charset=utf-8";
             request.Headers.Add("Authorization", "Basic " + encoded);
             request.AllowAutoRedirect = false;
-            if (request.GetResponse() is HttpWebResponse response)
+            var response = request.GetResponse() as HttpWebResponse;
+            if (response != null)
             {
                 using (Stream responseStream = response.GetResponseStream())
                 {
