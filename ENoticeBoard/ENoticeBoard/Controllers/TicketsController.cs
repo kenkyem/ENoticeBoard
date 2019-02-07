@@ -9,6 +9,7 @@ namespace ENoticeBoard.Controllers
     {
         private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
         
+        
 
         // GET: Tickets
         public ActionResult Summary(string period, string year)

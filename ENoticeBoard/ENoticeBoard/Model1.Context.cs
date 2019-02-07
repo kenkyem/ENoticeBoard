@@ -9,9 +9,10 @@
 
 namespace ENoticeBoard
 {
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
+    
     public partial class MyDatabaseEntities : DbContext
     {
         public MyDatabaseEntities()

@@ -27,7 +27,7 @@ namespace ENoticeBoard.Models
                 "select t.id, summary, status, t.created_at, t.updated_at, category, first_name   " +
                 "from tickets t " +
                 "left outer join users u on u.id = assigned_to " +
-                "where status='open'";
+                "where status='open' and category='Helpdesk'";
 
             SQLiteDataAdapter da=new SQLiteDataAdapter(cmd);
             
