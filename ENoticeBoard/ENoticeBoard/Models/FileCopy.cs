@@ -7,8 +7,10 @@ namespace ENoticeBoard.Models
         public bool CopyDB()
         {
             string fileName = "spiceworks_prod.db";
-            string sourcePath = "//vapp01/Spiceworks/db";
-            string targetPath = "//vapp01/Spiceworks/db/backup/temp";
+            string sourcePath = "\\\\vapp01\\Spiceworks\\db";
+            string targetPath = "\\\\vapp01\\Spiceworks\\db\\backup\\temp";
+
+            
 
             // Use Path class to manipulate file and directory paths.
             string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
@@ -23,11 +25,14 @@ namespace ENoticeBoard.Models
 
             // To copy a file to another location and 
             // overwrite the destination file if it already exists.
-            if (!System.IO.Directory.Exists(destFile))
+            if (System.IO.File.Exists(sourceFile))
             {
-                File.SetAttributes(destFile, FileAttributes.Normal);
+                File.SetAttributes(sourcePath, FileAttributes.Normal);
                 System.IO.File.Copy(sourceFile, destFile, true);
-
+            }
+            
+            if (System.IO.File.Exists(destFile))
+            {
                 return true;
             }
             else
