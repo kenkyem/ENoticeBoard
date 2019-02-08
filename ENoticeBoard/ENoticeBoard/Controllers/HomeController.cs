@@ -1,8 +1,5 @@
-﻿using ENoticeBoard.Models;
-using ENoticeBoard.ViewModels;
-using System;
+﻿using ENoticeBoard.ViewModels;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using static ENoticeBoard.Models.AdInfo;
@@ -13,7 +10,7 @@ namespace ENoticeBoard.Controllers
     {
         private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
         private readonly BaseDataEntities _basedata = new BaseDataEntities();
-        private FileCopy _sqlitecopy = new FileCopy();
+        private readonly HelpDeskStatsEntities _hd= new HelpDeskStatsEntities();
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -41,7 +38,6 @@ namespace ENoticeBoard.Controllers
             {
                 return View();
             }
-
             string currentPeriod = _basedata.FinancialCalendars
                 .Where(x => x.CurrentPeriod == true)
                 .Select(x => x.FinancialPeriod)
@@ -66,28 +62,25 @@ namespace ENoticeBoard.Controllers
                 .ToList();
 
             
-
+            //Panels 
             //Get Target Value for Comparision
             var downtimePlannedTarget = _db.Targets.Single(t => t.Subject == "Downtime_Planned").TargetNum;
             var downtimeUnplannedTarget = _db.Targets.Single(t => t.Subject == "Downtime_Unplanned").TargetNum;
             var breakageTarget = _db.Targets.Single(t => t.Subject == "Breakage").TargetNum;
             var budgetTarget = _db.Targets.Single(t => t.Subject == "Budget").TargetNum;
             var openTicketTarget = _db.Targets.Single(t => t.Subject == "OpenTicket").TargetNum;
-
             //Get Actual Value 
             var downtimeSum = downtime.Any() ? downtime.Sum(x => x.Duration) : 0;
             var budgetSum = spend.Any() ? spend.Sum(x => x.Cost) : 0M;
             var breakageSum = brreakage.Any() ? brreakage.Sum(x => x.Cost) : 0M;
-            
             //Downtime has 2 statement for bgcolor
             var downtimePlannedMin = downtime.Where(dt => dt.Status == "Planned").Sum(dt => dt.Duration);
             var downtimeUnplannedMin = downtime.Where(dt => dt.Status == "Unplanned").Sum(dt => dt.Duration);
             var bgDtPlanned = SetBgColor(downtimePlannedTarget, downtimePlannedMin);
             var bgDtUnplanned = SetBgColor(downtimeUnplannedTarget, downtimeUnplannedMin);
-            //Get no of tickets from sqlite
-            SqlLite helpDesk = new SqlLite();
-            var openTicketSum = _sqlitecopy.CopyDB() ? helpDesk.ConnectSqLite().Rows.Count : 0;
-
+            //Get no of tickets 
+            var openTicketSum = _hd.ENoticeBoards.Count(x => x.Status == "open" && x.Category == "Helpdesk");
+            
             var model = new HomeViewModel()
             {
                 Rocks = _db.Rocks.OrderByDescending(s => s.Priority)
@@ -131,7 +124,7 @@ namespace ENoticeBoard.Controllers
             string user = System.Web.HttpContext.Current.User.Identity.Name;
             user = user.ToLower().Replace("oneharvest\\", "");
             List<string> groupOnfo = GetDepartmentFromAd(user);
-            bool v = groupOnfo.Contains("IT-WACOL") ? true : false;
+            bool v = groupOnfo.Contains("IT-WACOL");
             return v;
         }
 
@@ -175,15 +168,18 @@ namespace ENoticeBoard.Controllers
         {
             using (MyDatabaseEntities dc = new MyDatabaseEntities())
             {
-                var today = DateTime.Now.Date;
                 //var events = dc.Events.Where(x=>x.End>=today).ToList();
                 //var users = dc.Users.ToList();
                 var eventtpreturn = from t1 in dc.Events
                     join t2 in dc.Users on t1.Email equals t2.Email
                     select new
                     {
-                        EventId = t1.EventID, Subject = t1.Subject, Description = t1.Description, Start = t1.Start,
-                        End = t1.End, ThemeColor = t2.Color, Email = t1.Email
+                        EventId = t1.EventID,
+                        t1.Subject,
+                        t1.Description,
+                        t1.Start,
+                        t1.End, ThemeColor = t2.Color,
+                        t1.Email
                     };
 
                 var events = eventtpreturn.ToList().Select(x => new Event

@@ -244,7 +244,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ENoticeBoard.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>HelpDeskStats.tt</DependentUpon>
     </Compile>
     <Compile Include="Event.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -254,6 +254,21 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HelpDeskStats.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HelpDeskStats.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HelpDeskStats.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HelpDeskStats.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HelpDeskStats.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HelpDeskStats.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -1976,6 +1991,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="HelpDeskStats.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HelpDeskStats.edmx</DependentUpon>
+      <LastGenOutput>HelpDeskStats.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="HelpDeskStats.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HelpDeskStats.edmx</DependentUpon>
+      <LastGenOutput>HelpDeskStats.cs</LastGenOutput>
+    </Content>
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -1990,13 +2015,6 @@
     <Content Include="Scripts\bootstrap-colorpicker.js" />
     <Content Include="Scripts\bootstrap-colorpicker.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
-    <EntityDeploy Include="Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\datetime-moment.js" />
@@ -2086,6 +2104,20 @@
     <Content Include="admin-lte\plugins\Ionicons\scss\_ionicons-font.scss" />
     <Content Include="admin-lte\plugins\Ionicons\scss\_ionicons-icons.scss" />
     <Content Include="admin-lte\plugins\Ionicons\scss\_ionicons-variables.scss" />
+    <EntityDeploy Include="Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="HelpDeskStats.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HelpDeskStats.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="HelpDeskStats.edmx.diagram">
+      <DependentUpon>HelpDeskStats.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -2156,19 +2188,16 @@
     <Content Include="Views\Breakages\Delete.cshtml" />
     <Content Include="Views\Breakages\Details.cshtml" />
     <Content Include="Views\Breakages\Edit.cshtml" />
-    <Content Include="Views\Breakages\Index.cshtml" />
     <Content Include="Views\Objects\Create.cshtml" />
     <Content Include="Views\Objects\Delete.cshtml" />
     <Content Include="Views\Objects\Details.cshtml" />
     <Content Include="Views\Objects\Edit.cshtml" />
-    <Content Include="Views\Objects\Index.cshtml" />
     <Content Include="Views\Objects\Summary.cshtml" />
     <Content Include="Views\Breakages\Summary.cshtml" />
     <Content Include="Views\Downtimes\Create.cshtml" />
     <Content Include="Views\Downtimes\Delete.cshtml" />
     <Content Include="Views\Downtimes\Details.cshtml" />
     <Content Include="Views\Downtimes\Edit.cshtml" />
-    <Content Include="Views\Downtimes\Index.cshtml" />
     <Content Include="Views\Downtimes\Summary.cshtml" />
     <Content Include="Views\Rocks\Summary.cshtml" />
     <Content Include="Views\Rocks\Details.cshtml" />

@@ -1,9 +1,9 @@
-﻿using ENoticeBoard.ViewModels;
+﻿using ENoticeBoard.Models;
+using ENoticeBoard.ViewModels;
 using System;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ENoticeBoard.Models;
 
 namespace ENoticeBoard.Controllers
 {
@@ -13,10 +13,6 @@ namespace ENoticeBoard.Controllers
         private static readonly BaseDataEntities BaseData = new BaseDataEntities();
 
         // GET: Breakages
-        public ActionResult Index()
-        {
-            return View(_db.Breakages.ToList());
-        }
         [HttpPost]
         public PartialViewResult Summary(string period,string year)
         {
@@ -27,7 +23,7 @@ namespace ENoticeBoard.Controllers
             }
 
             var publishedDate = DateConversion.PublishedDate();
-            var b= ViewBag.breakage = _db.Targets.Single(t => t.Subject == "Breakage").TargetNum;
+            ViewBag.breakage = _db.Targets.Single(t => t.Subject == "Breakage").TargetNum;
             var model = new BreakageSummaryViewFormModel()
             {
                 BreakageWFPs = _db.Vw_BreakagesWithinFinancialPeriod.Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false).ToList(),

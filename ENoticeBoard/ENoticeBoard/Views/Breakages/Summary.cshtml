@@ -1,8 +1,10 @@
 ﻿@using System.Web.Mvc.Html
-@model ENoticeBoard.ViewModels.BreakageSummaryViewFormModel
+@using BreakageSummaryViewFormModel = ENoticeBoard.ViewModels.BreakageSummaryViewFormModel
+@model BreakageSummaryViewFormModel
 
 <head>
     <script src="~/Scripts/datetime-moment.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-uk.js"></script>
 </head>
 
 
@@ -131,10 +133,8 @@
 </div>
 <script>
     $(document).ready(function () {
-        moment.locale('Au');
-        $.fn.dataTable.moment("DD/MM/YYYY");
+        $.fn.dataTable.moment( 'HH:mm MMM D, YY' );
         $('#BreakageTB').DataTable({
-            
             autoWidth: false,
             columns: [
                 { "width": "40%" },
@@ -143,9 +143,12 @@
                 { "width": "10%" },
                 { "width": "10%" },
                 null
-                
             ]
         });
+        var date = Date.parse('29/01/2019 12:00:00 AM'); 
+        console.log(date);
+        var unixTimeZero = Date.parse('18/02/2019 12:00:00 AM');
+        console.log(unixTimeZero);
 
     });
     

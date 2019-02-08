@@ -108,7 +108,7 @@ namespace ENoticeBoard.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             User user = db.Users.Find(id);
-            db.Users.Remove(user);
+            if (user != null) db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Manage","Home");
         }

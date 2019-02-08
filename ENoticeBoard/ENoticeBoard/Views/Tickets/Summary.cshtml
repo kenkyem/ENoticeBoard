@@ -1,27 +1,37 @@
-﻿@model System.Data.DataTable
+﻿@model List<ENoticeBoard>
 
 <table class="table table-bordered table-condensed table-responsive display table-striped" id="ticketTB" style="word-wrap: normal; width: 100%">
     <thead>
-        <tr>
-            <th>Id</th>
-            <th width="30%">Summary</th>
-            <th width="10%">Status</th>
-            <th width="10%">Date Created </th>
-            <th width="10%">Date Updated</th>
-            <th width="15%">Catergory</th>
-            <th width="10%">Assigned</th>
-            
+    <tr>
+        <th>ID</th>
+        <th width="50%">Summary</th>
+        
+        <th width="10%">Date Created </th>
+        <th width="10%">Date Updated</th>
+        
+        <th width="10%">Assigned</th>
 
-        </tr>
+
+    </tr>
     </thead>
     <tbody>
-    @foreach (System.Data.DataRow row in Model.Rows)
+    @foreach (var t in Model)
         {
             <tr style="text-align: center">
-                @foreach (var cell in row.ItemArray)
-                {
-                    <td>@cell.ToString()</td>
-                }
+                <td>@t.ENoticeBoardId</td>    
+                <td>@if (t.Summary != null && t.Summary.Length > 35)
+                    {
+                        @t.Summary.Substring(0, 35)
+                    }
+                    else
+                    {
+                        @t.Summary
+                    }</td>
+                
+                <td>@t.CreatedAt</td>
+                <td>@t.UpdatedAt</td>
+                
+                <td>@t.FirstName @t.LastName</td>
             </tr>
         }
    
@@ -30,6 +40,7 @@
 
 <script>
     $(document).ready(function () {
+        $.fn.dataTable.moment('DD/MM/YY HH:mm:ss');
         $('#ticketTB').DataTable();
 
     });

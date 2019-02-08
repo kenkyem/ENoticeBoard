@@ -1,9 +1,9 @@
-﻿using ENoticeBoard.ViewModels;
+﻿using ENoticeBoard.Models;
+using ENoticeBoard.ViewModels;
 using System;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ENoticeBoard.Models;
 
 namespace ENoticeBoard.Controllers
 {
@@ -12,12 +12,6 @@ namespace ENoticeBoard.Controllers
         private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
         private readonly BaseDataEntities _baseData = new BaseDataEntities();
         // GET: Objects
-        [HttpPost]
-        public PartialViewResult Index()
-        {
-            return PartialView(_db.Objects.ToList());
-        }
-
         [HttpPost]
         public PartialViewResult Summary(string period, string year)
         {
@@ -28,7 +22,7 @@ namespace ENoticeBoard.Controllers
             }
 
             var publishedDate = DateConversion.PublishedDate();
-            var o= ViewBag.budget = _db.Targets.Single(t => t.Subject == "Budget").TargetNum;
+            ViewBag.budget = _db.Targets.Single(t => t.Subject == "Budget").TargetNum;
             var model = new ObjectSummaryViewModel()
             {
                 ObjectWFPs = _db.Vw_ObjectsWithinFinancialPeriod.Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false).ToList(),
@@ -62,12 +56,21 @@ namespace ENoticeBoard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Object @object = _db.Objects.Find(id);
-            if (@object == null)
+            Object oobject = _db.Objects.Find(id);
+            if (oobject == null)
             {
                 return HttpNotFound();
             }
-            return PartialView(@object);
+
+            var model = new ObjectFormViewModel()
+            {
+                Id = oobject.ObjectId,
+                Subject = oobject.ObjectName,
+                Description = oobject.Description,
+                Date = oobject.Date,
+                Cost = oobject.Cost
+            };
+            return PartialView(model);
         }
 
         // GET: Objects/Create
@@ -192,7 +195,15 @@ namespace ENoticeBoard.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView(@object);
+            var model = new ObjectFormViewModel()
+            {
+                Id = @object.ObjectId,
+                Subject = @object.ObjectName,
+                Description = @object.Description,
+                Date = @object.Date,
+                Cost = @object.Cost
+            };
+            return PartialView(model);
         }
 
         [HttpPost]

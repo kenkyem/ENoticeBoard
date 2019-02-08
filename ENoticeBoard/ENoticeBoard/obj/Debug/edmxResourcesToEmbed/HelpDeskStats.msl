@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HelpDeskStatsModelStoreContainer" CdmEntityContainer="HelpDeskStatsEntities">
+    <EntitySetMapping Name="ENoticeBoards">
+      <EntityTypeMapping TypeName="HelpDeskStatsModel.ENoticeBoard">
+        <MappingFragment StoreEntitySet="ENoticeBoard">
+          <ScalarProperty Name="ENoticeBoardId" ColumnName="ENoticeBoardId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Summary" ColumnName="Summary" />
+          <ScalarProperty Name="SnapshotDate" ColumnName="SnapshotDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

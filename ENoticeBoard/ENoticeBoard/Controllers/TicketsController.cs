@@ -1,5 +1,5 @@
 ﻿using ENoticeBoard.Models;
-using System.Data;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -8,7 +8,7 @@ namespace ENoticeBoard.Controllers
     public class TicketsController : Controller
     {
         private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
-        
+        private readonly HelpDeskStatsEntities _hd = new HelpDeskStatsEntities();
         
 
         // GET: Tickets
@@ -16,14 +16,13 @@ namespace ENoticeBoard.Controllers
         {
             if (period == null && year == null)
             {
-                period = DateConversion.CurrentPeriod();
-                year = DateConversion.CurrentYear();
+                DateConversion.CurrentPeriod();
+                DateConversion.CurrentYear();
             }
 
             ViewBag.TicketTarget = _db.Targets.Single(x => x.Subject == "OpenTicket").TargetNum;
-            SqlLite ticketslist = new SqlLite();
-            DataTable ticketTable = ticketslist.ConnectSqLite();
-            return PartialView(ticketTable);
+            List<ENoticeBoard> openHelpDeskTickets = new List<ENoticeBoard>(_hd.ENoticeBoards.Where(x=>x.Status == "open" && x.Category=="HelpDesk")).ToList();
+            return PartialView(openHelpDeskTickets);
         
         }
     }

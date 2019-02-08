@@ -1,9 +1,9 @@
-﻿using ENoticeBoard.ViewModels;
+﻿using ENoticeBoard.Models;
+using ENoticeBoard.ViewModels;
 using System;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ENoticeBoard.Models;
 
 
 namespace ENoticeBoard.Controllers
@@ -13,10 +13,6 @@ namespace ENoticeBoard.Controllers
         private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
         private readonly BaseDataEntities _baseData = new BaseDataEntities();
         // GET: Downtimes
-        public ActionResult Index()
-        {
-            return View(_db.Downtimes.ToList());
-        }
         [HttpPost]
         public PartialViewResult Summary(string period, string year)
         {

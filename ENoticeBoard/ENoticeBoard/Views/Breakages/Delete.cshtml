@@ -1,4 +1,5 @@
-﻿@model ENoticeBoard.ViewModels.BreakageFormViewModel
+﻿@using BreakageFormViewModel = ENoticeBoard.ViewModels.BreakageFormViewModel
+@model BreakageFormViewModel
 <style type="text/css">
     .dl-horizontal dt {
         text-align: left;
@@ -39,7 +40,7 @@
             {
                 if (site.SiteId == Model.SiteId)
                 {
-                    @site.Subject   
+                    @site.Subject
                 }
             }
         </dd>
@@ -74,7 +75,7 @@
 
         <div class="form-group">
             <input type="button" id="btnDeleteBreakage" value="Delete" class="btn btn-primary" />
-            
+
         </div>
     }
 </div>

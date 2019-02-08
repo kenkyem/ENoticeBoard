@@ -1,4 +1,5 @@
-﻿@model ENoticeBoard.ViewModels.BreakageFormViewModel
+﻿@using BreakageFormViewModel = ENoticeBoard.ViewModels.BreakageFormViewModel
+@model BreakageFormViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -17,7 +18,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Subject)
                 <div>
-                    @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control",required= "required" } })
+                    @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -56,7 +57,7 @@
             </div>
         </div>
         <button type="button" id="btnSaveBrk" value="Save" class="btn btn-success">Save</button>
-        
+
     </div>
 </form>
 
@@ -134,5 +135,5 @@
                 }
             });
     });
-        
+
 </script>

@@ -1,6 +1,7 @@
 ﻿
 @using System.Drawing
-@model ENoticeBoard.ViewModels.ManageFormViewModel
+@using ManageFormViewModel = ENoticeBoard.ViewModels.ManageFormViewModel
+@model ManageFormViewModel
 
 @{
     ViewBag.Title = "Manage";
@@ -128,10 +129,7 @@
                                         <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetDetail">
                                             <span class="glyphicon glyphicon-eye-open"></span>
                                         </button>
-                                        <button rid="@item.TargetId" aria-hidden="true" class="btn btn-link btn-sm targetDelete">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </td>
+                                        </td>
 
 
                                 </tr>

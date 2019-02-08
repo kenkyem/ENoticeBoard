@@ -4,24 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5accca53a65f4d20a9fd901c8f577ec3" Name="Diagram1" DisplayType="true" ZoomLevel="100" ShowGrid="false">
-        <EntityTypeShape EntityType="MyDatabaseModel.Breakage" Width="1.5" PointX="4.125" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Object" Width="1.5" PointX="7.375" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Rock" Width="1.5" PointX="5.75" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDatabaseModel.BreakageType" Width="1.5" PointX="2.5" PointY="0.75" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Downtimetype" Width="1.5" PointX="2.5" PointY="4.25" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Site" Width="1.5" PointX="2.5" PointY="2.5" />
-        <AssociationConnector Association="MyDatabaseModel.FK_Breakages_Breakagetypes" />
-        <AssociationConnector Association="MyDatabaseModel.FK_Breakages_ToSites" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Vw_ObjectsWithinFinancialPeriod" PointX="7.375" PointY="6.5" Width="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Vw_BreakagesWithinFinancialPeriod" Width="1.5" PointX="5.875" PointY="6.5" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Downtime" Width="1.5" PointX="4.125" PointY="3.625" />
-        <AssociationConnector Association="MyDatabaseModel.FK_Downtimes_ToDowntimeTypes" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Vw_DowntimesWithinFinancialPeriod" Width="1.625" PointX="4.125" PointY="6.5" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Target" Width="1.5" PointX="7.375" PointY="5" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Vw_RocksWithinFinancialPeriod" Width="1.5" PointX="2.5" PointY="6.5" />
-        <EntityTypeShape EntityType="MyDatabaseModel.User" Width="1.5" PointX="7.375" PointY="3" />
-        <EntityTypeShape EntityType="MyDatabaseModel.Event" Width="1.5" PointX="5.75" PointY="0.75" />
+      <Diagram DiagramId="38fcfb20f77044878fdfff37bbb5e4dc" Name="Diagram1">
+        <EntityTypeShape EntityType="ENoticeBoardModel.Breakage" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.BreakageType" Width="1.5" PointX="1.125" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.Downtime" Width="1.5" PointX="5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.Downtimetype" Width="1.5" PointX="2.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.Event" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.Object" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.Rock" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.Site" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.Target" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.User" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.Vw_BreakagesWithinFinancialPeriod" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.Vw_DowntimesWithinFinancialPeriod" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.Vw_ObjectsWithinFinancialPeriod" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.Vw_RocksWithinFinancialPeriod" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="ENoticeBoardModel.FK_Breakages_Breakagetypes" ManuallyRouted="false" />
+        <AssociationConnector Association="ENoticeBoardModel.FK_Breakages_ToSites" ManuallyRouted="false" />
+        <AssociationConnector Association="ENoticeBoardModel.FK_Downtimes_ToDowntimeTypes" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

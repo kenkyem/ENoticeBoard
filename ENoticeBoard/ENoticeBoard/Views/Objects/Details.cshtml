@@ -1,4 +1,5 @@
-﻿@model ENoticeBoard.Object
+﻿@using ObjectFormViewModel = ENoticeBoard.ViewModels.ObjectFormViewModel
+@model ObjectFormViewModel
 
 <style type="text/css">
     .dl-horizontal dt {
@@ -19,8 +20,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ObjectName)
-        </dd>
+            @Html.DisplayFor(model => model.Subject)
+            </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Cost)

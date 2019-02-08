@@ -1,4 +1,6 @@
-﻿namespace ENoticeBoard.Models
+﻿using System.IO;
+
+namespace ENoticeBoard.Models
 {
     public class FileCopy
     {

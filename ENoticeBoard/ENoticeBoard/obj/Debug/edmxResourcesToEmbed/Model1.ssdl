@@ -1,4 +1,302 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="MyDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="MyDatabaseModelStoreContainer" />
+<Schema Namespace="ENoticeBoardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Breakages">
+    <Key>
+      <PropertyRef Name="BreakageId" />
+    </Key>
+    <Property Name="BreakageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Site" Type="int" Nullable="false" />
+    <Property Name="Cost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BreakageTypes">
+    <Key>
+      <PropertyRef Name="TypeId" />
+    </Key>
+    <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Downtimes">
+    <Key>
+      <PropertyRef Name="DownTimeId" />
+    </Key>
+    <Property Name="DownTimeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Duration" Type="int" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Downtimetypes">
+    <Key>
+      <PropertyRef Name="TypeId" />
+    </Key>
+    <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="EventID" />
+    </Key>
+    <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="300" />
+    <Property Name="Start" Type="datetime" Nullable="false" />
+    <Property Name="End" Type="datetime" />
+    <Property Name="ThemeColor" Type="nvarchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Object">
+    <Key>
+      <PropertyRef Name="ObjectId" />
+    </Key>
+    <Property Name="ObjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ObjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Cost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="300" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rocks">
+    <Key>
+      <PropertyRef Name="RockId" />
+    </Key>
+    <Property Name="RockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Priority" Type="int" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="DateDue" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Done" Type="bit" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sites">
+    <Key>
+      <PropertyRef Name="SiteId" />
+    </Key>
+    <Property Name="SiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Target">
+    <Key>
+      <PropertyRef Name="TargetId" />
+    </Key>
+    <Property Name="TargetId" Type="int" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="TargetNum" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Color" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Role" Type="nvarchar" MaxLength="10" />
+    <Property Name="EmployeeId" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'EnoticeBoard.dbo.Vw_BreakagesWithinFinancialPeriod' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_BreakagesWithinFinancialPeriod">
+    <Key>
+      <PropertyRef Name="Date" />
+      <PropertyRef Name="BreakageId" />
+      <PropertyRef Name="Site" />
+      <PropertyRef Name="Type" />
+      <PropertyRef Name="Subject" />
+      <PropertyRef Name="Cost" />
+      <PropertyRef Name="isDeleted" />
+    </Key>
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="FinancialPeriod" Type="nvarchar" MaxLength="2" />
+    <Property Name="FinancialYear" Type="nvarchar" MaxLength="4" />
+    <Property Name="BreakageId" Type="int" Nullable="false" />
+    <Property Name="Site" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Type" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Cost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'EnoticeBoard.dbo.Vw_DowntimesWithinFinancialPeriod' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_DowntimesWithinFinancialPeriod">
+    <Key>
+      <PropertyRef Name="Date" />
+      <PropertyRef Name="DownTimeId" />
+      <PropertyRef Name="Subject" />
+      <PropertyRef Name="Description" />
+      <PropertyRef Name="Duration" />
+      <PropertyRef Name="isDeleted" />
+      <PropertyRef Name="Type" />
+      <PropertyRef Name="Status" />
+    </Key>
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="FinancialPeriod" Type="nvarchar" MaxLength="2" />
+    <Property Name="FinancialYear" Type="nvarchar" MaxLength="4" />
+    <Property Name="DownTimeId" Type="int" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Duration" Type="int" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+    <Property Name="Type" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Status" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'EnoticeBoard.dbo.Vw_ObjectsWithinFinancialPeriod' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_ObjectsWithinFinancialPeriod">
+    <Key>
+      <PropertyRef Name="Date" />
+      <PropertyRef Name="ObjectId" />
+      <PropertyRef Name="ObjectName" />
+      <PropertyRef Name="Cost" />
+      <PropertyRef Name="isDeleted" />
+    </Key>
+    <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="FinancialPeriod" Type="nvarchar" MaxLength="2" />
+    <Property Name="FinancialYear" Type="nvarchar" MaxLength="4" />
+    <Property Name="ObjectId" Type="int" Nullable="false" />
+    <Property Name="ObjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Cost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="300" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_RocksWithinFinancialPeriod">
+    <Key>
+      <PropertyRef Name="DateCreated" />
+      <PropertyRef Name="RockId" />
+      <PropertyRef Name="Subject" />
+      <PropertyRef Name="Priority" />
+      <PropertyRef Name="DateDue" />
+      <PropertyRef Name="Done" />
+      <PropertyRef Name="isDeleted" />
+    </Key>
+    <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="FinancialPeriod" Type="nvarchar" MaxLength="2" />
+    <Property Name="FinancialYear" Type="nvarchar" MaxLength="4" />
+    <Property Name="RockId" Type="int" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Priority" Type="int" Nullable="false" />
+    <Property Name="DateDue" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Done" Type="bit" Nullable="false" />
+    <Property Name="isDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Breakages_Breakagetypes">
+    <End Role="BreakageTypes" Type="Self.BreakageTypes" Multiplicity="1" />
+    <End Role="Breakages" Type="Self.Breakages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BreakageTypes">
+        <PropertyRef Name="TypeId" />
+      </Principal>
+      <Dependent Role="Breakages">
+        <PropertyRef Name="Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Breakages_ToSites">
+    <End Role="Sites" Type="Self.Sites" Multiplicity="1" />
+    <End Role="Breakages" Type="Self.Breakages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sites">
+        <PropertyRef Name="SiteId" />
+      </Principal>
+      <Dependent Role="Breakages">
+        <PropertyRef Name="Site" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Downtimes_ToDowntimeTypes">
+    <End Role="Downtimetypes" Type="Self.Downtimetypes" Multiplicity="1" />
+    <End Role="Downtimes" Type="Self.Downtimes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Downtimetypes">
+        <PropertyRef Name="TypeId" />
+      </Principal>
+      <Dependent Role="Downtimes">
+        <PropertyRef Name="Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ENoticeBoardModelStoreContainer">
+    <EntitySet Name="Breakages" EntityType="Self.Breakages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BreakageTypes" EntityType="Self.BreakageTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Downtimes" EntityType="Self.Downtimes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Downtimetypes" EntityType="Self.Downtimetypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Object" EntityType="Self.Object" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rocks" EntityType="Self.Rocks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sites" EntityType="Self.Sites" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Target" EntityType="Self.Target" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vw_BreakagesWithinFinancialPeriod" EntityType="Self.Vw_BreakagesWithinFinancialPeriod" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_BreakagesWithinFinancialPeriod].[Date] AS [Date], 
+    [Vw_BreakagesWithinFinancialPeriod].[FinancialPeriod] AS [FinancialPeriod], 
+    [Vw_BreakagesWithinFinancialPeriod].[FinancialYear] AS [FinancialYear], 
+    [Vw_BreakagesWithinFinancialPeriod].[BreakageId] AS [BreakageId], 
+    [Vw_BreakagesWithinFinancialPeriod].[Site] AS [Site], 
+    [Vw_BreakagesWithinFinancialPeriod].[Type] AS [Type], 
+    [Vw_BreakagesWithinFinancialPeriod].[Subject] AS [Subject], 
+    [Vw_BreakagesWithinFinancialPeriod].[Cost] AS [Cost], 
+    [Vw_BreakagesWithinFinancialPeriod].[isDeleted] AS [isDeleted]
+    FROM [dbo].[Vw_BreakagesWithinFinancialPeriod] AS [Vw_BreakagesWithinFinancialPeriod]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_DowntimesWithinFinancialPeriod" EntityType="Self.Vw_DowntimesWithinFinancialPeriod" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_DowntimesWithinFinancialPeriod].[Date] AS [Date], 
+    [Vw_DowntimesWithinFinancialPeriod].[FinancialPeriod] AS [FinancialPeriod], 
+    [Vw_DowntimesWithinFinancialPeriod].[FinancialYear] AS [FinancialYear], 
+    [Vw_DowntimesWithinFinancialPeriod].[DownTimeId] AS [DownTimeId], 
+    [Vw_DowntimesWithinFinancialPeriod].[Subject] AS [Subject], 
+    [Vw_DowntimesWithinFinancialPeriod].[Description] AS [Description], 
+    [Vw_DowntimesWithinFinancialPeriod].[Duration] AS [Duration], 
+    [Vw_DowntimesWithinFinancialPeriod].[isDeleted] AS [isDeleted], 
+    [Vw_DowntimesWithinFinancialPeriod].[Type] AS [Type], 
+    [Vw_DowntimesWithinFinancialPeriod].[Status] AS [Status]
+    FROM [dbo].[Vw_DowntimesWithinFinancialPeriod] AS [Vw_DowntimesWithinFinancialPeriod]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_ObjectsWithinFinancialPeriod" EntityType="Self.Vw_ObjectsWithinFinancialPeriod" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_ObjectsWithinFinancialPeriod].[Date] AS [Date], 
+    [Vw_ObjectsWithinFinancialPeriod].[FinancialPeriod] AS [FinancialPeriod], 
+    [Vw_ObjectsWithinFinancialPeriod].[FinancialYear] AS [FinancialYear], 
+    [Vw_ObjectsWithinFinancialPeriod].[ObjectId] AS [ObjectId], 
+    [Vw_ObjectsWithinFinancialPeriod].[ObjectName] AS [ObjectName], 
+    [Vw_ObjectsWithinFinancialPeriod].[Cost] AS [Cost], 
+    [Vw_ObjectsWithinFinancialPeriod].[Description] AS [Description], 
+    [Vw_ObjectsWithinFinancialPeriod].[isDeleted] AS [isDeleted]
+    FROM [dbo].[Vw_ObjectsWithinFinancialPeriod] AS [Vw_ObjectsWithinFinancialPeriod]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_RocksWithinFinancialPeriod" EntityType="Self.Vw_RocksWithinFinancialPeriod" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_RocksWithinFinancialPeriod].[DateCreated] AS [DateCreated], 
+    [Vw_RocksWithinFinancialPeriod].[FinancialPeriod] AS [FinancialPeriod], 
+    [Vw_RocksWithinFinancialPeriod].[FinancialYear] AS [FinancialYear], 
+    [Vw_RocksWithinFinancialPeriod].[RockId] AS [RockId], 
+    [Vw_RocksWithinFinancialPeriod].[Subject] AS [Subject], 
+    [Vw_RocksWithinFinancialPeriod].[Priority] AS [Priority], 
+    [Vw_RocksWithinFinancialPeriod].[DateDue] AS [DateDue], 
+    [Vw_RocksWithinFinancialPeriod].[Done] AS [Done], 
+    [Vw_RocksWithinFinancialPeriod].[isDeleted] AS [isDeleted]
+    FROM [dbo].[Vw_RocksWithinFinancialPeriod] AS [Vw_RocksWithinFinancialPeriod]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Breakages_Breakagetypes" Association="Self.FK_Breakages_Breakagetypes">
+      <End Role="BreakageTypes" EntitySet="BreakageTypes" />
+      <End Role="Breakages" EntitySet="Breakages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Breakages_ToSites" Association="Self.FK_Breakages_ToSites">
+      <End Role="Sites" EntitySet="Sites" />
+      <End Role="Breakages" EntitySet="Breakages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Downtimes_ToDowntimeTypes" Association="Self.FK_Downtimes_ToDowntimeTypes">
+      <End Role="Downtimetypes" EntitySet="Downtimetypes" />
+      <End Role="Downtimes" EntitySet="Downtimes" />
+    </AssociationSet>
+  </EntityContainer>
 </Schema>

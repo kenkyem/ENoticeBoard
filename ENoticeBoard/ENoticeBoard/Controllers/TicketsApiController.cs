@@ -16,7 +16,7 @@ namespace ENoticeBoard.Controllers
 
         private static readonly string email = "ken.le@oneharvest.com.au";
         private static readonly string password = "Diploma#1";
-        private static readonly string encoded = System.Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(email + ":" + password));
+        private static readonly string Encoded = System.Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(email + ":" + password));
 
         //public static List<string> GetTickets()
         //{
@@ -75,7 +75,7 @@ namespace ENoticeBoard.Controllers
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.ContentType = "application/json; charset=utf-8";
-            request.Headers.Add("Authorization", "Basic " + encoded);
+            request.Headers.Add("Authorization", "Basic " + Encoded);
             request.AllowAutoRedirect = false;
             var response = request.GetResponse() as HttpWebResponse;
             if (response != null)

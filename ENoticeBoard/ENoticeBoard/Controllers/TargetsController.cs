@@ -105,7 +105,7 @@ namespace ENoticeBoard.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Target target = db.Targets.Find(id);
-            db.Targets.Remove(target);
+            if (target != null) db.Targets.Remove(target);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
