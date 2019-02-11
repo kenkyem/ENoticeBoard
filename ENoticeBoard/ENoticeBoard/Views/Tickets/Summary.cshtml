@@ -1,4 +1,4 @@
-﻿@model List<ENoticeBoard>
+﻿@model List<ENoticeBoardMstr>
 
 <table class="table table-bordered table-condensed table-responsive display table-striped" id="ticketTB" style="word-wrap: normal; width: 100%">
     <thead>
@@ -19,19 +19,19 @@
         {
             <tr style="text-align: center">
                 <td>@t.ENoticeBoardId</td>    
-                <td>@if (t.Summary != null && t.Summary.Length > 35)
+                <td>@if (t.LastName != null && t.LastName.Length > 35)
                     {
-                        @t.Summary.Substring(0, 35)
+                        @t.LastName.Substring(0, 35)
                     }
                     else
                     {
-                        @t.Summary
+                        @t.LastName
                     }</td>
                 
                 <td>@t.CreatedAt</td>
                 <td>@t.UpdatedAt</td>
                 
-                <td>@t.FirstName @t.LastName</td>
+                <td>@t.FirstName @t.Summary</td>
             </tr>
         }
    
