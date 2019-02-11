@@ -34,10 +34,10 @@ namespace ENoticeBoard.Controllers
         // GET: Rocks
         public ActionResult Index()
         {
-            //if (!UserIsIT())
-            //{
-            //    return View();
-            //}
+            if (!UserIsIT())
+            {
+                return View();
+            }
             string currentPeriod = _basedata.FinancialCalendars
                 .Where(x => x.CurrentPeriod == true)
                 .Select(x => x.FinancialPeriod)
