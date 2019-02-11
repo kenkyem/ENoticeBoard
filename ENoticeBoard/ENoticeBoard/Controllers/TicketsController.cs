@@ -21,7 +21,7 @@ namespace ENoticeBoard.Controllers
             }
 
             ViewBag.TicketTarget = _db.Targets.Single(x => x.Subject == "OpenTicket").TargetNum;
-            List<ENoticeBoard> openHelpDeskTickets = new List<ENoticeBoard>(_hd.ENoticeBoards.Where(x=>x.Status == "open" && x.Category=="HelpDesk")).ToList();
+            List<ENoticeBoardMstr> openHelpDeskTickets = new List<ENoticeBoardMstr>(_hd.ENoticeBoardMstrs.Where(x=>x.Status == "open" && x.Category=="HelpDesk")).ToList();
             return PartialView(openHelpDeskTickets);
         
         }

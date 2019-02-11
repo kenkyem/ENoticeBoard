@@ -1,6 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="HelpDeskStatsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="ENoticeBoard">
+  <EntityContainer Name="HelpDeskStatsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Vw_TicketsWithinFinancialWeek" EntityType="HelpDeskStatsModel.Vw_TicketsWithinFinancialWeek" />
+    <EntitySet Name="ENoticeBoardMstrs" EntityType="HelpDeskStatsModel.ENoticeBoardMstr" />
+  </EntityContainer>
+  <EntityType Name="Vw_TicketsWithinFinancialWeek">
+    <Key>
+      <PropertyRef Name="ENoticeBoardId" />
+    </Key>
+    <Property Name="FinancialWeek" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="FinancialPeriod" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="FinancialYear" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="ClosedAt" Type="DateTime" Precision="3" />
+    <Property Name="ENoticeBoardId" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="Summary" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentWeek" Type="Boolean" />
+    <Property Name="PriorWeek" Type="Boolean" />
+    <Property Name="CurrentPeriod" Type="Boolean" />
+    <Property Name="PriorPeriod" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="ENoticeBoardMstr">
     <Key>
       <PropertyRef Name="ENoticeBoardId" />
     </Key>
@@ -8,13 +29,11 @@
     <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="CreatedAt" Type="DateTime" Precision="3" />
     <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+    <Property Name="ClosedAt" Type="DateTime" Precision="3" />
     <Property Name="Category" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="FirstName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
     <Property Name="LastName" Type="String" MaxLength="64" FixedLength="true" Unicode="true" />
     <Property Name="Summary" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SnapshotDate" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityContainer Name="HelpDeskStatsEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="ENoticeBoards" EntityType="Self.ENoticeBoard" />
-  </EntityContainer>
 </Schema>

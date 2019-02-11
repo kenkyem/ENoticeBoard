@@ -243,7 +243,7 @@
     <Compile Include="Downtimetype.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="ENoticeBoard.cs">
+    <Compile Include="ENoticeBoardMstr.cs">
       <DependentUpon>HelpDeskStats.tt</DependentUpon>
     </Compile>
     <Compile Include="Event.cs">
@@ -332,6 +332,9 @@
     </Compile>
     <Compile Include="Vw_RocksWithinFinancialPeriod.cs">
       <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_TicketsWithinFinancialWeek.cs">
+      <DependentUpon>HelpDeskStats.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1952,6 +1955,7 @@
     <Content Include="Content\themes\base\datepicker.css" />
     <Content Include="Content\themes\base\dialog.css" />
     <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\crown.jpg" />
     <Content Include="Content\themes\base\images\one-harvest-logo.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />

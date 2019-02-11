@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="HelpDeskStatsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="ENoticeBoard">
+  <EntityType Name="ENoticeBoardMstr">
     <Key>
       <PropertyRef Name="ENoticeBoardId" />
     </Key>
@@ -8,13 +8,49 @@
     <Property Name="Status" Type="nvarchar" MaxLength="255" />
     <Property Name="CreatedAt" Type="datetime" />
     <Property Name="UpdatedAt" Type="datetime" />
+    <Property Name="ClosedAt" Type="datetime" />
     <Property Name="Category" Type="nvarchar" MaxLength="255" />
     <Property Name="FirstName" Type="nvarchar" MaxLength="64" />
     <Property Name="LastName" Type="nchar" MaxLength="64" />
     <Property Name="Summary" Type="nvarchar" MaxLength="50" />
     <Property Name="SnapshotDate" Type="datetime" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'HelpDeskStats.dbo.Vw_TicketsWithinFinancialWeek' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_TicketsWithinFinancialWeek">
+    <Key>
+      <PropertyRef Name="ENoticeBoardId" />
+    </Key>
+    <Property Name="FinancialWeek" Type="nvarchar" MaxLength="2" />
+    <Property Name="FinancialPeriod" Type="nvarchar" MaxLength="2" />
+    <Property Name="FinancialYear" Type="nvarchar" MaxLength="4" />
+    <Property Name="ClosedAt" Type="datetime" />
+    <Property Name="ENoticeBoardId" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="255" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="64" />
+    <Property Name="Summary" Type="nvarchar" MaxLength="50" />
+    <Property Name="CurrentWeek" Type="bit" />
+    <Property Name="PriorWeek" Type="bit" />
+    <Property Name="CurrentPeriod" Type="bit" />
+    <Property Name="PriorPeriod" Type="bit" />
+  </EntityType>
   <EntityContainer Name="HelpDeskStatsModelStoreContainer">
-    <EntitySet Name="ENoticeBoard" EntityType="Self.ENoticeBoard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ENoticeBoardMstr" EntityType="Self.ENoticeBoardMstr" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vw_TicketsWithinFinancialWeek" EntityType="Self.Vw_TicketsWithinFinancialWeek" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_TicketsWithinFinancialWeek].[FinancialWeek] AS [FinancialWeek], 
+    [Vw_TicketsWithinFinancialWeek].[FinancialPeriod] AS [FinancialPeriod], 
+    [Vw_TicketsWithinFinancialWeek].[FinancialYear] AS [FinancialYear], 
+    [Vw_TicketsWithinFinancialWeek].[ClosedAt] AS [ClosedAt], 
+    [Vw_TicketsWithinFinancialWeek].[ENoticeBoardId] AS [ENoticeBoardId], 
+    [Vw_TicketsWithinFinancialWeek].[Status] AS [Status], 
+    [Vw_TicketsWithinFinancialWeek].[FirstName] AS [FirstName], 
+    [Vw_TicketsWithinFinancialWeek].[Summary] AS [Summary], 
+    [Vw_TicketsWithinFinancialWeek].[CurrentWeek] AS [CurrentWeek], 
+    [Vw_TicketsWithinFinancialWeek].[PriorWeek] AS [PriorWeek], 
+    [Vw_TicketsWithinFinancialWeek].[CurrentPeriod] AS [CurrentPeriod], 
+    [Vw_TicketsWithinFinancialWeek].[PriorPeriod] AS [PriorPeriod]
+    FROM [dbo].[Vw_TicketsWithinFinancialWeek] AS [Vw_TicketsWithinFinancialWeek]</DefiningQuery>
+    </EntitySet>
   </EntityContainer>
 </Schema>

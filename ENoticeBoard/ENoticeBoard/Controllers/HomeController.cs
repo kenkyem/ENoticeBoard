@@ -34,10 +34,10 @@ namespace ENoticeBoard.Controllers
         // GET: Rocks
         public ActionResult Index()
         {
-            if (!UserIsIT())
-            {
-                return View();
-            }
+            //if (!UserIsIT())
+            //{
+            //    return View();
+            //}
             string currentPeriod = _basedata.FinancialCalendars
                 .Where(x => x.CurrentPeriod == true)
                 .Select(x => x.FinancialPeriod)
@@ -60,8 +60,21 @@ namespace ENoticeBoard.Controllers
                     x => x.FinancialPeriod == currentPeriod && x.FinancialYear == currentYear &&
                          x.isDeleted == false)
                 .ToList();
-
-            
+            //LeaderBoard
+            var closeTicketsThisWeekGroupby = _hd.Vw_TicketsWithinFinancialWeek.Where(x => x.Status == "closed" && x.CurrentWeek ==true)
+                .GroupBy(x => new {x.FirstName, x.Summary}).Select(y => new GroupByMember()
+                {
+                    FirstName = y.Key.FirstName, LastName = y.Key.Summary,
+                    Sum = y.Count()
+                }).OrderByDescending(x=>x.Sum).ToList();
+            var totalClosedTicketsThisWeek = closeTicketsThisWeekGroupby.Sum(x => x.Sum);
+            var closeTicketsPriorWeekGroupby = _hd.Vw_TicketsWithinFinancialWeek.Where(x => x.Status == "closed" && x.PriorWeek ==true)
+                .GroupBy(x => new {x.FirstName, x.Summary}).Select(y => new GroupByMember()
+                {
+                    FirstName = y.Key.FirstName, LastName = y.Key.Summary,
+                    Sum = y.Count()
+                }).OrderByDescending(x=>x.Sum).ToList();
+            var totalClosedTicketsLastWeek = closeTicketsPriorWeekGroupby.Sum(x => x.Sum);
             //Panels 
             //Get Target Value for Comparision
             var downtimePlannedTarget = _db.Targets.Single(t => t.Subject == "Downtime_Planned").TargetNum;
@@ -79,7 +92,7 @@ namespace ENoticeBoard.Controllers
             var bgDtPlanned = SetBgColor(downtimePlannedTarget, downtimePlannedMin);
             var bgDtUnplanned = SetBgColor(downtimeUnplannedTarget, downtimeUnplannedMin);
             //Get no of tickets 
-            var openTicketSum = _hd.ENoticeBoards.Count(x => x.Status == "open" && x.Category == "Helpdesk");
+            var openTicketSum = _hd.ENoticeBoardMstrs.Count(x => x.Status == "open" && x.Category == "Helpdesk");
             
             var model = new HomeViewModel()
             {
@@ -96,7 +109,11 @@ namespace ENoticeBoard.Controllers
                     ? "bg-red"
                     : "bg-green"),
                 BgColorOpenTicket = SetBgColor(openTicketTarget, openTicketSum),
-                Users = _db.Users.ToList()
+                Users = _db.Users.ToList(),
+                TicketsThisWeek = closeTicketsThisWeekGroupby,
+                TicketsPriorWeek = closeTicketsPriorWeekGroupby,
+                TotalClosedTicketsThisWeek = totalClosedTicketsThisWeek,
+                TotalClosedTicketsLastWeek = totalClosedTicketsLastWeek
             };
 
 

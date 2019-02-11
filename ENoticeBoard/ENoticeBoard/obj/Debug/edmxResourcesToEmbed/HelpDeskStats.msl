@@ -1,18 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="HelpDeskStatsModelStoreContainer" CdmEntityContainer="HelpDeskStatsEntities">
-    <EntitySetMapping Name="ENoticeBoards">
-      <EntityTypeMapping TypeName="HelpDeskStatsModel.ENoticeBoard">
-        <MappingFragment StoreEntitySet="ENoticeBoard">
-          <ScalarProperty Name="ENoticeBoardId" ColumnName="ENoticeBoardId" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-          <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-          <ScalarProperty Name="Category" ColumnName="Category" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
+    <EntitySetMapping Name="Vw_TicketsWithinFinancialWeek">
+      <EntityTypeMapping TypeName="HelpDeskStatsModel.Vw_TicketsWithinFinancialWeek">
+        <MappingFragment StoreEntitySet="Vw_TicketsWithinFinancialWeek">
+          <ScalarProperty Name="PriorPeriod" ColumnName="PriorPeriod" />
+          <ScalarProperty Name="CurrentPeriod" ColumnName="CurrentPeriod" />
+          <ScalarProperty Name="PriorWeek" ColumnName="PriorWeek" />
+          <ScalarProperty Name="CurrentWeek" ColumnName="CurrentWeek" />
           <ScalarProperty Name="Summary" ColumnName="Summary" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ENoticeBoardId" ColumnName="ENoticeBoardId" />
+          <ScalarProperty Name="ClosedAt" ColumnName="ClosedAt" />
+          <ScalarProperty Name="FinancialYear" ColumnName="FinancialYear" />
+          <ScalarProperty Name="FinancialPeriod" ColumnName="FinancialPeriod" />
+          <ScalarProperty Name="FinancialWeek" ColumnName="FinancialWeek" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENoticeBoardMstrs">
+      <EntityTypeMapping TypeName="HelpDeskStatsModel.ENoticeBoardMstr">
+        <MappingFragment StoreEntitySet="ENoticeBoardMstr">
           <ScalarProperty Name="SnapshotDate" ColumnName="SnapshotDate" />
+          <ScalarProperty Name="Summary" ColumnName="Summary" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="ClosedAt" ColumnName="ClosedAt" />
+          <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ENoticeBoardId" ColumnName="ENoticeBoardId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

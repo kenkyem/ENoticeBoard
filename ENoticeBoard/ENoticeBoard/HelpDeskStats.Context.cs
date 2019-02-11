@@ -25,6 +25,7 @@ namespace ENoticeBoard
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ENoticeBoard> ENoticeBoards { get; set; }
+        public virtual DbSet<Vw_TicketsWithinFinancialWeek> Vw_TicketsWithinFinancialWeek { get; set; }
+        public virtual DbSet<ENoticeBoardMstr> ENoticeBoardMstrs { get; set; }
     }
 }

@@ -251,3 +251,4 @@ C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.cspro
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.csproj.CopyComplete
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.dll
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.pdb
+C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.csprojAssemblyReference.cache
