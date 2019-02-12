@@ -1,798 +1,563 @@
 ﻿@using HomeViewModel = ENoticeBoard.ViewModels.HomeViewModel
 @model HomeViewModel
 @{
-	ViewBag.Title = "Home Page";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style type="text/css">
-	html {
-		box-sizing: border-box;
-	}
 
-	*, *:before, *:after {
-		box-sizing: inherit;
-	}
-
-	html, body {
-		height: 100%;
-	}
-
-	body {
-		font-family: 'Lato', sans-serif;
-		font-weight: 300;
-		background: #16a8a3;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	h1, h2, h3, h4, h5, h6 {
-		margin: 0;
-		padding: 0;
-		font-weight: 300;
-	}
-
-	h1, h2 {
-		font-size: 1.5em;
-	}
-
-		h2.sub.header {
-			font-size: 1em;
-		}
-
-	.user-header {
-	    padding-top: 10px;
-	    font-family: 'Do Hyeon', sans-serif;
-	    font-weight: bold;
-	    font-size: xx-large;
-	    color: #e45b6c;
-	}
-	
-
-	.card {
-		display: flex;
-		background: #fff;
-		min-width: 40%;
-		border-radius: 5px;
-		overflow: hidden;
-		box-shadow: 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15), 0 55px 50px -20px rgba(34, 36, 38, 0.25);
-	}
-
-	.card-section {
-		flex-grow: 1;
-		padding: 15px;
-	}
-
-	.card-info {
-		position: relative;
-		background: linear-gradient(to bottom, #626d82 0%, #343d4d 100%);
-		color: rgba(255, 255, 255, 0.8);
-		text-align: center;
-	}
-
-		.card-info h2.sub.header {
-			color: rgba(255, 255, 255, 0.3);
-		}
-
-		.card-info .menu, .card-info .search {
-			position: absolute;
-			font-size: 3em;
-			left: 40px;
-		}
-
-		.card-info .menu {
-			top: 40px;
-		}
-
-		.card-info .search {
-			bottom: 40px;
-		}
-
-	.card-details {
-		position: relative;
-		color: rgba(0, 0, 0, 0.6);
-		width: 50%;
-	}
-
-	.avatar {
-		display: inline-block;
-		background-image: url("http://radfaces.com/images/avatars/alex-murphy.jpg");
-		background-size: cover;
-		border-radius: 50%;
-		height: 75px;
-		width: 75px;
-		border: 3px solid #e45b6c;
-		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 2px 10px 0 rgba(0, 0, 0, 0.15);
-	}
-	.crown {
-		position: absolute;
-		left: 10px;
-		top: 10px;
-		width: 50px;
-		height: 50px;
-		background: url("~/Content/themes/base/images/crown.jpg");
-		background-size: 150px 150px;
-		
-	}
-
-	.dial {
-		color: #e45b6c;
-		text-shadow:1px 1px 0 white;
-		background: #fff;
-		border-radius: 50%;
-		display: inline-block;
-		height: 150px;
-		margin: 50px 0;
-		padding: 40px;
-		box-shadow: 0 4px 15px -10px rgba(0, 0, 0, 0.1), 0 5px 15px 1px rgba(0, 0, 0, 0.18), 0 0 0 15px #fff, 0 0 0 22px #e45b6c, 0 55px 50px -20px rgba(34, 36, 38, 0.25);
-	}
-
-	.dial-title {
-		font-size: 3.8em;
-		font-weight: 400;
-		line-height: .8;
-	}
-
-	.dial-value {
-		font-size: 1.8em;
-	}
-
-	.menu {
-		display: flex;
-		justify-content: space-between;
-		
-	}
-
-	.menu-item {
-		font-size: 1.6em;
-		font-weight: 400;
-		padding: 10px 40px;
-		color: rgba(0, 0, 0, 0.3);
-		min-width: 50%;
-		text-align: center;
-		
-	}
-
-		.menu-item:not(:last-child) {
-			box-shadow: 25px 0px 0 -24px rgba(0, 0, 0, 0.2);
-		}
-
-		.menu-item:last-child {
-			text-align: center;
-		}
-
-	.menu-item-active {
-		color: #e45b6c;
-	}
-
-	.statistics {
-		display: flex;
-		justify-content: center;
-	}
-
-		.statistics .statistic {
-			padding: 0px 20px;
-			min-width: 120px;
-		}
-
-			.statistics .statistic:not(:last-child) {
-				box-shadow: 20px 0px 0px -19px rgba(255, 255, 255, 0.2);
-			}
-
-		.statistics .statistic-title {
-			font-size: 1.5em;
-		}
-
-		.statistics .statistic-value {
-			color: #e45b6c;
-			font-size: 2em;
-		}
-
-	.progress {
-		display: flex;
-		background: rgba(0, 0, 0, 0.1);
-		min-height: 12px;
-		overflow: hidden;
-		margin-bottom: 0px !important;
-	}
-
-	.progress-bar {
-		background: #e45b6c;
-		min-height: 10px;
-	}
-
-	.leaderboard {
-		height: 100%;
-		counter-reset: leaderboard-counter;
-	}
-
-		.leaderboard dt {
-			position: relative;
-			padding-left: 15px;
-			margin-top: 15px;
-		}
-
-			.leaderboard dt:before {
-				content: counter(leaderboard-counter);
-				counter-increment: leaderboard-counter;
-				position: absolute;
-				left: 0;
-				top: 0;
-				font-size: 1.3em;
-				line-height: .8;
-				font-weight: 400;
-				color: #000000;
-				color: rgba(0, 0, 0, 0.8);
-			}
-
-	.leaderboard dd {
-			display: flex;
-			margin-left: 20px;
-			justify-content: space-between;
-		}
-
-	.leaderboard-value {
-		font-weight: 700;
-	}
-
-</style>
 <!DOCTYPE html>
 
 
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 </head>
 @if (Model == null)
 {
-	<div class="alert alert-danger">
-		<div class="h4">401 - Unauthorized</div>
-		<p>You do not have permission to access this page. Please contact IT Department for further infomation.</p>
-	</div>
+    <div class="alert alert-danger">
+        <div class="h4">401 - Unauthorized</div>
+        <p>You do not have permission to access this page. Please contact IT Department for further infomation.</p>
+    </div>
 }
 else
 {
 
-	<div class="row">
-		<div class="col-lg-3 col-xs-6">
-			<!-- small box -->
-			<div id="DowntimeColor" class="small-box @Model.BgColorDowntime">
-				<div class="inner">
-					<h3>@Model.DowntimeSum min</h3>
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div id="downtimePanel" class="info-box pointer">
+                <span class="info-box-icon @Model.BgColorDowntime"><i class="fa fa-clock-o"></i></span>
 
-					<p>Downtime </p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-clock-o"></i>
-				</div>
-				<a id="downtimePanel" class="small-box-footer pointer">More info <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
-		</div>
-		<div class="col-lg-3 col-xs-6">
-			<!-- small box -->
-			<div class="small-box @Model.BgColorBreakage">
-				<div class="inner">
-					<h3>$@Model.BreakageSum</h3>
+                <div class="info-box-content">
+                    <span class="info-box-text">Downtime</span>
+                    <span class="info-box-number">@Model.DowntimeSum min</span>
 
-					<p>Breakage Cost</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-wrench"></i>
-				</div>
-				<a id="breakagePanel" class="small-box-footer pointer">More info <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
-		</div>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div id="breakagePanel" class="info-box pointer">
+                <span class="info-box-icon @Model.BgColorBreakage"><i class="fa fa-wrench"></i></span>
 
-		<div class="col-lg-3 col-xs-6">
-			<!-- small box -->
-			<div class="small-box @Model.BgColorBudget">
-				<div class="inner">
-					<h3>$@Model.BudgetSum</h3>
+                <div class="info-box-content">
+                    <span class="info-box-text">Breakage</span>
+                    <span class="info-box-number">$@Model.BreakageSum</span>
 
-					<p>Spend Budget</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-money"></i>
-				</div>
-				<a id="budgetPanel" class="small-box-footer pointer">More info <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
-		</div>
-		<div class="col-lg-3 col-xs-6">
-			<!-- small box -->
-			<div class="small-box @Model.BgColorOpenTicket">
-				<div class="inner">
-					<h3>@Model.OpenticketSum</h3>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div id="budgetPanel" class="info-box pointer">
+                <span class="info-box-icon @Model.BgColorBudget"><i class="fa fa-money"></i></span>
 
-					<p>Open Ticket</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-ticket"></i>
-				</div>
-				<a id="ticketPanel" class="small-box-footer pointer">More info <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
-		</div>
+                <div class="info-box-content">
+                    <span class="info-box-text">Budget</span>
+                    <span class="info-box-number">$@Model.BudgetSum</span>
 
-	</div>
-	<div class="row">
-	<div class="col-lg-6 col-md-12 col-xs-12">
-	    <div class="card">
-	        <section class="card-info card-section">
-	            
-	            <div class="avatar row"></div>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div id="ticketPanel" class="info-box pointer">
+                <span class="info-box-icon @Model.BgColorOpenTicket"><i class="fa fa-ticket"></i></span>
 
-	            <section class="user row">
-	                <h1 class="user-header">
-	                    @Model.TicketsThisWeek.First().FirstName
-	                    @Model.TicketsThisWeek.First().LastName
+                <div class="info-box-content">
+                    <span class="info-box-text">HelpDesk Ticket</span>
+                    <span class="info-box-number">$@Model.OpenticketSum</span>
 
-	                </h1>
-	            </section>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        
 
-	            <div class="dial">
-	                <h2 class="dial-title">
-	                    @Model.TicketsThisWeek.First().Sum
-	                </h2>
-	                <h3 class="dial-value">
-	                    Tickets
-	                </h3>
-	            </div>
-	        </section>
-	        <section class="card-details card-section">
+    </div>
+    <div class="row">
+    <div class="col-lg-6 col-md-12 col-xs-12">
+        <div class="card">
+            <section class="card-info card-section">
+                
+                <div class="avatar row"></div>
 
-	            <ul class="nav nav-tabs">
-	                <li class=" active"><a data-toggle="tab" href="#currentweek">Current Week</a></li>
-	                <li class=""><a data-toggle="tab" href="#lastweek">Last Week</a></li>
+                <section class="user row">
+                    <h1 class="user-header">
+                        @Model.TicketsThisWeek.First().FirstName
+                        @Model.TicketsThisWeek.First().LastName
 
-	            </ul>
-	            <div class="leaderboard">
-	                <div class="tab-content">
-	                    <div id="currentweek" class="tab-pane fade in active">
+                    </h1>
+                </section>
 
-	                        @foreach (var m in Model.TicketsThisWeek)
-	                        {
-	                            int percentage = m.Sum * 100 / Model.TotalClosedTicketsThisWeek;
-	                            <dt>
-	                                <article class="progress">
-	                                    <section class="progress-bar" style="width: @percentage%;"></section>
-	                                </article>
-	                            </dt>
-	                            <dd>
-	                                <div class="leaderboard-name">@m.FirstName @m.LastName</div>
-	                                <div class="leaderboard-value">@m.Sum Tickets</div>
-	                            </dd>
-	                        }
-	                    </div>
-	                    <div id="lastweek" class="tab-pane fade">
+                <div class="dial">
+                    <h2 class="dial-title">
+                        @Model.TicketsThisWeek.First().Sum
+                    </h2>
+                    <h3 class="dial-value">
+                        Tickets
+                    </h3>
+                </div>
+            </section>
+            <section class="card-details card-section">
 
-	                        @foreach (var m in Model.TicketsPriorWeek)
-	                        {
-	                            int percentage = m.Sum * 100 / Model.TotalClosedTicketsLastWeek;
-	                            <dt>
-	                                <article class="progress">
-	                                    <section class="progress-bar" style="width: @percentage%;"></section>
-	                                </article>
-	                            </dt>
-	                            <dd>
-	                                <div class="leaderboard-name">@m.FirstName @m.LastName</div>
-	                                <div class="leaderboard-value">@m.Sum Tickets</div>
-	                            </dd>
-	                        }
-	                    </div>
+                <ul class="nav nav-tabs">
+                    <li class=" active"><a data-toggle="tab" href="#currentweek">Current Week</a></li>
+                    <li class=""><a data-toggle="tab" href="#lastweek">Last Week</a></li>
 
-	                </div>
-	            </div>
-	        </section>
-	    </div>
+                </ul>
+                <div class="leaderboard">
+                    <div class="tab-content">
+                        <div id="currentweek" class="tab-pane fade in active">
+
+                            @foreach (var m in Model.TicketsThisWeek)
+                            {
+                                int percentage = m.Sum * 100 / Model.TotalClosedTicketsThisWeek;
+                                <dt>
+                                    <article class="progress">
+                                        <section class="progress-bar" style="width: @percentage%;"></section>
+                                    </article>
+                                </dt>
+                                <dd>
+                                    <div class="leaderboard-name">@m.FirstName @m.LastName</div>
+                                    <div class="leaderboard-value">@m.Sum Tickets</div>
+                                </dd>
+                            }
+                        </div>
+                        <div id="lastweek" class="tab-pane fade">
+
+                            @foreach (var m in Model.TicketsPriorWeek)
+                            {
+                                int percentage = m.Sum * 100 / Model.TotalClosedTicketsLastWeek;
+                                <dt>
+                                    <article class="progress">
+                                        <section class="progress-bar" style="width: @percentage%;"></section>
+                                    </article>
+                                </dt>
+                                <dd>
+                                    <div class="leaderboard-name">@m.FirstName @m.LastName</div>
+                                    <div class="leaderboard-value">@m.Sum Tickets</div>
+                                </dd>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
 
 
 
-	<div class="box">
-		<div class="box-header with-border">
-			<i class="fa fa-list fa-fw"></i>
-			<h3 class="box-title">Rock List</h3>
-			<div class="pull-right">
-				<div class="btn-group">
-					<button type="button" id="rockPanel" name="rockPanel" class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false">
-						Show All
-					</button>
-				</div>
-			</div>
-		</div>
-		<div class="box-body">
-			<table class="table container-fluid table-condensed table-responsive">
-				<tr class="dt-head-center">
-					<th>
-						<button id="btnCreate" name="btnCreate" class="btn btn-link btn-xs pull-left" aria-hidden="true">
-							<span class="glyphicon glyphicon-plus"></span>
-						</button>
-						Subject
-					</th>
-					<th style="width: 10%">
-						Due Date
-					</th>
-					<th style="width: 5%"> </th>
-					<th style="width: 5%"> </th>
-				</tr>
+    <div class="box">
+        <div class="box-header with-border">
+            <i class="fa fa-list fa-fw"></i>
+            <h3 class="box-title">Rock List</h3>
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button type="button" id="rockPanel" name="rockPanel" class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false">
+                        Show All
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <table class="table container-fluid table-condensed table-responsive">
+                <tr class="dt-head-center">
+                    <th>
+                        <button id="btnCreate" name="btnCreate" class="btn btn-link btn-xs pull-left" aria-hidden="true">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                        Subject
+                    </th>
+                    <th style="width: 10%">
+                        Due Date
+                    </th>
+                    <th style="width: 5%"> </th>
+                    <th style="width: 5%"> </th>
+                </tr>
 
-				@foreach (var item in Model.Rocks)
-				{
-					var datedif = item.DateDue - DateTime.Today;
-					string color;
-					if (item.Priority == 1)
-					{
-						color = "alert-primary";
-					}
-					else
-					{
-						if (item.Priority == 2)
-						{
-							color = "alert-info";
-						}
-						else if (item.Priority == 3)
-						{
-							color = "alert-success";
-						}
-						else if (item.Priority == 4)
-						{
-							color = "alert-warning";
-						}
-						else
-						{
-							color = "alert-danger";
-						}
-					}
-					<tr class="@color h4" role="alert">
-						<td>
-							@Html.DisplayFor(modelItem => item.Subject)
-						</td>
-						<td style="text-align: center">
+                @foreach (var item in Model.Rocks)
+                {
+                    var datedif = item.DateDue - DateTime.Today;
+                    string color;
+                    if (item.Priority == 1)
+                    {
+                        color = "alert-primary";
+                    }
+                    else
+                    {
+                        if (item.Priority == 2)
+                        {
+                            color = "alert-info";
+                        }
+                        else if (item.Priority == 3)
+                        {
+                            color = "alert-success";
+                        }
+                        else if (item.Priority == 4)
+                        {
+                            color = "alert-warning";
+                        }
+                        else
+                        {
+                            color = "alert-danger";
+                        }
+                    }
+                    <tr class="@color text" role="alert">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subject)
+                        </td>
+                        <td style="text-align: center">
 
-							@item.DateDue.ToShortDateString()
-						</td>
-						<td>
-							@*@Html.ActionLink("Edit", "Edit", new { id = item.RockId }) |
-								@Html.ActionLink("Details", "Details", new { id = item.RockId }) |
-								@Html.ActionLink("Delete", "Delete", new { id = item.RockId })*@
-							<button rid="@item.RockId" data-url="@Url.Action("Edit", "Rocks")" name="editbtn" class="btn btn-link btn-sm EditRock" aria-hidden="true">
-								<span class="glyphicon glyphicon-edit"></span>
-							</button>
-							<button rid="@item.RockId" data-url="@Url.Action("Done", "Rocks")" name="donebtn" class="btn btn-link btn-sm DoneRock" aria-hidden="true">
-								<span class="glyphicon glyphicon-ok"></span>
-							</button>
+                            @item.DateDue.ToShortDateString()
+                        </td>
+                        <td>
+                            @*@Html.ActionLink("Edit", "Edit", new { id = item.RockId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.RockId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.RockId })*@
+                            <button rid="@item.RockId" data-url="@Url.Action("Edit", "Rocks")" name="editbtn" class="btn btn-link btn-sm EditRock" aria-hidden="true">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                            <button rid="@item.RockId" data-url="@Url.Action("Done", "Rocks")" name="donebtn" class="btn btn-link btn-sm DoneRock" aria-hidden="true">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
 
-						</td>
-						<td>
+                        </td>
+                        <td>
 
-							@if (item.DateDue < DateTime.Today)
-							{
-								<div class="label label-danger"> Over </div>
-							}
-							else
-							{
-								if (item.DateDue == DateTime.Today)
-								{
+                            @if (item.DateDue < DateTime.Today)
+                            {
+                                <div class="label label-danger"> Over </div>
+                            }
+                            else
+                            {
+                                if (item.DateDue == DateTime.Today)
+                                {
 
-									<div class="label label-info">Today</div>
-								}
-								else if (datedif.Days > 0 && datedif.Days <= 9)
-								{
-									<div class="label label-default">@datedif.Days days</div>
-								}
-							}
+                                    <div class="label label-info">Today</div>
+                                }
+                                else if (datedif.Days > 0 && datedif.Days <= 9)
+                                {
+                                    <div class="label label-default">@datedif.Days days</div>
+                                }
+                            }
 
-						</td>
-					</tr>
-				}
-			</table>
-		</div>
-	</div>
-	</div>
-		
-
-
-	<div id="CreateRockModal" class="modal fade" role="dialog" aria-labelledby="Add Missing Info" aria-hidden="true">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">
-						<span id="eventTitle">Rock</span>
-					</h4>
-				</div>
-				<div class="modal-body">
-					<form id="frmCreateRock">
-						<div class="col-md-12 form-horizontal">
-							<div class="form-group">
-								<label>Subject</label>
-								<input type="text" id="txtSubject" name="txtSubject" class="form-control"/>
-							</div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    </div>
+        
 
 
-							<div class="form-group">
-								<Label>Priority</Label>
-								<select id="ddlPriority" name="ddlPriority" class="form-control">
-									<option value="1">Low</option>
-									<option value="2">Medium Low</option>
-									<option value="3">Medium</option>
-									<option value="4">High</option>
-									<option value="5">Very High</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label>Due Date</label>
-								<input type="datetime" id="txtDate" name="txtDate" class="form-control "/>
-							</div>
-						</div>
-
-						<button type="button" id="btnSave" data-url="@Url.Action("Create", "Rocks")" class="btn btn-success">Save</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" id="EditRockModal" role="dialog">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">×</button>
-					<h4 class="modal-title" id="myModalLabel">Rock</h4>
-				</div>
-				<div class="modal-body" id="EditModalBody">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="modal fade" id="DeleteRockModal" role="dialog">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">×</button>
-					<h4 class="modal-title">Are you sure you want to delete this?</h4>
-				</div>
-				<div class="modal-body" id="DeleteModalBody">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="modal fade" id="DoneRockModal" role="dialog">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">×</button>
-					<h4 class="modal-title">You want to set DONE to this task?</h4>
-				</div>
-				<div class="modal-body" id="DoneModalBody">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="modal fade" id="PanelModal" role="dialog" data-backdrop="static">
-		<div id="PanelExtend" class="modal-dialog modal-lg">
-			<div id="PanelBody" class="modal-content">
-				<div class="modal-header">
-					<button type="button" onclick="javascript: window.location.reload();" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="setModalTitle"></h4>
-				</div>
-				<div class="modal-body" id="PanelModalBody">
-				</div>
-			</div>
-		</div>
-	</div>
+    <div id="CreateRockModal" class="modal fade" role="dialog" aria-labelledby="Add Missing Info" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <span id="eventTitle">Rock</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="frmCreateRock">
+                        <div class="col-md-12 form-horizontal">
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <input type="text" id="txtSubject" name="txtSubject" class="form-control"/>
+                            </div>
 
 
+                            <div class="form-group">
+                                <Label>Priority</Label>
+                                <select id="ddlPriority" name="ddlPriority" class="form-control">
+                                    <option value="1">Low</option>
+                                    <option value="2">Medium Low</option>
+                                    <option value="3">Medium</option>
+                                    <option value="4">High</option>
+                                    <option value="5">Very High</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Due Date</label>
+                                <input type="datetime" id="txtDate" name="txtDate" class="form-control "/>
+                            </div>
+                        </div>
 
-	<div class="col-lg-6 col-md-12 col-xs-12">
-		<div class="box">
-			<div class="box-header with-border">
-				<i class="fa fa-calendar fa-fw"></i>
-				<h3 class="box-title">Schedule Calendar</h3>
-			</div>
-			<div class="box-body">
-				<div id="calender"></div>
-				<div id="myCalModal" class="modal fade" role="dialog">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">
-									<span id="eventTitle"></span>
-								</h4>
-							</div>
-							<div class="modal-body">
-								<button id="btnDeleteCalCal" class="btn btn-default btn-sm pull-right">
-									<span class="glyphicon glyphicon-remove"></span> Remove
-								</button>
-								<button id="btnEditCalCal" class="btn btn-default btn-sm pull-right" style="margin-right: 5px;">
-									<span class="glyphicon glyphicon-pencil"></span> Edit
-								</button>
-								<p id="pDetails"></p>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							</div>
-						</div>
-					</div>
-				</div>
+                        <button type="button" id="btnSave" data-url="@Url.Action("Create", "Rocks")" class="btn btn-success">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="EditRockModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Rock</h4>
+                </div>
+                <div class="modal-body" id="EditModalBody">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="DeleteRockModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Are you sure you want to delete this?</h4>
+                </div>
+                <div class="modal-body" id="DeleteModalBody">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="DoneRockModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">You want to set DONE to this task?</h4>
+                </div>
+                <div class="modal-body" id="DoneModalBody">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="PanelModal" role="dialog" data-backdrop="static">
+        <div id="PanelExtend" class="modal-dialog modal-lg">
+            <div id="PanelBody" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" onclick="javascript: window.location.reload();" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="setModalTitle"></h4>
+                </div>
+                <div class="modal-body" id="PanelModalBody">
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-				<div id="myCalModalSave" class="modal fade" role="dialog" data-backdrop="static">
-					<div class="modal-dialog modal-sm">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Event</h4>
-							</div>
-							<div class="modal-body">
 
-								<input type="hidden" id="hdEventID" value="0"/>
-								<div class="form-group">
-									<label>Subject</label>
-									<input type="text" id="txtSubjectCal" class="form-control"/>
-								</div>
-								<div class="form-group">
-									<label>Start</label>
-									<div class="input-group date" id="dtp1">
-										<input type="text" id="txtStart" class="form-control"/>
-										<span class=" input-group-addon">
-											<span class="glyphicon glyphicon-calendar"></span>
-										</span>
-									</div>
-								</div>
-								<div class="form-group" id="divEndDate" style="display: block">
-									<label>End</label>
-									<div class="input-group date" id="dtp2">
-										<input type="text" id="txtEnd" class="form-control"/>
-										<span class="input-group-addon">
-											<span class="glyphicon glyphicon-calendar"></span>
-										</span>
-									</div>
-								</div>
-								<div class="form-group">
-									<label>Description</label>
-									<textarea id="txtDescription" rows="3" class="form-control"></textarea>
-								</div>
-								<label>Member</label>
-								<div class="form-group">
-									@Html.DropDownListFor(m => m.User, new SelectList(Model.Users, "Email", "Name"), new {@class = "form-control"})
-								</div>
-								<button type="button" id="btnSaveCal" class="btn btn-success">Save</button>
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <div class="col-lg-6 col-md-12 col-xs-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <i class="fa fa-calendar fa-fw"></i>
+                <h3 class="box-title">Schedule Calendar</h3>
+            </div>
+            <div class="box-body">
+                <div id="calender"></div>
+                <div id="myCalModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">
+                                    <span id="eventTitle"></span>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <button id="btnDeleteCalCal" class="btn btn-default btn-sm pull-right">
+                                    <span class="glyphicon glyphicon-remove"></span> Remove
+                                </button>
+                                <button id="btnEditCalCal" class="btn btn-default btn-sm pull-right" style="margin-right: 5px;">
+                                    <span class="glyphicon glyphicon-pencil"></span> Edit
+                                </button>
+                                <p id="pDetails"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-	}
+
+                <div id="myCalModalSave" class="modal fade" role="dialog" data-backdrop="static">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Event</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <input type="hidden" id="hdEventID" value="0"/>
+                                <div class="form-group">
+                                    <label>Subject</label>
+                                    <input type="text" id="txtSubjectCal" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Start</label>
+                                    <div class="input-group date" id="dtp1">
+                                        <input type="text" id="txtStart" class="form-control"/>
+                                        <span class=" input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="divEndDate" style="display: block">
+                                    <label>End</label>
+                                    <div class="input-group date" id="dtp2">
+                                        <input type="text" id="txtEnd" class="form-control"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea id="txtDescription" rows="3" class="form-control"></textarea>
+                                </div>
+                                <label>Member</label>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(m => m.User, new SelectList(Model.Users, "Email", "Name"), new {@class = "form-control"})
+                                </div>
+                                <button type="button" id="btnSaveCal" class="btn btn-success">Save</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    }
 @section Scripts
 {
 
-	@Scripts.Render("~/bundles/jqueryval")
-	@Scripts.Render("~/bundles/jqueryui")
-	@Styles.Render("~/Content/cssjqryUi")
-	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
-	<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-	
-	<script type="text/javascript" src="~/Scripts/app/app.js"></script>
-	<script>
-		$(document).ready(function () {
-			
-			DatetimePicker.applyDateTimePicker();
-			RockController.create();
-			RockController.save();
-			RockController.edit();
-			RockController.done();
-			
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    
+    <script type="text/javascript" src="~/Scripts/app/app.js"></script>
+    <script>
+        $(document).ready(function () {
+            
+            DatetimePicker.applyDateTimePicker();
+            RockController.create();
+            RockController.save();
+            RockController.edit();
+            RockController.done();
+            
 
-			
-			$('#budgetPanel').click(function() {
-				$.ajax({
-					type: "POST",
-					url: '@Url.Action("Summary", "Objects")',
+            
+            $('#budgetPanel').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Summary", "Objects")',
 
-					dataType: 'html',
-					success: function(data) {
-						$('#setModalTitle').html("Budget");
-						$("#PanelModalBody").html(data);
-						$("#PanelModal").modal('show');
+                    dataType: 'html',
+                    success: function(data) {
+                        $('#setModalTitle').html("Budget");
+                        $("#PanelModalBody").html(data);
+                        $("#PanelModal").modal('show');
 
-					},
-					error: function(data) {
-						console.log(data);
-					}
-				});
-			});
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            });
 
-			$('#breakagePanel').click(function() {
-				$.ajax({
-					type: "POST",
-					url: '@Url.Action("Summary", "Breakages")',
+            $('#breakagePanel').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Summary", "Breakages")',
 
-					dataType: 'html',
-					success: function(data) {
-						$('#setModalTitle').html("Breakage");
-						$("#PanelModalBody").html(data);
-						$("#PanelModal").modal('show');
+                    dataType: 'html',
+                    success: function(data) {
+                        $('#setModalTitle').html("Breakage");
+                        $("#PanelModalBody").html(data);
+                        $("#PanelModal").modal('show');
 
-					},
-					error: function(data) {
-						console.log(data);
-					}
-				});
-			});
-			$('#downtimePanel').click(function() {
-				$.ajax({
-					type: "POST",
-					url: '@Url.Action("Summary", "Downtimes")',
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            });
+            $('#downtimePanel').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Summary", "Downtimes")',
 
-					dataType: 'html',
-					success: function(data) {
-						$('#setModalTitle').html("Downtime");
-						$("#PanelModalBody").html(data);
-						$("#PanelModal").modal('show');
+                    dataType: 'html',
+                    success: function(data) {
+                        $('#setModalTitle').html("Downtime");
+                        $("#PanelModalBody").html(data);
+                        $("#PanelModal").modal('show');
 
-					},
-					error: function(data) {
-						console.log(data);
-					}
-				});
-			});
-			$('#rockPanel').click(function() {
-				$.ajax({
-					type: "POST",
-					url: '@Url.Action("Summary", "Rocks")',
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            });
+            $('#rockPanel').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Summary", "Rocks")',
 
-					dataType: 'html',
-					success: function(data) {
-						$('#setModalTitle').html("Rock");
-						$("#PanelModalBody").html(data);
-						$("#PanelModal").modal('show');
+                    dataType: 'html',
+                    success: function(data) {
+                        $('#setModalTitle').html("Rock");
+                        $("#PanelModalBody").html(data);
+                        $("#PanelModal").modal('show');
 
-					},
-					error: function(data) {
-						console.log(data);
-					}
-				});
-			});
-			$('#ticketPanel').click(function() {
-				$.ajax({
-					type: "POST",
-					url: '@Url.Action("Summary", "Tickets")',
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            });
+            $('#ticketPanel').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Summary", "Tickets")',
 
-					dataType: 'html',
-					success: function(data) {
-						$('#setModalTitle').html("Ticket");
-						$("#PanelModalBody").html(data);
-						$("#PanelModal").modal('show');
+                    dataType: 'html',
+                    success: function(data) {
+                        $('#setModalTitle').html("Ticket");
+                        $("#PanelModalBody").html(data);
+                        $("#PanelModal").modal('show');
 
-					},
-					error: function(data) {
-						console.log(data);
-					}
-				});
-			});
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            });
 
-		});
+        });
 
-		$(document).on('show.bs.modal',
-			'.modal',
-			function() {
-				var zIndex = 1040 + (10 * $('.modal:visible').length);
-				$(this).css('z-index', zIndex);
-				setTimeout(function() {
-						$('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
-					},
-					0);
-			});
+        $(document).on('show.bs.modal',
+            '.modal',
+            function() {
+                var zIndex = 1040 + (10 * $('.modal:visible').length);
+                $(this).css('z-index', zIndex);
+                setTimeout(function() {
+                        $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+                    },
+                    0);
+            });
 
-	</script>
+    </script>
 
 
 
@@ -805,229 +570,229 @@ else
 
 
    
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			var events = [];
-			var selectedEvent = null;
-			fetchEventAndRenderCalendar();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var events = [];
+            var selectedEvent = null;
+            fetchEventAndRenderCalendar();
 
-			
-			$(window).resize(function () {
-				var height = $(window).height();
-				if (height >= 1100) {
-					console.log(height);
-					
-				}
-			});
+            
+            $(window).resize(function () {
+                var height = $(window).height();
+                if (height >= 1100) {
+                    console.log(height);
+                    
+                }
+            });
 
-			function fetchEventAndRenderCalendar() {
-				events = [];
-				$.ajax({
-					type: "GET",
-					url: '@Url.Action("GetEvents", "Home")',
-					success: function(data) {
-						$.each(data,
-							function(i, v) {
-								events.push({
-									eventID: v.EventID,
-									title: v.Subject,
-									description: v.Description != null ? v.Description : '',
-									start: moment(v.Start),
-									end: v.End != null ? moment(v.End) : null,
-									color: v.ThemeColor,
-									email: v.Email,
-									allDay: v.IsFullDay
-								});
-							});
+            function fetchEventAndRenderCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetEvents", "Home")',
+                    success: function(data) {
+                        $.each(data,
+                            function(i, v) {
+                                events.push({
+                                    eventID: v.EventID,
+                                    title: v.Subject,
+                                    description: v.Description != null ? v.Description : '',
+                                    start: moment(v.Start),
+                                    end: v.End != null ? moment(v.End) : null,
+                                    color: v.ThemeColor,
+                                    email: v.Email,
+                                    allDay: v.IsFullDay
+                                });
+                            });
 
-						generateCalender(events);
-					},
-					error: function() {
-						alert('failed');
-					}
-				});
-			}
+                        generateCalender(events);
+                    },
+                    error: function() {
+                        alert('failed');
+                    }
+                });
+            }
 
-			function generateCalender(events) {
-				$('#calender').fullCalendar('destroy');
+            function generateCalender(events) {
+                $('#calender').fullCalendar('destroy');
 
-				$('#calender').fullCalendar({
-					contentHeight: 700,
-					firstDay: 6,
-					defaultView: 'startWeekView',
-					displayEventTime: false,
-					weekNumbers: true,
-					header: {
-						left: 'prev,next',
-						center: 'title',
-						right: 'startWeekView,month'
-					},
-					views: {
-						startWeekView: {
-							type: 'month',
-							duration: { weeks: 5 },
-							buttonText: 'week'
+                $('#calender').fullCalendar({
+                    contentHeight: 700,
+                    firstDay: 6,
+                    defaultView: 'startWeekView',
+                    displayEventTime: false,
+                    weekNumbers: true,
+                    header: {
+                        left: 'prev,next',
+                        center: 'title',
+                        right: 'startWeekView,month'
+                    },
+                    views: {
+                        startWeekView: {
+                            type: 'month',
+                            duration: { weeks: 5 },
+                            buttonText: 'week'
 
-						}
-					},
-					eventColor: '#378006',
-					events: events,
-					eventClick: function(calEvent) {
-						selectedEvent = calEvent;
-						$('#myCalModal #eventTitle').text(calEvent.title);
-						var $description = $('<div/>');
-						$description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD/MM/YYYY")));
-						if (calEvent.end != null) {
+                        }
+                    },
+                    eventColor: '#378006',
+                    events: events,
+                    eventClick: function(calEvent) {
+                        selectedEvent = calEvent;
+                        $('#myCalModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD/MM/YYYY")));
+                        if (calEvent.end != null) {
 
-							var ed = moment(calEvent.end).toDate();
-							ed.setDate(ed.getDate() - 1);
+                            var ed = moment(calEvent.end).toDate();
+                            ed.setDate(ed.getDate() - 1);
 
-							$description.append($('<p/>').html('<b>End:</b>' + ed.toLocaleDateString("en-GB")));
-						}
-						$description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
-						$('#myCalModal #pDetails').empty().html($description);
+                            $description.append($('<p/>').html('<b>End:</b>' + ed.toLocaleDateString("en-GB")));
+                        }
+                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                        $('#myCalModal #pDetails').empty().html($description);
 
-						$('#myCalModal').modal();
-					},
-					selectable: true,
-					select: function(start, end) {
-						selectedEvent = {
-							eventID: 0,
-							title: '',
-							description: '',
-							start: start,
-							end: end,
-							allDay: false,
-							color: ''
-						};
-						openAddEditForm();
+                        $('#myCalModal').modal();
+                    },
+                    selectable: true,
+                    select: function(start, end) {
+                        selectedEvent = {
+                            eventID: 0,
+                            title: '',
+                            description: '',
+                            start: start,
+                            end: end,
+                            allDay: false,
+                            color: ''
+                        };
+                        openAddEditForm();
 
-						$('#calendar').fullCalendar('unselect');
-					},
-					editable: true,
-					eventDrop: function(event) {
-						var data = {
-							EventID: event.eventID,
-							Subject: event.title,
-							Start: event.start.format('DD/MM/YYYY'),
-							End: event.end != null ? event.end.format('DD/MM/YYYY') : null,
-							Description: event.description,
-							ThemeColor: event.color,
-							Email: event.email,
-							IsFullDay: event.allDay
-						};
-						saveEvent(data);
-					}
-				});
-			}
+                        $('#calendar').fullCalendar('unselect');
+                    },
+                    editable: true,
+                    eventDrop: function(event) {
+                        var data = {
+                            EventID: event.eventID,
+                            Subject: event.title,
+                            Start: event.start.format('DD/MM/YYYY'),
+                            End: event.end != null ? event.end.format('DD/MM/YYYY') : null,
+                            Description: event.description,
+                            ThemeColor: event.color,
+                            Email: event.email,
+                            IsFullDay: event.allDay
+                        };
+                        saveEvent(data);
+                    }
+                });
+            }
 
-			$('#btnEditCalCal').click(function() {
-				//Open modal dialog for edit event
-				openAddEditForm();
-			});
-			$('#btnDeleteCalCal').click(function() {
-				if (selectedEvent != null && confirm('Are you sure?')) {
-					$.ajax({
-						type: "POST",
-						url: '@Url.Action("DeleteEvent","Home")',
-						data: { 'eventID': selectedEvent.eventID },
-						success: function(data) {
-							if (data.status) {
-								//Refresh the calender
-								fetchEventAndRenderCalendar();
-								$('#myCalModal').modal('hide');
-							}
-						},
-						error: function() {
-							alert('Failed');
-						}
-					});
-				}
-			});
+            $('#btnEditCalCal').click(function() {
+                //Open modal dialog for edit event
+                openAddEditForm();
+            });
+            $('#btnDeleteCalCal').click(function() {
+                if (selectedEvent != null && confirm('Are you sure?')) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("DeleteEvent","Home")',
+                        data: { 'eventID': selectedEvent.eventID },
+                        success: function(data) {
+                            if (data.status) {
+                                //Refresh the calender
+                                fetchEventAndRenderCalendar();
+                                $('#myCalModal').modal('hide');
+                            }
+                        },
+                        error: function() {
+                            alert('Failed');
+                        }
+                    });
+                }
+            });
 
-			$('#dtp1,#dtp2').datetimepicker({
-				format: 'DD/MM/YYYY'
-			});
+            $('#dtp1,#dtp2').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
 
 
-			function openAddEditForm() {
-				if (selectedEvent != null) {
-					$('#hdEventID').val(selectedEvent.eventID);
-					$('#txtSubjectCal').val(selectedEvent.title);
-					$('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY'));
-					var ed = moment(selectedEvent.end).toDate();
-					ed.setDate(ed.getDate() - 1);
-					$('#txtEnd').val(selectedEvent.end != null ? ed.toLocaleDateString("en-GB") : '');
-					$('#txtDescription').val(selectedEvent.description);
-					$('#User').val(selectedEvent.email);
-					
-				}
-				$('#myCalModal').modal('hide');
-				$('#myCalModalSave').modal();
-			}
+            function openAddEditForm() {
+                if (selectedEvent != null) {
+                    $('#hdEventID').val(selectedEvent.eventID);
+                    $('#txtSubjectCal').val(selectedEvent.title);
+                    $('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY'));
+                    var ed = moment(selectedEvent.end).toDate();
+                    ed.setDate(ed.getDate() - 1);
+                    $('#txtEnd').val(selectedEvent.end != null ? ed.toLocaleDateString("en-GB") : '');
+                    $('#txtDescription').val(selectedEvent.description);
+                    $('#User').val(selectedEvent.email);
+                    
+                }
+                $('#myCalModal').modal('hide');
+                $('#myCalModalSave').modal();
+            }
 
-			$('#btnSaveCal').click(function() {
-				//Validation/
-				if ($('#txtSubjectCal').val().trim() === "") {
-					alert('Subject required');
-					return;
-				}
-				if ($('#txtStart').val().trim() === "") {
-					alert('Start date required');
-					return;
-				}
-				if ($('#txtEnd').val().trim() === "") {
-					alert('End date required');
-					return;
-				}
-				
-				if ($('#User').val() == null) {
-					alert('Member required');
-					return;
-				}
+            $('#btnSaveCal').click(function() {
+                //Validation/
+                if ($('#txtSubjectCal').val().trim() === "") {
+                    alert('Subject required');
+                    return;
+                }
+                if ($('#txtStart').val().trim() === "") {
+                    alert('Start date required');
+                    return;
+                }
+                if ($('#txtEnd').val().trim() === "") {
+                    alert('End date required');
+                    return;
+                }
+                
+                if ($('#User').val() == null) {
+                    alert('Member required');
+                    return;
+                }
 
-				else {
-					var startDate = moment($('#txtStart').val(), "DD/MM/YYYY").toDate();
-					var endDate = moment($('#txtEnd').val(), "DD/MM/YYYY").toDate();
-					if (startDate > endDate) {
-						alert('Invalid end date');
-						return;
-					}
-				}
-				var end = moment($('#txtEnd').val(), "DD/MM/YYYY").toDate();
-				end.setDate(end.getDate() + 1);
-				var data = {
-					EventID: $('#hdEventID').val(),
-					Subject: $('#txtSubjectCal').val().trim(),
-					Start: $('#txtStart').val().trim(),
-					End: $('#chkIsFullDay').is(':checked') ? null : end.toLocaleDateString("en-GB").trim(),
-					Description: $('#txtDescription').val(),
-					Email: $('#User').val(),
-					IsFullDay: $('#chkIsFullDay').is(':checked')
-				};
-				saveEvent(data);
-				// call function for submit data to the server
-			});
+                else {
+                    var startDate = moment($('#txtStart').val(), "DD/MM/YYYY").toDate();
+                    var endDate = moment($('#txtEnd').val(), "DD/MM/YYYY").toDate();
+                    if (startDate > endDate) {
+                        alert('Invalid end date');
+                        return;
+                    }
+                }
+                var end = moment($('#txtEnd').val(), "DD/MM/YYYY").toDate();
+                end.setDate(end.getDate() + 1);
+                var data = {
+                    EventID: $('#hdEventID').val(),
+                    Subject: $('#txtSubjectCal').val().trim(),
+                    Start: $('#txtStart').val().trim(),
+                    End: $('#chkIsFullDay').is(':checked') ? null : end.toLocaleDateString("en-GB").trim(),
+                    Description: $('#txtDescription').val(),
+                    Email: $('#User').val(),
+                    IsFullDay: $('#chkIsFullDay').is(':checked')
+                };
+                saveEvent(data);
+                // call function for submit data to the server
+            });
 
-			function saveEvent(data) {
-				$.ajax({
-					type: "POST",
-					url: '@Url.Action("SaveEvent","Home")',
-					data: data,
-					success: function(data) {
-						if (data.status) {
-							//Refresh the calender
-							fetchEventAndRenderCalendar();
-							$('#myCalModalSave').modal('hide');
-						}
-					},
-					error: function() {
-						alert('Failed');
-					}
-				});
-			}
-		});
-	</script>
+            function saveEvent(data) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveEvent","Home")',
+                    data: data,
+                    success: function(data) {
+                        if (data.status) {
+                            //Refresh the calender
+                            fetchEventAndRenderCalendar();
+                            $('#myCalModalSave').modal('hide');
+                        }
+                    },
+                    error: function() {
+                        alert('Failed');
+                    }
+                });
+            }
+        });
+    </script>
 }

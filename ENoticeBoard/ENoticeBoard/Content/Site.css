@@ -113,19 +113,242 @@ th {
 .fc table {
     border: 1px #dddddd solid;
 }
+
 .fc-day-number {
     float: left !important;
     font-size: 14px !important;
     font-weight: 400 !important;
 }
+
 .fc td, .fc th {
-    border-width: 2px!important;
+    border-width: 2px !important;
 }
 
-.fc-sat, .fc-sun { background-color: rgb(250, 250, 250); }
+.fc-sat, .fc-sun {
+    background-color: rgb(250, 250, 250);
+}
 
-.fc-event { font-size: 1.11em!important; }
+.fc-event {
+    font-size: 14px;
+}
 
 .fc-day-grid-container {
     overflow: hidden !important;
 }
+
+/*Leaderboard*/
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+html, body {
+    height: 100%;
+}
+
+
+h2 {
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+}
+
+
+.user-header {
+    
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: xx-large;
+    color: #337ab7;
+}
+
+
+.card {
+    display: flex;
+    background: #fff;
+    min-width: 40%;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15), 0 55px 50px -20px rgba(34, 36, 38, 0.25);
+    margin-bottom: 15px;
+}
+
+.card-section {
+    flex-grow: 1;
+    padding: 15px;
+}
+
+.card-info {
+    position: relative;
+    background: linear-gradient(to bottom, #626d82 0%, #343d4d 100%);
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+}
+
+    .card-info h2.sub.header {
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+    .card-info .menu, .card-info .search {
+        position: absolute;
+        font-size: 3em;
+        left: 40px;
+    }
+
+    .card-info .menu {
+        top: 40px;
+    }
+
+    .card-info .search {
+        bottom: 40px;
+    }
+
+.card-details {
+    position: relative;
+    width: 50%;
+}
+
+.avatar {
+    display: inline-block;
+    background-image: url("http://radfaces.com/images/avatars/alex-murphy.jpg");
+    background-size: cover;
+    border-radius: 50%;
+    height: 75px;
+    width: 75px;
+    border: 3px solid #337ab7;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 2px 10px 0 rgba(0, 0, 0, 0.15);
+}
+
+.crown {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 50px;
+    height: 50px;
+    background: url("~/Content/themes/base/images/crown.jpg");
+    background-size: 150px 150px;
+}
+
+.dial {
+    color: #337ab7;
+    text-shadow: 1px 1px 0 white;
+    background: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    height: 150px;
+    margin: 30px 0;
+    padding: 40px;
+    padding-top: 30px;
+    box-shadow: 0 4px 15px -10px rgba(0, 0, 0, 0.1), 0 5px 15px 1px rgba(0, 0, 0, 0.18), 0 0 0 15px #fff, 0 0 0 22px #337ab7, 0 55px 50px -20px rgba(34, 36, 38, 0.25);
+}
+
+.dial-title {
+    font-size: 3.8em;
+    font-weight: 400;
+    line-height: .8;
+}
+
+.dial-value {
+    font-size: 1.8em;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-item {
+    font-size: 1.6em;
+    font-weight: 400;
+    padding: 10px 40px;
+    color: rgba(0, 0, 0, 0.3);
+    min-width: 50%;
+    text-align: center;
+}
+
+    .menu-item:not(:last-child) {
+        box-shadow: 25px 0px 0 -24px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu-item:last-child {
+        text-align: center;
+    }
+
+.menu-item-active {
+    color: #e45b6c;
+}
+
+.statistics {
+    display: flex;
+    justify-content: center;
+}
+
+    .statistics .statistic {
+        padding: 0px 20px;
+        min-width: 120px;
+    }
+
+        .statistics .statistic:not(:last-child) {
+            box-shadow: 20px 0px 0px -19px rgba(255, 255, 255, 0.2);
+        }
+
+    .statistics .statistic-title {
+        font-size: 1.5em;
+    }
+
+    .statistics .statistic-value {
+        color: #e45b6c;
+        font-size: 2em;
+    }
+
+.progress {
+    display: flex;
+    background: rgba(0, 0, 0, 0.1);
+    min-height: 12px;
+    overflow: hidden;
+    margin-bottom: 0px !important;
+}
+
+.progress-bar {
+    /*background: #e45b6c;*/
+    min-height: 10px;
+}
+
+.leaderboard {
+    height: 100%;
+    counter-reset: leaderboard-counter;
+}
+
+    .leaderboard dt {
+        position: relative;
+        padding-left: 15px;
+        margin-top: 15px;
+    }
+
+        .leaderboard dt:before {
+            content: counter(leaderboard-counter);
+            counter-increment: leaderboard-counter;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.3em;
+            line-height: .8;
+            font-weight: 400;
+            color: #000000;
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+    .leaderboard dd {
+        display: flex;
+        margin-left: 20px;
+        justify-content: space-between;
+    }
+
+.leaderboard-value {
+    font-weight: 700;
+}
+
+
