@@ -80,9 +80,15 @@ else
     </div>
     <div class="row">
     <div class="col-lg-6 col-md-12 col-xs-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <i class="fa fa-trophy fa-fw"></i>
+                <h3 class="box-title">Leaderboard</h3>
+            </div>
+        
+        <div class="box-body">
         <div class="card">
             <section class="card-info card-section">
-                
                 <div class="avatar row"></div>
 
                 <section class="user row">
@@ -148,109 +154,109 @@ else
                 </div>
             </section>
         </div>
+        </div>
+        </div>
 
-
-
-    <div class="box">
-        <div class="box-header with-border">
-            <i class="fa fa-list fa-fw"></i>
-            <h3 class="box-title">Rock List</h3>
-            <div class="pull-right">
-                <div class="btn-group">
-                    <button type="button" id="rockPanel" name="rockPanel" class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false">
-                        Show All
-                    </button>
+        <div class="box">
+            <div class="box-header with-border">
+                <i class="fa fa-list fa-fw"></i>
+                <h3 class="box-title">Rock List</h3>
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button type="button" id="rockPanel" name="rockPanel" class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false">
+                            Show All
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="box-body">
-            <table class="table container-fluid table-condensed table-responsive">
-                <tr class="dt-head-center">
-                    <th>
-                        <button id="btnCreate" name="btnCreate" class="btn btn-link btn-xs pull-left" aria-hidden="true">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                        Subject
-                    </th>
-                    <th style="width: 10%">
-                        Due Date
-                    </th>
-                    <th style="width: 5%"> </th>
-                    <th style="width: 5%"> </th>
-                </tr>
+            <div class="box-body">
+                <table class="table container-fluid table-condensed table-responsive">
+                    <tr class="dt-head-center">
+                        <th>
+                            <button id="btnCreate" name="btnCreate" class="btn btn-link btn-xs pull-left" aria-hidden="true">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            Subject
+                        </th>
+                        <th style="width: 10%">
+                            Due Date
+                        </th>
+                        <th style="width: 5%"> </th>
+                        <th style="width: 5%"> </th>
+                    </tr>
 
-                @foreach (var item in Model.Rocks)
-                {
-                    var datedif = item.DateDue - DateTime.Today;
-                    string color;
-                    if (item.Priority == 1)
+                    @foreach (var item in Model.Rocks)
                     {
-                        color = "alert-primary";
-                    }
-                    else
-                    {
-                        if (item.Priority == 2)
+                        var datedif = item.DateDue - DateTime.Today;
+                        string color;
+                        if (item.Priority == 1)
                         {
-                            color = "alert-info";
-                        }
-                        else if (item.Priority == 3)
-                        {
-                            color = "alert-success";
-                        }
-                        else if (item.Priority == 4)
-                        {
-                            color = "alert-warning";
+                            color = "alert-primary";
                         }
                         else
                         {
-                            color = "alert-danger";
-                        }
-                    }
-                    <tr class="@color text" role="alert">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Subject)
-                        </td>
-                        <td style="text-align: center">
-
-                            @item.DateDue.ToShortDateString()
-                        </td>
-                        <td>
-                            @*@Html.ActionLink("Edit", "Edit", new { id = item.RockId }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.RockId }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.RockId })*@
-                            <button rid="@item.RockId" data-url="@Url.Action("Edit", "Rocks")" name="editbtn" class="btn btn-link btn-sm EditRock" aria-hidden="true">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-                            <button rid="@item.RockId" data-url="@Url.Action("Done", "Rocks")" name="donebtn" class="btn btn-link btn-sm DoneRock" aria-hidden="true">
-                                <span class="glyphicon glyphicon-ok"></span>
-                            </button>
-
-                        </td>
-                        <td>
-
-                            @if (item.DateDue < DateTime.Today)
+                            if (item.Priority == 2)
                             {
-                                <div class="label label-danger"> Over </div>
+                                color = "alert-info";
+                            }
+                            else if (item.Priority == 3)
+                            {
+                                color = "alert-success";
+                            }
+                            else if (item.Priority == 4)
+                            {
+                                color = "alert-warning";
                             }
                             else
                             {
-                                if (item.DateDue == DateTime.Today)
-                                {
-
-                                    <div class="label label-info">Today</div>
-                                }
-                                else if (datedif.Days > 0 && datedif.Days <= 9)
-                                {
-                                    <div class="label label-default">@datedif.Days days</div>
-                                }
+                                color = "alert-danger";
                             }
+                        }
+                        <tr class="@color text" role="alert">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Subject)
+                            </td>
+                            <td style="text-align: center">
 
-                        </td>
-                    </tr>
-                }
-            </table>
+                                @item.DateDue.ToShortDateString()
+                            </td>
+                            <td>
+                                @*@Html.ActionLink("Edit", "Edit", new { id = item.RockId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.RockId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.RockId })*@
+                                <button rid="@item.RockId" data-url="@Url.Action("Edit", "Rocks")" name="editbtn" class="btn btn-link btn-sm EditRock" aria-hidden="true">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                                <button rid="@item.RockId" data-url="@Url.Action("Done", "Rocks")" name="donebtn" class="btn btn-link btn-sm DoneRock" aria-hidden="true">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                </button>
+
+                            </td>
+                            <td>
+
+                                @if (item.DateDue < DateTime.Today)
+                                {
+                                    <div class="label label-danger"> Over </div>
+                                }
+                                else
+                                {
+                                    if (item.DateDue == DateTime.Today)
+                                    {
+
+                                        <div class="label label-info">Today</div>
+                                    }
+                                    else if (datedif.Days > 0 && datedif.Days <= 9)
+                                    {
+                                        <div class="label label-default">@datedif.Days days</div>
+                                    }
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
-    </div>
     </div>
         
 
