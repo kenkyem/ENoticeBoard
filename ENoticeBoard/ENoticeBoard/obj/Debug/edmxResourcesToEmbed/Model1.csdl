@@ -11,8 +11,8 @@
     <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="Type" Type="Int32" Nullable="false" />
     <Property Name="isDeleted" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="BreakageType" Relationship="Self.FK_Breakages_Breakagetypes" FromRole="Breakages" ToRole="BreakageTypes" />
     <NavigationProperty Name="Site1" Relationship="Self.FK_Breakages_ToSites" FromRole="Breakages" ToRole="Sites" />
+    <NavigationProperty Name="BreakageType1" Relationship="ENoticeBoardModel.FK_Breakages_Breakagetypes1" FromRole="Breakage" ToRole="BreakageType" />
   </EntityType>
   <EntityType Name="BreakageType">
     <Key>
@@ -20,7 +20,7 @@
     </Key>
     <Property Name="TypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Subject" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Breakages" Relationship="Self.FK_Breakages_Breakagetypes" FromRole="BreakageTypes" ToRole="Breakages" />
+    <NavigationProperty Name="Breakages1" Relationship="ENoticeBoardModel.FK_Breakages_Breakagetypes1" FromRole="BreakageType" ToRole="Breakage" />
   </EntityType>
   <EntityType Name="Downtime">
     <Key>
@@ -185,18 +185,6 @@
     <Property Name="Done" Type="Boolean" Nullable="false" />
     <Property Name="isDeleted" Type="Boolean" Nullable="false" />
   </EntityType>
-  <Association Name="FK_Breakages_Breakagetypes">
-    <End Role="BreakageTypes" Type="Self.BreakageType" Multiplicity="1" />
-    <End Role="Breakages" Type="Self.Breakage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="BreakageTypes">
-        <PropertyRef Name="TypeId" />
-      </Principal>
-      <Dependent Role="Breakages">
-        <PropertyRef Name="Type" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Breakages_ToSites">
     <End Role="Sites" Type="Self.Site" Multiplicity="1" />
     <End Role="Breakages" Type="Self.Breakage" Multiplicity="*" />
@@ -236,10 +224,6 @@
     <EntitySet Name="Vw_DowntimesWithinFinancialPeriod" EntityType="Self.Vw_DowntimesWithinFinancialPeriod" />
     <EntitySet Name="Vw_ObjectsWithinFinancialPeriod" EntityType="Self.Vw_ObjectsWithinFinancialPeriod" />
     <EntitySet Name="Vw_RocksWithinFinancialPeriod" EntityType="Self.Vw_RocksWithinFinancialPeriod" />
-    <AssociationSet Name="FK_Breakages_Breakagetypes" Association="Self.FK_Breakages_Breakagetypes">
-      <End Role="BreakageTypes" EntitySet="BreakageTypes" />
-      <End Role="Breakages" EntitySet="Breakages" />
-    </AssociationSet>
     <AssociationSet Name="FK_Breakages_ToSites" Association="Self.FK_Breakages_ToSites">
       <End Role="Sites" EntitySet="Sites" />
       <End Role="Breakages" EntitySet="Breakages" />
@@ -248,5 +232,21 @@
       <End Role="Downtimetypes" EntitySet="Downtimetypes" />
       <End Role="Downtimes" EntitySet="Downtimes" />
     </AssociationSet>
+    <AssociationSet Name="FK_Breakages_Breakagetypes1" Association="ENoticeBoardModel.FK_Breakages_Breakagetypes1">
+      <End Role="BreakageType" EntitySet="BreakageTypes" />
+      <End Role="Breakage" EntitySet="Breakages" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_Breakages_Breakagetypes1">
+    <End Type="ENoticeBoardModel.BreakageType" Role="BreakageType" Multiplicity="1" />
+    <End Type="ENoticeBoardModel.Breakage" Role="Breakage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BreakageType">
+        <PropertyRef Name="TypeId" />
+      </Principal>
+      <Dependent Role="Breakage">
+        <PropertyRef Name="Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

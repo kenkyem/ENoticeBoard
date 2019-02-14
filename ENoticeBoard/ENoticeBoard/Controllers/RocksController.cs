@@ -1,9 +1,9 @@
-﻿using ENoticeBoard.ViewModels;
+﻿using ENoticeBoard.Models;
+using ENoticeBoard.ViewModels;
 using System;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using ENoticeBoard.Models;
 
 namespace ENoticeBoard.Controllers
 {
@@ -34,13 +34,13 @@ namespace ENoticeBoard.Controllers
             var publishedDate = DateConversion.PublishedDate();
             var rockModel = new RockSummaryViewModel()
             {
-                RockWFPs = _db.Vw_RocksWithinFinancialPeriod.Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted ==false  ).ToList(),
-                Periodddl = _baseData.FinancialCalendars.Select(x=>new DropDownBoxList()
+                RockWFPs = _db.Vw_RocksWithinFinancialPeriod.AsNoTracking().Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted ==false  ).ToList(),
+                Periodddl = _baseData.FinancialCalendars.AsNoTracking().Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialPeriod,
                     value=x.FinancialPeriod
                 }).Distinct().OrderBy(x=>x.value).ToList(),
-                Yearddl = _baseData.FinancialCalendars.Where(x=>x.Date >= publishedDate).Select(x=>new DropDownBoxList()
+                Yearddl = _baseData.FinancialCalendars.AsNoTracking().Where(x=>x.Date >= publishedDate).Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialYear,
                     value=x.FinancialYear
@@ -235,7 +235,7 @@ namespace ENoticeBoard.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DoneConfirmed(int id)
         {
-            var rock = _db.Rocks.FirstOrDefault(x => x.RockId == id);
+            var rock = _db.Rocks.AsNoTracking().FirstOrDefault(x => x.RockId == id);
             if (rock != null)
             {
                 rock.Done = true;
@@ -258,7 +258,7 @@ namespace ENoticeBoard.Controllers
         public JsonResult GetRocks()
         {
 
-            var rocks = (_db.Rocks.OrderByDescending(s => s.Priority).ToList());
+            var rocks = (_db.Rocks.AsNoTracking().OrderByDescending(s => s.Priority).ToList());
             return new JsonResult{Data = rocks, JsonRequestBehavior = JsonRequestBehavior.AllowGet};
             
         }

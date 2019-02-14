@@ -20,8 +20,8 @@ namespace ENoticeBoard.Controllers
                 DateConversion.CurrentYear();
             }
 
-            ViewBag.TicketTarget = _db.Targets.Single(x => x.Subject == "OpenTicket").TargetNum;
-            List<ENoticeBoardMstr> openHelpDeskTickets = new List<ENoticeBoardMstr>(_hd.ENoticeBoardMstrs.Where(x=>x.Status == "open" && x.Category=="HelpDesk")).ToList();
+            ViewBag.TicketTarget = _db.Targets.AsNoTracking().Single(x => x.Subject == "OpenTicket").TargetNum;
+            List<ENoticeBoardMstr> openHelpDeskTickets = new List<ENoticeBoardMstr>(_hd.ENoticeBoardMstrs.AsNoTracking().Where(x=>x.Status == "open" && x.Category=="HelpDesk")).ToList();
             return PartialView(openHelpDeskTickets);
         
         }

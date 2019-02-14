@@ -71,7 +71,7 @@
                     <a class="hidden">@item.Priority</a> @priority
                 </td>
                 <td>
-                    @item.DateCreated.ToShortDateString()
+                    @item.DateCreated.ToString("dd/MM/yyyy")
                 </td>
                 <td>
                     @item.DateDue.ToShortDateString()
@@ -145,6 +145,9 @@
                 { "width": "10%" },
                 { "width": "10%" },
                 null
+            ],
+            aoColumnDefs: [
+                { "aTargets": [2,3], "sType": "date-uk" }
             ]
         });
         DatetimePicker.applyDateTimePicker();

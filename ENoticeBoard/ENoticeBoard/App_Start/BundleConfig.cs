@@ -42,6 +42,8 @@ namespace ENoticeBoard
                 "~/Content/themes/base/jquery-ui.css"));
             bundles.Add(new ScriptBundle("~/admin-lte/js").Include(
                 "~/admin-lte/js/app.js",
+                "~/admin-lte/js/adminlte.min.js",
+                "~/admin-lte/js/demo.js",
                 "~/admin-lte/plugins/fastclick/lib/fastclick.js"
                 ));
           

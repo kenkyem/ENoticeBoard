@@ -22,7 +22,7 @@ namespace ENoticeBoard
         public int Type { get; set; }
         public bool isDeleted { get; set; }
     
-        public virtual BreakageType BreakageType { get; set; }
         public virtual Site Site1 { get; set; }
+        public virtual BreakageType BreakageType1 { get; set; }
     }
 }

@@ -38,37 +38,37 @@ namespace ENoticeBoard.Controllers
             //{
             //    return View();
             //}
-            string currentPeriod = _basedata.FinancialCalendars
+            string currentPeriod = _basedata.FinancialCalendars.AsNoTracking()
                 .Where(x => x.CurrentPeriod == true)
                 .Select(x => x.FinancialPeriod)
                 .FirstOrDefault();
-            string currentYear = _basedata.FinancialCalendars
+            string currentYear = _basedata.FinancialCalendars.AsNoTracking()
                 .Where(x => x.CurrentYear == true)
                 .Select(x => x.FinancialYear)
                 .FirstOrDefault();
-            var brreakage = _db.Vw_BreakagesWithinFinancialPeriod.Where(x =>
+            var brreakage = _db.Vw_BreakagesWithinFinancialPeriod.AsNoTracking().Where(x =>
                     x.FinancialPeriod == currentPeriod
                     && x.FinancialYear == currentYear
                     && x.isDeleted == false)
                 .ToList();
-            var downtime = _db.Vw_DowntimesWithinFinancialPeriod.Where(x =>
+            var downtime = _db.Vw_DowntimesWithinFinancialPeriod.AsNoTracking().Where(x =>
                     x.FinancialPeriod == currentPeriod
                     && x.FinancialYear == currentYear
                     && x.isDeleted == false)
                 .ToList();
-            var spend = _db.Vw_ObjectsWithinFinancialPeriod.Where(
+            var spend = _db.Vw_ObjectsWithinFinancialPeriod.AsNoTracking().Where(
                     x => x.FinancialPeriod == currentPeriod && x.FinancialYear == currentYear &&
                          x.isDeleted == false)
                 .ToList();
             //LeaderBoard
-            var closeTicketsThisWeekGroupby = _hd.Vw_TicketsWithinFinancialWeek.Where(x => x.Status == "closed" && x.CurrentWeek ==true)
+            var closeTicketsThisWeekGroupby = _hd.Vw_TicketsWithinFinancialWeek.AsNoTracking().Where(x => x.Status == "closed" && x.CurrentWeek ==true)
                 .GroupBy(x => new {x.FirstName, x.Summary}).Select(y => new GroupByMember()
                 {
                     FirstName = y.Key.FirstName, LastName = y.Key.Summary,
                     Sum = y.Count()
                 }).OrderByDescending(x=>x.Sum).ToList();
             var totalClosedTicketsThisWeek = closeTicketsThisWeekGroupby.Sum(x => x.Sum);
-            var closeTicketsPriorWeekGroupby = _hd.Vw_TicketsWithinFinancialWeek.Where(x => x.Status == "closed" && x.PriorWeek ==true)
+            var closeTicketsPriorWeekGroupby = _hd.Vw_TicketsWithinFinancialWeek.AsNoTracking().Where(x => x.Status == "closed" && x.PriorWeek ==true)
                 .GroupBy(x => new {x.FirstName, x.Summary}).Select(y => new GroupByMember()
                 {
                     FirstName = y.Key.FirstName, LastName = y.Key.Summary,
@@ -77,11 +77,11 @@ namespace ENoticeBoard.Controllers
             var totalClosedTicketsLastWeek = closeTicketsPriorWeekGroupby.Sum(x => x.Sum);
             //Panels 
             //Get Target Value for Comparision
-            var downtimePlannedTarget = _db.Targets.Single(t => t.Subject == "Downtime_Planned").TargetNum;
-            var downtimeUnplannedTarget = _db.Targets.Single(t => t.Subject == "Downtime_Unplanned").TargetNum;
-            var breakageTarget = _db.Targets.Single(t => t.Subject == "Breakage").TargetNum;
-            var budgetTarget = _db.Targets.Single(t => t.Subject == "Budget").TargetNum;
-            var openTicketTarget = _db.Targets.Single(t => t.Subject == "OpenTicket").TargetNum;
+            var downtimePlannedTarget = _db.Targets.AsNoTracking().Single(t => t.Subject == "Downtime_Planned").TargetNum;
+            var downtimeUnplannedTarget = _db.Targets.AsNoTracking().Single(t => t.Subject == "Downtime_Unplanned").TargetNum;
+            var breakageTarget = _db.Targets.AsNoTracking().Single(t => t.Subject == "Breakage").TargetNum;
+            var budgetTarget = _db.Targets.AsNoTracking().Single(t => t.Subject == "Budget").TargetNum;
+            var openTicketTarget = _db.Targets.AsNoTracking().Single(t => t.Subject == "OpenTicket").TargetNum;
             //Get Actual Value 
             var downtimeSum = downtime.Any() ? downtime.Sum(x => x.Duration) : 0;
             var budgetSum = spend.Any() ? spend.Sum(x => x.Cost) : 0M;
@@ -92,11 +92,11 @@ namespace ENoticeBoard.Controllers
             var bgDtPlanned = SetBgColor(downtimePlannedTarget, downtimePlannedMin);
             var bgDtUnplanned = SetBgColor(downtimeUnplannedTarget, downtimeUnplannedMin);
             //Get no of tickets 
-            var openTicketSum = _hd.ENoticeBoardMstrs.Count(x => x.Status == "open" && x.Category == "Helpdesk");
+            var openTicketSum = _hd.ENoticeBoardMstrs.AsNoTracking().Count(x => x.Status == "open" && x.Category == "Helpdesk");
             
             var model = new HomeViewModel()
             {
-                Rocks = _db.Rocks.OrderByDescending(s => s.Priority)
+                Rocks = _db.Rocks.AsNoTracking().OrderByDescending(s => s.Priority)
                     .Where(s => s.Done == false)
                     .ToList(),
                 DowntimeSum = downtimeSum,
@@ -109,7 +109,7 @@ namespace ENoticeBoard.Controllers
                     ? "bg-red"
                     : "bg-green"),
                 BgColorOpenTicket = SetBgColor(openTicketTarget, openTicketSum),
-                Users = _db.Users.ToList(),
+                Users = _db.Users.AsNoTracking().ToList(),
                 TicketsThisWeek = closeTicketsThisWeekGroupby,
                 TicketsPriorWeek = closeTicketsPriorWeekGroupby,
                 TotalClosedTicketsThisWeek = totalClosedTicketsThisWeek,
@@ -129,8 +129,8 @@ namespace ENoticeBoard.Controllers
 
             var model = new ManageFormViewModel()
             {
-                Users = _db.Users.ToList(),
-                Targets = _db.Targets.ToList()
+                Users = _db.Users.AsNoTracking().ToList(),
+                Targets = _db.Targets.AsNoTracking().ToList()
             };
             return View(model);
         }
@@ -150,7 +150,7 @@ namespace ENoticeBoard.Controllers
             string user = System.Web.HttpContext.Current.User.Identity.Name;
             user = user.ToLower().Replace("oneharvest\\", "");
             string userEmail = GetEmailFromAd(user).ToLower();
-            foreach (var p in _db.Users)
+            foreach (var p in _db.Users.AsNoTracking())
             {
                 if (userEmail.Equals(p.Email.ToLower()) && p.Role == "Admin")
                     return true;

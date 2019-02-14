@@ -6,7 +6,7 @@ namespace ENoticeBoard.Controllers
 {
     public class UsersController : Controller
     {
-        private MyDatabaseEntities db = new MyDatabaseEntities();
+        private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
 
         // GET: Users
         //public ActionResult Index()
@@ -21,7 +21,7 @@ namespace ENoticeBoard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = _db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -48,8 +48,8 @@ namespace ENoticeBoard.Controllers
                     HttpNotFound();
                 }
 
-                if (user != null) db.Users.Add(user);
-                db.SaveChanges();
+                if (user != null) _db.Users.Add(user);
+                _db.SaveChanges();
                 return PartialView("_UserCreateSuccess");
             }
 
@@ -63,7 +63,7 @@ namespace ENoticeBoard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = _db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -80,8 +80,8 @@ namespace ENoticeBoard.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(user).State = EntityState.Modified;
+                _db.SaveChanges();
                 return PartialView("_UserCreateSuccess");
             }
             return PartialView("Edit",user);
@@ -94,7 +94,7 @@ namespace ENoticeBoard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = _db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -107,9 +107,9 @@ namespace ENoticeBoard.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            if (user != null) db.Users.Remove(user);
-            db.SaveChanges();
+            User user = _db.Users.Find(id);
+            if (user != null) _db.Users.Remove(user);
+            _db.SaveChanges();
             return RedirectToAction("Manage","Home");
         }
 
@@ -117,7 +117,7 @@ namespace ENoticeBoard.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

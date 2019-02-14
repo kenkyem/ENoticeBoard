@@ -22,22 +22,22 @@ namespace ENoticeBoard.Controllers
             }
 
             var publishedDate = DateConversion.PublishedDate();
-            ViewBag.budget = _db.Targets.Single(t => t.Subject == "Budget").TargetNum;
+            ViewBag.budget = _db.Targets.AsNoTracking().Single(t => t.Subject == "Budget").TargetNum;
             var model = new ObjectSummaryViewModel()
             {
-                ObjectWFPs = _db.Vw_ObjectsWithinFinancialPeriod.Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false).ToList(),
-                GroupByModels = _db.Vw_ObjectsWithinFinancialPeriod.Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false)
+                ObjectWFPs = _db.Vw_ObjectsWithinFinancialPeriod.AsNoTracking().Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false).ToList(),
+                GroupByModels = _db.Vw_ObjectsWithinFinancialPeriod.AsNoTracking().Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false)
                     .GroupBy(x => new {x.FinancialPeriod, x.FinancialYear}).Select(y => new GroupByModel()
                     {
                         Period = y.Key.FinancialPeriod, Year = y.Key.FinancialYear,
                         Sum = y.Sum(z => z.Cost)
                     }).ToList(),
-                Periodddl = _baseData.FinancialCalendars.Where(x=>x.Date >= publishedDate).Select(x=>new DropDownBoxList()
+                Periodddl = _baseData.FinancialCalendars.AsNoTracking().Where(x=>x.Date >= publishedDate).Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialPeriod,
                     value=x.FinancialPeriod
                 }).Distinct().OrderBy(x=>x.value).ToList(),
-                Yearddl = _baseData.FinancialCalendars.Select(x=>new DropDownBoxList()
+                Yearddl = _baseData.FinancialCalendars.AsNoTracking().Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialYear,
                     value=x.FinancialYear

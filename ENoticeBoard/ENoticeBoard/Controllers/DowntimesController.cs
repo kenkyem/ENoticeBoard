@@ -23,14 +23,14 @@ namespace ENoticeBoard.Controllers
             }
 
             var publishedDate = DateConversion.PublishedDate();
-            ViewBag.DTPlanned = _db.Targets.Single(t => t.Subject == "Downtime_Planned").TargetNum;
-            ViewBag.DTUnplanned= _db.Targets.Single(t => t.Subject == "Downtime_Unplanned").TargetNum;
+            ViewBag.DTPlanned = _db.Targets.AsNoTracking().Single(t => t.Subject == "Downtime_Planned").TargetNum;
+            ViewBag.DTUnplanned= _db.Targets.AsNoTracking().Single(t => t.Subject == "Downtime_Unplanned").TargetNum;
             var model = new DowntimeSummaryViewModel()
             {
-                DowntimeWFPs = _db.Vw_DowntimesWithinFinancialPeriod
+                DowntimeWFPs = _db.Vw_DowntimesWithinFinancialPeriod.AsNoTracking()
                     .Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false)
                     .ToList(),
-                GroupByModels = _db.Vw_DowntimesWithinFinancialPeriod
+                GroupByModels = _db.Vw_DowntimesWithinFinancialPeriod.AsNoTracking()
                     .Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false)
                     .GroupBy(x => new {x.FinancialPeriod, x.FinancialYear})
                     .Select(y => new GroupByModel()
@@ -39,12 +39,12 @@ namespace ENoticeBoard.Controllers
                         Sum = y.Sum(z => z.Duration)
                     })
                     .ToList(),
-                Periodddl = _baseData.FinancialCalendars.Select(x=>new DropDownBoxList()
+                Periodddl = _baseData.FinancialCalendars.AsNoTracking().Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialPeriod,
                     value=x.FinancialPeriod
                 }).Distinct().OrderBy(x=>x.value).ToList(),
-                Yearddl = _baseData.FinancialCalendars.Where(x=>x.Date >= publishedDate).Select(x=>new DropDownBoxList()
+                Yearddl = _baseData.FinancialCalendars.AsNoTracking().Where(x=>x.Date >= publishedDate).Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialYear,
                     value=x.FinancialYear
@@ -79,7 +79,7 @@ namespace ENoticeBoard.Controllers
                 Description = downtime.Description,
                 Duration = downtime.Duration,
                 Type = downtime.Type,
-                Types = _db.Downtimetypes.ToList(),
+                Types = _db.Downtimetypes.AsNoTracking().ToList(),
                 Status = downtime.Status
             };
             return PartialView(model);
@@ -92,7 +92,7 @@ namespace ENoticeBoard.Controllers
             var model = new DowntimeFormViewModel
             {
                 Date = DateTime.Today,
-                Types = _db.Downtimetypes.ToList()
+                Types = _db.Downtimetypes.AsNoTracking().ToList()
             };
             return PartialView(model);
         }
@@ -105,7 +105,7 @@ namespace ENoticeBoard.Controllers
         {
             if (ModelState.IsValid)
             {
-                viewModel.Types = _db.Downtimetypes.ToList();
+                viewModel.Types = _db.Downtimetypes.AsNoTracking().ToList();
             }
 
             var downtime = new Downtime
@@ -148,7 +148,7 @@ namespace ENoticeBoard.Controllers
                 Description = downtime.Description,
                 Duration = downtime.Duration,
                 Type = downtime.Type,
-                Types = _db.Downtimetypes.ToList(),
+                Types = _db.Downtimetypes.AsNoTracking().ToList(),
                 Status = downtime.Status
             };
             return PartialView(model);
@@ -227,7 +227,7 @@ namespace ENoticeBoard.Controllers
                 Description = downtime.Description,
                 Duration = downtime.Duration,
                 Type = downtime.Type,
-                Types = _db.Downtimetypes.ToList(),
+                Types = _db.Downtimetypes.AsNoTracking().ToList(),
                 Status = downtime.Status
             };
             return PartialView(model);

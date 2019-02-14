@@ -23,22 +23,22 @@ namespace ENoticeBoard.Controllers
             }
 
             var publishedDate = DateConversion.PublishedDate();
-            ViewBag.breakage = _db.Targets.Single(t => t.Subject == "Breakage").TargetNum;
+            ViewBag.breakage = _db.Targets.AsNoTracking().Single(t => t.Subject == "Breakage").TargetNum;
             var model = new BreakageSummaryViewFormModel()
             {
-                BreakageWFPs = _db.Vw_BreakagesWithinFinancialPeriod.Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false).ToList(),
-                GroupByModels = _db.Vw_BreakagesWithinFinancialPeriod.Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false)
+                BreakageWFPs = _db.Vw_BreakagesWithinFinancialPeriod.AsNoTracking().Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false).ToList(),
+                GroupByModels = _db.Vw_BreakagesWithinFinancialPeriod.AsNoTracking().Where(x=>x.FinancialPeriod==period && x.FinancialYear==year && x.isDeleted==false)
                     .GroupBy(x => new {x.FinancialPeriod, x.FinancialYear}).Select(y => new GroupByModel()
                     {
                         Period = y.Key.FinancialPeriod, Year = y.Key.FinancialYear,
                         Sum = y.Sum(z => z.Cost)
                     }).ToList(),
-                Periodddl = BaseData.FinancialCalendars.Select(x=>new DropDownBoxList()
+                Periodddl = BaseData.FinancialCalendars.AsNoTracking().Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialPeriod,
                     value=x.FinancialPeriod
                 }).Distinct().OrderBy(x=>x.value).ToList(),
-                Yearddl = BaseData.FinancialCalendars.Where(x=>x.Date >= publishedDate).Select(x=>new DropDownBoxList()
+                Yearddl = BaseData.FinancialCalendars.AsNoTracking().Where(x=>x.Date >= publishedDate).Select(x=>new DropDownBoxList()
                 {
                     text=x.FinancialYear,
                     value=x.FinancialYear
@@ -77,8 +77,8 @@ namespace ENoticeBoard.Controllers
                 SiteId = breakage.Site,
                 Cost = breakage.Cost,
                 TypeId = breakage.Type,
-                Sites = _db.Sites.ToList(),
-                Types = _db.BreakageTypes.ToList()
+                Sites = _db.Sites.AsNoTracking().ToList(),
+                Types = _db.BreakageTypes.AsNoTracking().ToList()
                 
                 
             };
@@ -93,8 +93,8 @@ namespace ENoticeBoard.Controllers
             var model = new BreakageFormViewModel
             {
                 Date = DateTime.Today,
-                Sites = _db.Sites.ToList(),
-                Types = _db.BreakageTypes.ToList()
+                Sites = _db.Sites.AsNoTracking().ToList(),
+                Types = _db.BreakageTypes.AsNoTracking().ToList()
                     
             };
             return PartialView(model);
@@ -108,8 +108,8 @@ namespace ENoticeBoard.Controllers
         {
             if (ModelState.IsValid)
             {
-                viewModel.Sites = _db.Sites.ToList();
-                viewModel.Types = _db.BreakageTypes.ToList();
+                viewModel.Sites = _db.Sites.AsNoTracking().ToList();
+                viewModel.Types = _db.BreakageTypes.AsNoTracking().ToList();
                 
             }
 
@@ -153,8 +153,8 @@ namespace ENoticeBoard.Controllers
                 SiteId = breakage.Site,
                 Cost = breakage.Cost,
                 TypeId = breakage.Type,
-                Sites = _db.Sites.ToList(),
-                Types = _db.BreakageTypes.ToList()
+                Sites = _db.Sites.AsNoTracking().ToList(),
+                Types = _db.BreakageTypes.AsNoTracking().ToList()
                 
                 
             };
@@ -235,8 +235,8 @@ namespace ENoticeBoard.Controllers
                 SiteId = breakage.Site,
                 Cost = breakage.Cost,
                 TypeId = breakage.Type,
-                Sites = _db.Sites.ToList(),
-                Types = _db.BreakageTypes.ToList()
+                Sites = _db.Sites.AsNoTracking().ToList(),
+                Types = _db.BreakageTypes.AsNoTracking().ToList()
                 
                 
             };

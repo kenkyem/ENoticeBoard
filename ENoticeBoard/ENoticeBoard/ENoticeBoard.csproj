@@ -285,6 +285,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ModelFirst.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelFirst.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFirst.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelFirst.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFirst.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelFirst.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\ADInfo.cs" />
     <Compile Include="Models\ConnectEmail.cs" />
     <Compile Include="Models\FileCopy.cs" />
@@ -1955,8 +1970,12 @@
     <Content Include="Content\themes\base\datepicker.css" />
     <Content Include="Content\themes\base\dialog.css" />
     <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\crown red.png" />
+    <Content Include="Content\themes\base\images\crown trans.png" />
     <Content Include="Content\themes\base\images\crown.jpg" />
+    <Content Include="Content\themes\base\images\crown.png" />
     <Content Include="Content\themes\base\images\one-harvest-logo.png" />
+    <Content Include="Content\themes\base\images\royal.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -2014,6 +2033,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModelFirst.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelFirst.Context.cs</LastGenOutput>
+      <DependentUpon>ModelFirst.edmx</DependentUpon>
+    </Content>
+    <Content Include="ModelFirst.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelFirst.cs</LastGenOutput>
+      <DependentUpon>ModelFirst.edmx</DependentUpon>
     </Content>
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\bootstrap-colorpicker.js" />
@@ -2121,6 +2150,13 @@
     </EntityDeploy>
     <Content Include="HelpDeskStats.edmx.diagram">
       <DependentUpon>HelpDeskStats.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="ModelFirst.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelFirst.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ModelFirst.edmx.diagram">
+      <DependentUpon>ModelFirst.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\esm\popper-utils.js" />

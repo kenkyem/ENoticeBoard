@@ -66,7 +66,7 @@
                 @Html.DisplayFor(modelItem => item.Subject)
             </td>
             <td>
-                @item.Date.ToShortDateString()
+                @item.Date.ToString("dd/MM/yyyy")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Site)
@@ -131,21 +131,28 @@
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
-        $.fn.dataTable.moment( 'HH:mm MMM D, YY' );
+        $.fn.dataTable.moment('dd/mm/yyyy');
         $('#BreakageTB').DataTable({
             autoWidth: false,
             columns: [
                 { "width": "40%" },
-                { "width": "10%"},
+                { "width": "10%" },
                 { "width": "10%" },
                 { "width": "10%" },
                 { "width": "10%" },
                 null
+            ],
+            aoColumnDefs : [
+                {"aTargets" : [1], "sType" : "date-uk"}
             ]
+            
         });
-        var date = Date.parse('29/01/2019 12:00:00 AM'); 
+
+
+        var date = Date.parse('02/02/2019 12:00:00 AM');
         console.log(date);
         var unixTimeZero = Date.parse('18/02/2019 12:00:00 AM');
         console.log(unixTimeZero);

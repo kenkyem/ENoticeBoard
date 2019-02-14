@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ENoticeBoardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ENoticeBoardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Breakages">
           <Key>
             <PropertyRef Name="BreakageId" />
@@ -304,8 +304,7 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
             <End Role="Downtimes" EntitySet="Downtimes" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ENoticeBoardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -320,8 +319,8 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
           <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="BreakageType" Relationship="Self.FK_Breakages_Breakagetypes" FromRole="Breakages" ToRole="BreakageTypes" />
           <NavigationProperty Name="Site1" Relationship="Self.FK_Breakages_ToSites" FromRole="Breakages" ToRole="Sites" />
+          <NavigationProperty Name="BreakageType1" Relationship="ENoticeBoardModel.FK_Breakages_Breakagetypes1" FromRole="Breakage" ToRole="BreakageType" />
         </EntityType>
         <EntityType Name="BreakageType">
           <Key>
@@ -329,7 +328,7 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
           </Key>
           <Property Name="TypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Subject" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Breakages" Relationship="Self.FK_Breakages_Breakagetypes" FromRole="BreakageTypes" ToRole="Breakages" />
+          <NavigationProperty Name="Breakages1" Relationship="ENoticeBoardModel.FK_Breakages_Breakagetypes1" FromRole="BreakageType" ToRole="Breakage" />
         </EntityType>
         <EntityType Name="Downtime">
           <Key>
@@ -494,18 +493,6 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
           <Property Name="Done" Type="Boolean" Nullable="false" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Breakages_Breakagetypes">
-          <End Role="BreakageTypes" Type="Self.BreakageType" Multiplicity="1" />
-          <End Role="Breakages" Type="Self.Breakage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BreakageTypes">
-              <PropertyRef Name="TypeId" />
-            </Principal>
-            <Dependent Role="Breakages">
-              <PropertyRef Name="Type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Breakages_ToSites">
           <End Role="Sites" Type="Self.Site" Multiplicity="1" />
           <End Role="Breakages" Type="Self.Breakage" Multiplicity="*" />
@@ -545,10 +532,6 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
           <EntitySet Name="Vw_DowntimesWithinFinancialPeriod" EntityType="Self.Vw_DowntimesWithinFinancialPeriod" />
           <EntitySet Name="Vw_ObjectsWithinFinancialPeriod" EntityType="Self.Vw_ObjectsWithinFinancialPeriod" />
           <EntitySet Name="Vw_RocksWithinFinancialPeriod" EntityType="Self.Vw_RocksWithinFinancialPeriod" />
-          <AssociationSet Name="FK_Breakages_Breakagetypes" Association="Self.FK_Breakages_Breakagetypes">
-            <End Role="BreakageTypes" EntitySet="BreakageTypes" />
-            <End Role="Breakages" EntitySet="Breakages" />
-          </AssociationSet>
           <AssociationSet Name="FK_Breakages_ToSites" Association="Self.FK_Breakages_ToSites">
             <End Role="Sites" EntitySet="Sites" />
             <End Role="Breakages" EntitySet="Breakages" />
@@ -557,7 +540,23 @@ warning 6002: The table/view 'EnoticeBoard.dbo.Vw_RocksWithinFinancialPeriod' do
             <End Role="Downtimetypes" EntitySet="Downtimetypes" />
             <End Role="Downtimes" EntitySet="Downtimes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Breakages_Breakagetypes1" Association="ENoticeBoardModel.FK_Breakages_Breakagetypes1">
+            <End Role="BreakageType" EntitySet="BreakageTypes" />
+            <End Role="Breakage" EntitySet="Breakages" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Breakages_Breakagetypes1">
+          <End Type="ENoticeBoardModel.BreakageType" Role="BreakageType" Multiplicity="1" />
+          <End Type="ENoticeBoardModel.Breakage" Role="Breakage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BreakageType">
+              <PropertyRef Name="TypeId" />
+            </Principal>
+            <Dependent Role="Breakage">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

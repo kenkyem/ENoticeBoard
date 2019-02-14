@@ -64,7 +64,7 @@
                     @Html.DisplayFor(modelItem => item.Subject)
                 </td>
                 <td>
-                    @item.Date.ToShortDateString()
+                    @item.Date.ToString("dd/MM/yyyy")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Duration)
@@ -149,8 +149,10 @@
                 { "width": "10%" },
                 null,
                 null
+            ],
+            aoColumnDefs: [
+                { "aTargets": [1], "sType": "date-uk" }
             ]
-
         });
 
     });

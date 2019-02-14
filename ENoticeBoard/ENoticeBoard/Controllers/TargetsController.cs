@@ -7,12 +7,12 @@ namespace ENoticeBoard.Controllers
 {
     public class TargetsController : Controller
     {
-        private MyDatabaseEntities db = new MyDatabaseEntities();
+        private readonly MyDatabaseEntities _db = new MyDatabaseEntities();
 
         // GET: Targets
         public ActionResult Index()
         {
-            return View(db.Targets.ToList());
+            return View(_db.Targets.AsNoTracking().ToList());
         }
 
         // GET: Targets/Details/5
@@ -22,7 +22,7 @@ namespace ENoticeBoard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Target target = db.Targets.Find(id);
+            Target target = _db.Targets.Find(id);
             if (target == null)
             {
                 return HttpNotFound();
@@ -45,8 +45,8 @@ namespace ENoticeBoard.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Targets.Add(target);
-                db.SaveChanges();
+                _db.Targets.Add(target);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -60,7 +60,7 @@ namespace ENoticeBoard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Target target = db.Targets.Find(id);
+            Target target = _db.Targets.Find(id);
             if (target == null)
             {
                 return HttpNotFound();
@@ -77,8 +77,8 @@ namespace ENoticeBoard.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(target).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(target).State = EntityState.Modified;
+                _db.SaveChanges();
                 return PartialView("_Success");
             }
             return PartialView("Edit",target);
@@ -91,7 +91,7 @@ namespace ENoticeBoard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Target target = db.Targets.Find(id);
+            Target target = _db.Targets.Find(id);
             if (target == null)
             {
                 return HttpNotFound();
@@ -104,9 +104,9 @@ namespace ENoticeBoard.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Target target = db.Targets.Find(id);
-            if (target != null) db.Targets.Remove(target);
-            db.SaveChanges();
+            Target target = _db.Targets.Find(id);
+            if (target != null) _db.Targets.Remove(target);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -114,7 +114,7 @@ namespace ENoticeBoard.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

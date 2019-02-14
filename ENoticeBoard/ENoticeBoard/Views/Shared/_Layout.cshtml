@@ -11,10 +11,13 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/moment")
     @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/admin-lte/js")
 
     <link rel="stylesheet" type="text/css" href="~/Content/DataTables/datatables.min.css" />
     <script src="~/Content/DataTables/datatables.min.js"></script>
-    <script src="//cdn.datatables.net/plug-ins/1.10.12/sorting/datetime-moment.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-uk.js"></script>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/admin-lte/plugins/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -46,46 +49,63 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body class="skin-black sidebar-collapse">
-<div class="wrapper">
-    <header class="main-header">
-        <!-- Logo -->
-        <a href="@Url.Action("Index", "Home")" class="logo">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>ENB</b></span>
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>E-NoticeBoard</b></span>
-        </a>
-        <!-- Header Navbar -->
-        <div class="navbar navbar-static-top" role="navigation">
-            <!-- Navbar Right Menu -->
-            <div class="navbar-custom-menu">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="@Url.Action("Index", "Home")" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>ENB</b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>E-NoticeBoard</b></span>
+            </a>
+            <!-- Header Navbar -->
+            <div class="navbar navbar-static-top" role="navigation">
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
 
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Manage", "Manage", "Home")</li>
-                    @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-                    <li>@Html.Partial("_LoginPartial")</li>
-                    <!-- Control Sidebar Toggle Button -->
-
-                </ul>
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Manage", "Manage", "Home")</li>
+                        @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                        <li>@Html.Partial("_LoginPartial")</li>
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+
+        </header>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper" id="main">
+            <section class="content">
+                @RenderBody()
+            </section>
         </div>
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b>
+                1.0.0
+            </div>
+            <strong>&copy; 2019 - One Harvest IT Department</strong>
+        </footer>
+        <aside class="control-sidebar control-sidebar-dark control-sidebar">
+            <!-- Create the tabs -->
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                 </div>
+                
+            </div>
+        </aside>
         
-    </header>
-    
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" id="main">
-        <section class="content">
-            @RenderBody()
-        </section>
+
     </div>
-    <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-            <b>Version</b>
-            1.0.0
-        </div>
-        <strong>&copy; 2019 - One Harvest IT Department</strong>
-    </footer>
-</div>
 @RenderSection("scripts", required:false)
 </body>
 </html>

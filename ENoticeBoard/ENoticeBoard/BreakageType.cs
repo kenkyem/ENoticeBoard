@@ -17,13 +17,13 @@ namespace ENoticeBoard
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BreakageType()
         {
-            this.Breakages = new HashSet<Breakage>();
+            this.Breakages1 = new HashSet<Breakage>();
         }
     
         public int TypeId { get; set; }
         public string Subject { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Breakage> Breakages { get; set; }
+        public virtual ICollection<Breakage> Breakages1 { get; set; }
     }
 }

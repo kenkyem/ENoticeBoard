@@ -6,10 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="38fcfb20f77044878fdfff37bbb5e4dc" Name="Diagram1">
         <EntityTypeShape EntityType="ENoticeBoardModel.Breakage" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ENoticeBoardModel.BreakageType" Width="1.5" PointX="1.125" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.BreakageType" Width="1.5" PointX="0.5" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ENoticeBoardModel.Downtime" Width="1.5" PointX="5" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="ENoticeBoardModel.Downtimetype" Width="1.5" PointX="2.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ENoticeBoardModel.Event" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENoticeBoardModel.Event" Width="1.5" PointX="4.625" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="ENoticeBoardModel.Object" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ENoticeBoardModel.Rock" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ENoticeBoardModel.Site" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
@@ -19,9 +19,9 @@
         <EntityTypeShape EntityType="ENoticeBoardModel.Vw_DowntimesWithinFinancialPeriod" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ENoticeBoardModel.Vw_ObjectsWithinFinancialPeriod" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ENoticeBoardModel.Vw_RocksWithinFinancialPeriod" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
-        <AssociationConnector Association="ENoticeBoardModel.FK_Breakages_Breakagetypes" ManuallyRouted="false" />
         <AssociationConnector Association="ENoticeBoardModel.FK_Breakages_ToSites" ManuallyRouted="false" />
         <AssociationConnector Association="ENoticeBoardModel.FK_Downtimes_ToDowntimeTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="ENoticeBoardModel.FK_Breakages_Breakagetypes1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

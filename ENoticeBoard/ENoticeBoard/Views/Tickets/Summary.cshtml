@@ -3,7 +3,6 @@
 <table class="table table-bordered table-condensed table-responsive display table-striped" id="ticketTB" style="word-wrap: normal; width: 100%">
     <thead>
     <tr>
-        <th>ID</th>
         <th width="50%">Summary</th>
         
         <th width="10%">Date Created </th>
@@ -18,7 +17,6 @@
     @foreach (var t in Model)
         {
             <tr style="text-align: center">
-                <td>@t.ENoticeBoardId</td>    
                 <td>@if (t.LastName != null && t.LastName.Length > 35)
                     {
                         @t.LastName.Substring(0, 35)
@@ -37,11 +35,15 @@
    
     </tbody>
 </table>
-
+<script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-euro.js"></script>
 <script>
     $(document).ready(function () {
         $.fn.dataTable.moment('DD/MM/YY HH:mm:ss');
-        $('#ticketTB').DataTable();
+        $('#ticketTB').DataTable({
+            aoColumnDefs: [
+                { "aTargets": [1,2], "sType": "date-euro" }
+            ]
+            });
 
     });
 
