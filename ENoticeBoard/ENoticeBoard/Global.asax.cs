@@ -38,7 +38,8 @@ namespace ENoticeBoard
 
                 mail.Body = " User :" + ad.GetDisplayNameFromAd(user) + "\r\n\r\n";
 
-                if (Server.GetLastError() is DbEntityValidationException dbEntityValidationException)
+                var dbEntityValidationException = Server.GetLastError() as DbEntityValidationException;
+                if (dbEntityValidationException != null)
                 {
                     mail.Body += "DbEntityValidationException" + "\r\n";
 
