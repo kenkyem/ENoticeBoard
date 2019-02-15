@@ -35,7 +35,51 @@
    
     </tbody>
 </table>
-<script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-euro.js"></script>
+<script>
+    jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+        "date-euro-pre": function ( a ) {
+            debugger;
+            if ( $.trim(a) !== '' ) {
+                var frDatea = $.trim(a).split(' ');
+                var frTimea = (undefined != frDatea[1]) ? frDatea[1].split(':') : [00,00,00];
+                var frDatea2 = frDatea[0].split('/');
+                var month = frDatea2[1],
+                    day = frDatea2[0],
+                    year = frDatea2[2],
+                    hour = frTimea[0],
+                    min = frTimea[1],
+                    ap = frDatea[2];
+                if(hour === '12') hour = '0';
+                if(ap === 'PM') hour = parseInt(hour, 10)+12;
+ 
+                if(year.length === 2){
+                    if(parseInt(year, 10)<70) year = '20'+year;
+                    else year = '19'+year;
+                }
+                if(month.length === 1) month = '0'+month;
+                if(day.length === 1) day = '0'+day;
+                if(hour.length === 1) hour = '0'+hour;
+                if(min.length === 1) min = '0'+min;
+ 
+                var tt = year+month+day+hour+min;
+                return  tt;
+            }
+            else {
+                tt = Infinity;
+            }
+ 
+            return tt;
+        },
+ 
+        "date-euro-asc": function ( a, b ) {
+            return a - b;
+        },
+ 
+        "date-euro-desc": function ( a, b ) {
+            return b - a;
+        }
+    } );
+</script>
 <script>
     $(document).ready(function () {
         $.fn.dataTable.moment('DD/MM/YY HH:mm:ss');
@@ -43,7 +87,7 @@
             aoColumnDefs: [
                 { "aTargets": [1,2], "sType": "date-euro" }
             ]
-            });
+        });
 
     });
 
