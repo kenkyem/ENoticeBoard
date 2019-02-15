@@ -125,7 +125,6 @@ C:\Users\tle\Documents\noticeboard\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBo
 C:\Users\tle\Documents\noticeboard\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.csproj.CopyComplete
 C:\Users\tle\Documents\noticeboard\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.dll
 C:\Users\tle\Documents\noticeboard\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.pdb
-C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.csproj.CoreCompileInputs.cache
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\bin\ENoticeBoard.dll.config
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\bin\ENoticeBoard.dll
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\bin\ENoticeBoard.pdb
@@ -248,7 +247,8 @@ C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\bin\Microsoft.Owin.Security.
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\bin\System.Diagnostics.DiagnosticSource.xml
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.csprojAssemblyReference.cache
+C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.csproj.CoreCompileInputs.cache
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.csproj.CopyComplete
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.dll
 C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.pdb
+C:\Users\tle\source\repos\ENoticeBoard\ENoticeBoard\obj\Debug\ENoticeBoard.csprojAssemblyReference.cache

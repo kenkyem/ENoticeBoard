@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace ENoticeBoard.Models
 {
-    public static class AdInfo
+    public class AdInfo
     {
-        public static string GetDisplayNameFromAd(string username)
+        public string GetDisplayNameFromAd(string username)
         {
             using (System.DirectoryServices.AccountManagement.PrincipalContext ctx = new System.DirectoryServices.AccountManagement.PrincipalContext(ContextType.Domain, "Oneharvest"))
             {

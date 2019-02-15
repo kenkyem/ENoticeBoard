@@ -230,6 +230,7 @@
     </Compile>
     <Compile Include="Controllers\BreakagesController.cs" />
     <Compile Include="Controllers\DowntimesController.cs" />
+    <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ObjectsController.cs" />
     <Compile Include="Controllers\RocksController.cs" />
@@ -2191,7 +2192,6 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Views\Shared\starter.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2257,6 +2257,7 @@
     <Content Include="Views\Targets\_Success.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Tickets\Summary.cshtml" />
+    <Content Include="Views\Errors\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
