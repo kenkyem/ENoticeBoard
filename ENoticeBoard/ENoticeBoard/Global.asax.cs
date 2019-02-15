@@ -58,7 +58,7 @@ namespace ENoticeBoard
                 mail.Body += "Error Description: " + exception;
 
                 var server = new SmtpClient { Host = WebConfigurationManager.AppSettings["MailServer"] };
-                //server.Send(mail);
+                server.Send(mail);
 
 
                 Response.Redirect("~/Errors/Error");
